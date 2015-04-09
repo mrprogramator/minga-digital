@@ -4,5 +4,3 @@
 
 Software para la administración de telecentros especializado para las necesidades de Minga Digital y el Club Rotaty de Santa Cruz, Bolivia.
 Resulta que es, también, nuestro proyecto principal de la materia.
-
-# Me gustan los gatos, y eso hay que ponerlo grande no? Porque el gusto es GRANDOTE.
