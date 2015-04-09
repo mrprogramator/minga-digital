@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public struct Password
+    [ComplexType]
+    public class Password
     {
         [Required]
         public Byte[] Hash { get; set; }
