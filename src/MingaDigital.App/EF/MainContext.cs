@@ -10,7 +10,12 @@ namespace MingaDigital.App.EF
     [DbConfigurationType(typeof(Npgsql.NpgsqlEFConfiguration))]
     public class MainContext : DbContext
     {
-        public DbSet<Activity> Activity { get; set; }
+        public DbSet<Actividad> Actividad { get; set; }
+        public DbSet<TipoActividad> TipoActividad { get; set; }
+        // temporary entities
+        public DbSet<Persona> Persona { get; set; }
+        public DbSet<UnidadEducativa> UnidadEducativa { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
         
         public MainContext(String connectionString)
             : base(connectionString)

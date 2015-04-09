@@ -47,7 +47,7 @@ namespace MingaDigital.App
             {
                 var settings = 
                     options.OutputFormatters
-                           .Select(f => f.Instance as JsonOutputFormatter)
+                           .Select(f => f as JsonOutputFormatter)
                            .First(f => f != null)
                            .SerializerSettings;
                 
