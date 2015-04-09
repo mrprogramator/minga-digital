@@ -79,7 +79,8 @@ namespace MingaDigital.App
             app.UseStaticFiles();
             
             // bower_components
-            ServeDirectory(app, "bower_components", "/bower_components");
+            if (Directory.Exists("bower_components"))
+                ServeDirectory(app, "bower_components", "/bower_components");
         }
         
         private static void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
