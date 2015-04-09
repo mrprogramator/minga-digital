@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Data.Entity;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 using MingaDigital.App.Entities;
 
 namespace MingaDigital.App.EF
@@ -49,13 +52,20 @@ namespace MingaDigital.App.EF
 
         private static string GetColumnName(PropertyInfo property)
         {
-            var result =
+            String columnName = "";
+            
+            if (property.ReflectedType.GetCustomAttribute<ComplexTypeAttribute>() != null)
+            {
+                columnName += property.DeclaringType.Name + "_";
+            }
+            
+            columnName +=
                 Regex.Replace(
                     property.Name,
                     ".[A-Z]",
                     m => m.Value[0] + "_" + m.Value[1]);
-
-            return result.ToLower();
+            
+            return columnName.ToLower();
         }
     }
 }
