@@ -11,11 +11,24 @@ namespace MingaDigital.App.EF
     public class MainContext : DbContext
     {
         public DbSet<Actividad> Actividad { get; set; }
+        
         public DbSet<TipoActividad> TipoActividad { get; set; }
-        // temporary entities
+        
         public DbSet<Persona> Persona { get; set; }
+        
         public DbSet<UnidadEducativa> UnidadEducativa { get; set; }
+        
         public DbSet<Usuario> Usuario { get; set; }
+        
+        public DbSet<Rol> Rol { get; set; }
+        
+        public DbSet<Accion> Accion { get; set; }
+        
+        public DbSet<PermisoRol> PermisoRol { get; set; }
+        
+        public DbSet<PermisoGlobal> PermisoGlobal { get; set; }
+        
+        public DbSet<UsuarioRol> UsuarioRol { get; set; }
         
         public MainContext(String connectionString)
             : base(connectionString)

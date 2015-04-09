@@ -16,26 +16,19 @@ namespace MingaDigital.App.Entities
         
         public String Descripcion { get; set; }
         
-        [Required]
         public DateTimeOffset TiempoInicio { get; set; }
         
-        [Required]
         public DateTimeOffset TiempoFin { get; set; }
         
-        [Required]
-        public bool Realizado { get; set; }
+        public Boolean Realizado { get; set; }
         
-        [Required]
-        public int TipoActividadId { get; set; }
+        public Int32 TipoActividadId { get; set; }
         
-        [Required]
-        public int UsuarioCreadorId { get; set; }
+        public Int32 UsuarioCreadorId { get; set; }
         
-        [Required]
-        public int PersonaEncargadaId { get; set; }
+        public Int32 PersonaEncargadaId { get; set; }
         
-        [Required]
-        public int UnidadEducativaId { get; set; }
+        public Int32 UnidadEducativaId { get; set; }
         
         [ForeignKey("TipoActividadId")]
         public virtual TipoActividad TipoActividad { get; set; }
