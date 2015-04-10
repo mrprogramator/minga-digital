@@ -4,3 +4,13 @@
 
 Software para la administración de telecentros especializado para las necesidades de Minga Digital y el Club Rotaty de Santa Cruz, Bolivia.
 Resulta que es, también, nuestro proyecto principal de la materia.
+
+## Integrantes
+
+* Ramiro Crespo
+* Gabriel Garcia
+* Alex Pizarro
+* Francisco Ribera
+* Juliana Roda
+* Luis A. Saucedo
+* Oscar SOliz
