@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    [Table("permiso_rol")]
     public class PermisoRol
     {
         [Required]
