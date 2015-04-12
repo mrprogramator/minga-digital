@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
@@ -20,7 +21,7 @@ namespace MingaDigital.App.Entities
         
         public Int32 TipoIncidenciaId { get; set; }
         
-        public Int32 TelecentroId { get; set }
+        public Int32 TelecentroId { get; set; }
         
         public Int32 EquipoId { get; set; }
         
@@ -47,6 +48,6 @@ namespace MingaDigital.App.Entities
         public virtual Usuario Usuario { get; set; }
         
         [ForeignKey("EncargadoId")]
-        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario Encargado { get; set; }
     }
 }
