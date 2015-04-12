@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    [Table("permiso_global")]
     public class PermisoGlobal
     {
         [Required]
