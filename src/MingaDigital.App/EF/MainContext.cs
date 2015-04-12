@@ -33,6 +33,20 @@ namespace MingaDigital.App.EF
         
         public DbSet<UsuarioRol> UsuarioRol { get; set; }
         
+        public DbSet<Incidencia> Incidencia { get; set; }
+        
+        public DbSet<Ticket> Ticket { get; set; }
+        
+        public DbSet<AreaIncidencia> AreaIncidencia { get; set; }
+        
+        public DbSet<TipoIncidencia> TipoIncidencia { get; set; }
+        
+        public DbSet<EstadoTicket> EstadoTicket { get; set; }
+        
+        public DbSet<Telecentro> Telecentro { get; set; }
+        
+        public DbSet<Equipo> Equipo { get; set; }
+        
         public MainContext(String connectionString)
             : base(connectionString)
         {
