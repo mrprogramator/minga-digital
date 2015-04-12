@@ -9,6 +9,7 @@ namespace MingaDigital.App.Entities
     {
         public Int32 Id { get; set; }
         
+        [Required]
         public String Nombre { get; set; }
     }
 }

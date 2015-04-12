@@ -8,6 +8,7 @@ namespace MingaDigital.App.Entities
     public class Ticket
     {
         public Int32 Id { get; set; }
+        
         public Int32 EstadoTicketId { get; set; }
         
         [ForeignKey("EstadoTicketId")]

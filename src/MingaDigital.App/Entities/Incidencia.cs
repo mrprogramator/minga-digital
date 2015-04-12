@@ -9,6 +9,7 @@ namespace MingaDigital.App.Entities
     {
         public Int32 Id { get; set; }
         
+        [Required]
         public String Descripcion { get; set; }
         
         public Int32 Prioridad { get; set; }
@@ -46,6 +47,6 @@ namespace MingaDigital.App.Entities
         public virtual Usuario Usuario { get; set; }
         
         [ForeignKey("EncargadoId")]
-        public virtual Usuario Usuario { get; set; }//Aquí falta validar que el Usuario sea Encargado
+        public virtual Usuario Usuario { get; set; }
     }
 }
