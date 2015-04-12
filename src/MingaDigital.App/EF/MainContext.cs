@@ -44,28 +44,44 @@ namespace MingaDigital.App.EF
             modelBuilder.HasDefaultSchema("public");
             
             modelBuilder
+                .Types()
+                .Configure(config => config.ToTable(GetTableName(config.ClrType)));
+            
+            modelBuilder
                 .Properties()
                 .Configure(config => config.HasColumnName(GetColumnName(config.ClrPropertyInfo)));
             
             base.OnModelCreating(modelBuilder);
         }
-
-        private static string GetColumnName(PropertyInfo property)
+        
+        private static String GetTableName(Type type)
+        {
+            return PascalCaseToLowerUnderscore(type.Name);
+        }
+        
+        private static String GetColumnName(PropertyInfo property)
         {
             String columnName = "";
             
             if (property.ReflectedType.GetCustomAttribute<ComplexTypeAttribute>() != null)
             {
-                columnName += property.DeclaringType.Name + "_";
+                columnName += PascalCaseToLowerUnderscore(property.DeclaringType.Name) + "_";
             }
             
-            columnName +=
+            columnName += PascalCaseToLowerUnderscore(property.Name);
+            
+            return columnName;
+        }
+        
+        private static String PascalCaseToLowerUnderscore(String source)
+        {
+            var result =
                 Regex.Replace(
-                    property.Name,
+                    source,
                     ".[A-Z]",
                     m => m.Value[0] + "_" + m.Value[1]);
             
-            return columnName.ToLower();
+            return result.ToLower();
         }
     }
 }

@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    [Table("usuario_rol")]
     public class UsuarioRol
     {
         [Key, Column(Order = 1)]

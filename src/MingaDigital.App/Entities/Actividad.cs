@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    [Table("actividad")]
     public class Actividad
     {
         public Int32 Id { get; set; }
