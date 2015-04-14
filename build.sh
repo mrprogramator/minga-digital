@@ -22,9 +22,14 @@ build ()
   echo "==> upgrading dnx";
   dnvm upgrade;
   
+  echo "==> configuring nuget sources"
+  mkdir -p ~/.config/NuGet;
+  cp -f NuGet.Config ~/.config/NuGet;
+  
   echo "==> building MingaDigital.App"
   cd src/MingaDigital.App;
-  dnu restore;
+  # dnu puede fallar la primera vez (BUG). lo corremos dos veces
+  dnu restore || dnu restore;
   dnu build;
 }
 
