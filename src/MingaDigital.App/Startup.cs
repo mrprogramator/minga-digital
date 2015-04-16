@@ -34,7 +34,7 @@ namespace MingaDigital.App
         public static IConfiguration LoadConfiguration()
         {
             return
-                new Configuration()
+                new Configuration("./")
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
         }
