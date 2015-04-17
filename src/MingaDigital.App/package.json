@@ -1,0 +1,12 @@
+{
+  "name": "minga-digital",
+  "version": "1.0.0",
+  "description": "Aplicacion para gestion de telecentros",
+  "author": "UPSA BD2 2015",
+  "dependencies": {
+    "bower": "^1.3.12"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/bower install"
+  }
+}

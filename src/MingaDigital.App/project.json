@@ -17,5 +17,8 @@
   "frameworks": {
     "dnx451": {}
   },
+  "scripts": {
+    "postrestore": "npm install"
+  },
   "webroot": "wwwroot"
 }

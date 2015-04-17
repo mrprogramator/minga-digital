@@ -13,9 +13,6 @@ namespace MingaDigital.App.Controllers
     [Route("")]
     public class HomeController : Controller
     {
-        [FromServices]
-        public MainContext Db { get; set; }
-        
         [HttpGet("")]
         public IActionResult Index()
         {
