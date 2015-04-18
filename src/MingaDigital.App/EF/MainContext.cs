@@ -17,8 +17,6 @@ namespace MingaDigital.App.EF
         
         public DbSet<TipoActividad> TipoActividad { get; set; }
         
-        public DbSet<Persona> Persona { get; set; }
-        
         public DbSet<UnidadEducativa> UnidadEducativa { get; set; }
         
         public DbSet<Usuario> Usuario { get; set; }

@@ -36,7 +36,7 @@ namespace MingaDigital.App.Entities
         public virtual Usuario UsuarioCreador { get; set; }
         
         [ForeignKey("PersonaEncargadaId")]
-        public virtual Persona PersonaEncargada { get; set; }
+        public virtual PersonaFisica PersonaEncargada { get; set; }
         
         [ForeignKey("UnidadEducativaId")]
         public virtual UnidadEducativa UnidadEducativa { get; set; }
