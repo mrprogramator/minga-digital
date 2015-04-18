@@ -1,0 +1,19 @@
+{
+  "name": "minga-digital",
+  "version": "1.0.0",
+  "authors": [
+    "UPSA BD2 2015 <upsa-bd2-2015@googlegroups.com>"
+  ],
+  "license": "Private",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}
