@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public abstract class Equipo : ActivoMinga
+    public class Almacen : EstablecimientoMinga
     {
         public Int32 Id { get; set; }
-        
-        public String Detalle { get; set; }
     }
 }
