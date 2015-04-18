@@ -14,12 +14,12 @@
 <body>
 
 @{
-    var controllers = new Dictionary<String, String> {
-      ["Home"]          = "Inicio",
-      ["TipoActividad"] = "Tipo de actividad",
-    };
+  var controllers = new Dictionary<String, String> {
+    ["Home"]          = "Inicio",
+    ["TipoActividad"] = "Tipo de actividad",
+  };
     
-    var controller = ViewContext.RouteData.Values["Controller"].ToString();
+  var controller = ViewContext.RouteData.Values["Controller"].ToString();
 }
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -38,11 +38,11 @@
       <ul class="nav navbar-nav">
       @foreach (var pair in controllers)
       {
-          var classes = "";
-          
-          if (controller == pair.Key) { classes += " active"; }
-          
-          <li class="@classes"><a href="@Url.Action("Index", pair.Key)">@pair.Value</a></li>
+        var classes = "";
+        
+        if (controller == pair.Key) { classes += " active"; }
+        
+        <li class="@classes"><a href="@Url.Action("Index", pair.Key)">@pair.Value</a></li>
       }
       </ul>
     </div>

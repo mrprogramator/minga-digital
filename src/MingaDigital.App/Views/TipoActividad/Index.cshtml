@@ -1,5 +1,36 @@
+@model IEnumerable<TipoActividad>
+
 @{
-    ViewBag.Title = "Tipos de actividad";
+  ViewBag.Title = "Tipos de actividad";
 }
 
-<h1>TO DO</h1>
+<h1>
+  @ViewBag.Title
+  <a class="btn btn-primary pull-right" href="@Url.Action("Create")">Nuevo</a>
+</h1>
+
+<table class="table table-hover entity-table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var kind in Model)
+  {
+    <tr class=" entity-row">
+      <td>
+        @kind.Id
+      </td>
+      <td>
+        @kind.Descripcion
+        <div class="pull-right">
+          <a class="btn btn-warning" href="@Url.Action("Update", new { id = kind.Id })">Modificar</a>
+          <a class="btn btn-danger"  href="@Url.Action("Delete", new { id = kind.Id })">Eliminar</a>
+        </div>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
