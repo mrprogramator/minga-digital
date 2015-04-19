@@ -1,3 +1,7 @@
 #main {
   padding-top: 70px;
 }
+
+.action-column {
+  width: 15%;
+}
