@@ -2,10 +2,6 @@
   padding-top: 70px;
 }
 
-.action-column {
-  width: 1%;
-}
-
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }

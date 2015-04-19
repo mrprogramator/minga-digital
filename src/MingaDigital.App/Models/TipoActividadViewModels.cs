@@ -9,6 +9,7 @@ namespace MingaDigital.App.Models
     public class TipoActividadCreateViewModel
     {
         [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Descripción")]
         public String Descripcion { get; set; }
     }
 }
