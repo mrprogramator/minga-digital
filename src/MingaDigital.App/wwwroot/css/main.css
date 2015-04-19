@@ -3,5 +3,9 @@
 }
 
 .action-column {
-  width: 15%;
+  width: 1%;
+}
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
 }
