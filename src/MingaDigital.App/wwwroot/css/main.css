@@ -2,6 +2,20 @@
   padding-top: 70px;
 }
 
+.detail-list {
+  border: 1px solid #EEE;
+  border-radius: 4px;
+}
+  .detail-list .row {
+    line-height: 40px;
+    margin: 0;
+    
+    border-bottom: 1px solid #EEE;
+  }
+    .detail-list .row > :first-child {
+      color: #888;
+    }
+
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }

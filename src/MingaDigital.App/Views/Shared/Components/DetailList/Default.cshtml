@@ -1,0 +1,16 @@
+@using MingaDigital.App.Components
+@model IEnumerable<DetailListItem>
+
+<div class="detail-list">
+@foreach (var item in Model)
+{
+  <div class="row">
+    <div class="col-md-3">
+      @item.Name
+    </div>
+    <div class="col-md-9">
+      @item.Value
+    </div>
+  </div>
+}
+</div>

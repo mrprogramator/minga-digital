@@ -21,7 +21,7 @@ namespace MingaDigital.App.Controllers
         public IActionResult Index()
         {
             var query =
-                Db.Set<TipoActividad>()
+                Db.TipoActividad
                 .OrderBy(x => x.Descripcion);
             
             var result = query.ToArray();
@@ -36,7 +36,7 @@ namespace MingaDigital.App.Controllers
         }
 
         [HttpPost("nuevo")]
-        public IActionResult Create([FromForm] TipoActividadCreateViewModel model)
+        public IActionResult Create([FromForm] TipoActividadEditorModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace MingaDigital.App.Controllers
                 Descripcion = model.Descripcion
             };
             
-            Db.Set<TipoActividad>().Add(entity);
+            Db.TipoActividad.Add(entity);
             
             Db.SaveChanges();
             
@@ -60,7 +60,13 @@ namespace MingaDigital.App.Controllers
         {
             return WithEntity(id, entity =>
             {
-                return View(entity);
+                var model = new TipoActividadDetailModel
+                {
+                    Id = entity.Id,
+                    Descripcion = entity.Descripcion
+                };
+
+                return View(model);
             });
         }
 
@@ -69,7 +75,7 @@ namespace MingaDigital.App.Controllers
         {
             return WithEntity(id, entity =>
             {
-                var model = new TipoActividadCreateViewModel
+                var model = new TipoActividadEditorModel
                 {
                     Descripcion = entity.Descripcion
                 };
@@ -78,7 +84,7 @@ namespace MingaDigital.App.Controllers
         }
 
         [HttpPost("{id}/modificar")]
-        public IActionResult Update(Int32 id, [FromForm] TipoActividadCreateViewModel model)
+        public IActionResult Update(Int32 id, [FromForm] TipoActividadEditorModel model)
         {
             return WithEntity(id, entity =>
             {
@@ -100,7 +106,7 @@ namespace MingaDigital.App.Controllers
         {
             return WithEntity(id, entity =>
             {
-                Db.Set<TipoActividad>().Remove(entity);
+                Db.TipoActividad.Remove(entity);
 
                 Db.SaveChanges();
 
@@ -112,7 +118,7 @@ namespace MingaDigital.App.Controllers
             Func<TipoActividad, IActionResult> func)
         {
             var query =
-                Db.Set<TipoActividad>()
+                Db.TipoActividad
                 .Where(p => p.Id == id);
             
             var result = query.FirstOrDefault();
