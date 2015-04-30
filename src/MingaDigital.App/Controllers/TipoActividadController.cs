@@ -11,7 +11,7 @@ using MingaDigital.App.Models;
 
 namespace MingaDigital.App.Controllers
 {
-    [Route("tipo_actividad")]
+    [Route("tipo-actividad")]
     public class TipoActividadController : Controller
     {
         [FromServices]
