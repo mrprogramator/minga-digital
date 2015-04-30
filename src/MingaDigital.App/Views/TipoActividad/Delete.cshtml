@@ -1,0 +1,27 @@
+@model TipoActividadDetailModel
+
+@{
+  ViewBag.ModelDisplayName = "Tipo de actividad";
+  ViewBag.Title = "Eliminar " + ViewBag.ModelDisplayName;
+}
+
+<div class="panel panel-danger" >
+  <div class="panel-heading">
+    <b>Confirmar eliminaci&oacute;n</b>
+  </div>
+
+  <div class="panel-body">
+    <p>&iquest;Desea eliminar el siguiente registro de <b>@ViewBag.ModelDisplayName</b>?</p>
+
+    <div class="well">
+      @Html.DisplayFor(m => m)
+    </div>
+
+    <form role="form" name="form" method="POST">
+      <div class="text-right">
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+      </div>
+    </form>
+  </div>
+</div>

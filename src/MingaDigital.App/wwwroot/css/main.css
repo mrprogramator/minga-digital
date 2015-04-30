@@ -1,0 +1,27 @@
+#main {
+  padding-top: 70px;
+}
+
+.detail-list {
+
+}
+  .detail-list .row {
+    line-height: 40px;
+    margin: 0;
+    
+    border-bottom: 1px solid #EEE;
+  }
+    .detail-list .row > :first-child {
+      color: #888;
+    }
+
+.well .detail-list {
+  
+}
+  .well .detail-list .row {
+    border-bottom: 1px solid #CCC;
+  }
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
