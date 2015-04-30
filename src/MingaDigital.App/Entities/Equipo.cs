@@ -11,9 +11,5 @@ namespace MingaDigital.App.Entities
         public Int32 Id { get; set; }
         
         public String Detalle { get; set; }
-        
-        public Int32 EstablecimientoId { get; set; }
-        
-        public EstablecimientoMinga Establecimiento { get; set; }
     }
 }
