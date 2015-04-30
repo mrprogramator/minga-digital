@@ -16,7 +16,7 @@ namespace MingaDigital.App.Entities
         
         public String Caracteristica { get; set; }
         
-        public Int32 EquipoId { get; set; }
+        public Nullable<Int32> EquipoId { get; set; }
         
         public virtual Equipo Equipo { get; set; }
     }
