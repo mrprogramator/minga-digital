@@ -15,4 +15,4 @@ Resulta que es, también, nuestro proyecto principal de la materia.
 * Francisco Ribera
 * Juliana Roda
 * Luis A. Saucedo
-* Oscar SOliz
+* Oscar Soliz
