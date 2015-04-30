@@ -3,8 +3,7 @@
 }
 
 .detail-list {
-  border: 1px solid #EEE;
-  border-radius: 4px;
+
 }
   .detail-list .row {
     line-height: 40px;
@@ -15,6 +14,13 @@
     .detail-list .row > :first-child {
       color: #888;
     }
+
+.well .detail-list {
+  
+}
+  .well .detail-list .row {
+    border-bottom: 1px solid #CCC;
+  }
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
