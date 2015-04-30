@@ -39,8 +39,6 @@ namespace MingaDigital.App.EF
         
         public DbSet<TipoIncidencia> TipoIncidencia { get; set; }
         
-        public DbSet<EstadoTicket> EstadoTicket { get; set; }
-        
         public DbSet<Telecentro> Telecentro { get; set; }
         
         public DbSet<Equipo> Equipo { get; set; }
