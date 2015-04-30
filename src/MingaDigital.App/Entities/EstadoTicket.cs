@@ -6,11 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public class EstadoTicket
+    public enum EstadoTicket
     {
-        public Int32 Id { get; set; }
-        
-        [Required]
-        public String Nombre { get; set; }
+        Pendiente,
+        Atendido,
+        Cerrado
     }
 }
