@@ -12,5 +12,9 @@ namespace MingaDigital.App.Entities
         
         [Required]
         public String Nombre { get; set; }
+        
+        public Int32 AreaId { get; set; }
+        
+        public virtual AreaIncidencia Area { get; set; }
     }
 }
