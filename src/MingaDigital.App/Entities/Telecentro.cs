@@ -18,5 +18,7 @@ namespace MingaDigital.App.Entities
         
         [ForeignKey(nameof(PatrocinadorId))]
         public virtual PersonaJuridica Patrocinador { get; set; }
+
+        public virtual ICollection<UnidadEducativa> UnidadesEducativas { get; set; }
     }
 }
