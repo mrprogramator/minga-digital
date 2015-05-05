@@ -12,7 +12,7 @@ namespace MingaDigital.App.Entities
         
         public Int32 EstadoId { get; set; }
         
-        public Int32 PatrocinadorId { get; set; }
+        public Nullable<Int32> PatrocinadorId { get; set; }
         
         public virtual EstadoTelecentro Estado { get; set; }
         
