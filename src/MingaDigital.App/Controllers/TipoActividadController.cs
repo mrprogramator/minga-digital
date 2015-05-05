@@ -62,7 +62,7 @@ namespace MingaDigital.App.Controllers
             {
                 var model = new TipoActividadDetailModel
                 {
-                    Id = entity.Id,
+                    Id = entity.TipoActividadId,
                     Descripcion = entity.Descripcion
                 };
 
@@ -119,7 +119,7 @@ namespace MingaDigital.App.Controllers
         {
             var query =
                 Db.TipoActividad
-                .Where(p => p.Id == id);
+                .Where(p => p.TipoActividadId == id);
             
             var result = query.FirstOrDefault();
             

@@ -6,7 +6,7 @@ namespace MingaDigital.App.Entities
 {
     public class Rol
     {
-        public Int32 Id { get; set; }
+        public Int32 RolId { get; set; }
         
         public String Nombre { get; set; }
     }

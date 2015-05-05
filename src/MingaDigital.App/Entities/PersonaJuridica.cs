@@ -6,7 +6,7 @@ namespace MingaDigital.App.Entities
 {
     public class PersonaJuridica
     {
-        public Int32 Id { get; set; }
+        public Int32 PersonaJuridicaId { get; set; }
         
         public String Nombre { get; set; }
     }

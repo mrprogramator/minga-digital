@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class TipoIncidencia
     {
-        public Int32 Id { get; set; }
+        public Int32 TipoIncidenciaId { get; set; }
         
         [Required]
         public String Nombre { get; set; }

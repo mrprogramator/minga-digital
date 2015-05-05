@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Telecentro : EstablecimientoMinga
     {
-        public new Int32 Id { get; set; }
+        public Int32 TelecentroId { get; set; }
         
         public Int32 EstadoId { get; set; }
         

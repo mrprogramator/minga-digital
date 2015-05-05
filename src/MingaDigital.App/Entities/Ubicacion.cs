@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Ubicacion
     {
-        public Int32 Id { get; set; }
+        public Int32 UbicacionId { get; set; }
         
         public Int32 MunicipioId { get; set; }
         

@@ -7,7 +7,7 @@ namespace MingaDigital.App.Entities
 {
     public class Movimiento
     {
-        public Int32 Id { get; set; }
+        public Int32 MovimientoId { get; set; }
         
         public Int32 OrigenId { get; set; }
         

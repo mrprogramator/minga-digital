@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Municipio
     {
-        public Int32 Id { get; set; }
+        public Int32 MunicipioId { get; set; }
         
         public String Nombre { get; set; }
     }

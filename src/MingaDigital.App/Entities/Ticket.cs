@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Ticket
     {
-        public Int32 Id { get; set; }
+        public Int32 TicketId { get; set; }
         
         [Required]
         public String Descripcion { get; set; }

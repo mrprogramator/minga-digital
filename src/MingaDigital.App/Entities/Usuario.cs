@@ -7,7 +7,7 @@ namespace MingaDigital.App.Entities
 {
     public class Usuario
     {
-        public Int32 Id { get; set; }
+        public Int32 UsuarioId { get; set; }
         
         [Index(IsUnique = true)]
         public String Username { get; set; }

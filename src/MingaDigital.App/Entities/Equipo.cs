@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Equipo : ActivoMinga
     {
-        public new Int32 Id { get; set; }
+        public Int32 EquipoId { get; set; }
         
         public String Detalle { get; set; }
         

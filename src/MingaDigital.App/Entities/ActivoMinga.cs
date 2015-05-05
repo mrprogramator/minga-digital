@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public abstract class ActivoMinga
     {
-        public Int32 Id { get; set; }
+        public Int32 ActivoMingaId { get; set; }
         
         public Int32 EstablecimientoId { get; set; }
         

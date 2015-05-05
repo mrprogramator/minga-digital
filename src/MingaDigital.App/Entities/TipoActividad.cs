@@ -9,7 +9,7 @@ namespace MingaDigital.App.Entities
 {
     public class TipoActividad
     {
-        public Int32 Id { get; set; }
+        public Int32 TipoActividadId { get; set; }
 
         [Required]
         public String Descripcion { get; set; }
