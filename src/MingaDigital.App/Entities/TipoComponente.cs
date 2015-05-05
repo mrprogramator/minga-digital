@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public enum TipoComponente
     {
-        Carcaza = 0,
+        Carcasa = 0,
         Procesador = 1,
         Memoria = 2,
         DiscoDuro = 3,
