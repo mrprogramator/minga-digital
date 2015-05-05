@@ -25,8 +25,6 @@ namespace MingaDigital.App.EF
         
         public DbSet<Componente> Componente { get; set; }
         
-        public DbSet<CTEL> CTEL { get; set; }
-        
         public DbSet<Equipo> Equipo { get; set; }
         
         public DbSet<EstablecimientoMinga> EstablecimientoMinga { get; set; }
