@@ -27,18 +27,18 @@ namespace MingaDigital.App.Entities
         
         public Int32 PersonaEncargadaId { get; set; }
         
-        public Int32 UnidadEducativaId { get; set; }
+        public Int32 TelecentroId { get; set; }
         
-        [ForeignKey("TipoActividadId")]
+        [ForeignKey(nameof(TipoActividadId))]
         public virtual TipoActividad TipoActividad { get; set; }
         
-        [ForeignKey("UsuarioCreadorId")]
+        [ForeignKey(nameof(UsuarioCreadorId))]
         public virtual Usuario UsuarioCreador { get; set; }
         
-        [ForeignKey("PersonaEncargadaId")]
+        [ForeignKey(nameof(PersonaEncargadaId))]
         public virtual PersonaFisica PersonaEncargada { get; set; }
         
-        [ForeignKey("UnidadEducativaId")]
-        public virtual UnidadEducativa UnidadEducativa { get; set; }
+        [ForeignKey(nameof(TelecentroId))]
+        public virtual Telecentro Telecentro { get; set; }
     }
 }
