@@ -6,10 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public abstract class Equipo : ActivoMinga
+    public enum TipoComponente
     {
-        public Int32 Id { get; set; }
-        
-        public String Detalle { get; set; }
+        Carcaza,
+        Procesador,
+        Memoria,
+        DiscoDuro,
+        Monitor,
+        Teclado,
+        Mouse
     }
 }
