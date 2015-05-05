@@ -14,8 +14,6 @@ namespace MingaDigital.App.Entities
         
         public Password Password { get; set; }
         
-        public virtual ICollection<Rol> Roles { get; set; }
-        
         public virtual ICollection<PermisoGlobal> PermisosGlobales { get; set; }
     }
 }

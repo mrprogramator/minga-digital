@@ -12,6 +12,7 @@ namespace MingaDigital.App.Entities
         
         public Int32 EstablecimientoId { get; set; }
         
+        [ForeignKey(nameof(EstablecimientoId))]
         public virtual EstablecimientoMinga Establecimiento { get; set; }
     }
 }

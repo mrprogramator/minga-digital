@@ -16,6 +16,7 @@ namespace MingaDigital.App.Entities
         
         public virtual EstadoTelecentro Estado { get; set; }
         
+        [ForeignKey(nameof(PatrocinadorId))]
         public virtual PersonaJuridica Patrocinador { get; set; }
     }
 }

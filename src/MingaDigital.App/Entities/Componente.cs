@@ -18,6 +18,7 @@ namespace MingaDigital.App.Entities
         
         public Nullable<Int32> EquipoId { get; set; }
         
+        [ForeignKey(nameof(EquipoId))]
         public virtual Equipo Equipo { get; set; }
     }
 }

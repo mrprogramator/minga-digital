@@ -15,6 +15,7 @@ namespace MingaDigital.App.Entities
         
         public Int32 AreaId { get; set; }
         
+        [ForeignKey(nameof(AreaId))]
         public virtual AreaIncidencia Area { get; set; }
     }
 }

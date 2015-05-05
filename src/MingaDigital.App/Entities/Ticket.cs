@@ -27,18 +27,25 @@ namespace MingaDigital.App.Entities
         
         public Int32 TelecentroId { get; set; }
         
+        public Int32 EquipoId { get; set; }
+        
         public Int32 UsuarioId { get; set; }
         
         public Nullable<Int32> EncargadoId { get; set; }
         
+        [ForeignKey(nameof(TipoIncidenciaId))]
         public virtual TipoIncidencia TipoIncidencia { get; set; }
         
+        [ForeignKey(nameof(TelecentroId))]
         public virtual Telecentro Telecentro { get; set; }
         
+        [ForeignKey(nameof(EquipoId))]
         public virtual Equipo Equipo { get; set; }
         
+        [ForeignKey(nameof(UsuarioId))]
         public virtual Usuario Usuario { get; set; }
         
+        [ForeignKey(nameof(EncargadoId))]
         public virtual Usuario Encargado { get; set; }
     }
 }
