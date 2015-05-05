@@ -11,5 +11,7 @@ namespace MingaDigital.App.Entities
         public new Int32 Id { get; set; }
         
         public String Detalle { get; set; }
+        
+        public EstadoEquipo Estado { get; set; }
     }
 }
