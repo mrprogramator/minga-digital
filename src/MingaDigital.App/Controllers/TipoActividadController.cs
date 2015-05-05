@@ -62,7 +62,7 @@ namespace MingaDigital.App.Controllers
             {
                 var model = new TipoActividadDetailModel
                 {
-                    Id = entity.TipoActividadId,
+                    TipoActividadId = entity.TipoActividadId,
                     Descripcion = entity.Descripcion
                 };
 

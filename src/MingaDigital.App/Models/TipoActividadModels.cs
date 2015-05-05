@@ -8,7 +8,7 @@ namespace MingaDigital.App.Models
 {
     public class TipoActividadDetailModel : TipoActividadEditorModel
     {
-        public Int32 TipoActividadId;
+        public Int32 TipoActividadId { get; set; }
     }
 
     public class TipoActividadEditorModel
