@@ -8,8 +8,8 @@ namespace MingaDigital.App.Entities
 {
     public enum EstadoTicket
     {
-        Pendiente,
-        Atendido,
-        Cerrado
+        Pendiente = 0,
+        Atendido = 1,
+        Cerrado = 2
     }
 }

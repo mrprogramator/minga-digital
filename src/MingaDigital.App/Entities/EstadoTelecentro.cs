@@ -7,6 +7,7 @@ namespace MingaDigital.App.Entities
 {
     public enum EstadoTelecentro
     {
-        Activo, EnConstruccion
+        Activo = 0,
+        EnConstruccion = 1
     }
 }

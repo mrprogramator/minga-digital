@@ -8,12 +8,12 @@ namespace MingaDigital.App.Entities
 {
     public enum TipoComponente
     {
-        Carcaza,
-        Procesador,
-        Memoria,
-        DiscoDuro,
-        Monitor,
-        Teclado,
-        Mouse
+        Carcaza = 0,
+        Procesador = 1,
+        Memoria = 2,
+        DiscoDuro = 3,
+        Monitor = 4,
+        Teclado = 5,
+        Mouse = 6
     }
 }

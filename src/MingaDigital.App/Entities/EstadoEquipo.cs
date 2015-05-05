@@ -7,7 +7,7 @@ namespace MingaDigital.App.Entities
 {
     public enum EstadoEquipo
     {
-        Activo,
-        EnMantenimiento
+        Activo = 0,
+        EnMantenimiento = 1
     }
 }
