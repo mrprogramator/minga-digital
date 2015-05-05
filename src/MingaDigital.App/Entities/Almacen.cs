@@ -8,6 +8,6 @@ namespace MingaDigital.App.Entities
 {
     public class Almacen : EstablecimientoMinga
     {
-        public Int32 Id { get; set; }
+        public new Int32 Id { get; set; }
     }
 }

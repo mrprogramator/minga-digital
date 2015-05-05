@@ -8,7 +8,7 @@ namespace MingaDigital.App.Entities
 {
     public class Componente : ActivoMinga
     {
-        public Int32 Id { get; set; }
+        public new Int32 Id { get; set; }
         
         public TipoComponente Tipo { get; set; }
         
