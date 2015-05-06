@@ -54,6 +54,8 @@ namespace MingaDigital.App.EF
         public DbSet<Ticket> Ticket { get; set; }
         
         public DbSet<TipoActividad> TipoActividad { get; set; }
+
+        public DbSet<TipoComponente> TipoComponente { get; set; }
         
         public DbSet<TipoIncidencia> TipoIncidencia { get; set; }
         
@@ -62,6 +64,10 @@ namespace MingaDigital.App.EF
         public DbSet<UnidadEducativa> UnidadEducativa { get; set; }
         
         public DbSet<Usuario> Usuario { get; set; }
+        
+        public DbSet<UsuarioPersonaFisica> UsuarioPersonaFisica { get; set; }
+
+        public DbSet<UsuarioPersonaJuridica> UsuarioPersonaJuridica { get; set; }
         
         public DbSet<UsuarioRol> UsuarioRol { get; set; }
         

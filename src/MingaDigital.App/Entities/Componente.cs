@@ -9,8 +9,8 @@ namespace MingaDigital.App.Entities
     public class Componente : ActivoMinga
     {
         public Int32 ComponenteId { get; set; }
-        
-        public TipoComponente Tipo { get; set; }
+
+        public Int32 TipoComponenteId { get; set; }
         
         public String Marca { get; set; }
         
@@ -18,6 +18,8 @@ namespace MingaDigital.App.Entities
         
         public Nullable<Int32> EquipoId { get; set; }
         
+        public virtual TipoComponente TipoComponente { get; set; }
+
         [ForeignKey(nameof(EquipoId))]
         public virtual Equipo Equipo { get; set; }
     }
