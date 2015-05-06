@@ -12,6 +12,6 @@ namespace MingaDigital.App.Entities
         
         public Int32 UnidadEducativaId { get; set; }
         
-        public UnidadEducativa UnidadEducativa { get; set; }
+        public virtual UnidadEducativa UnidadEducativa { get; set; }
     }
 }
