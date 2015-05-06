@@ -65,11 +65,11 @@ namespace MingaDigital.App.EF
         
         public DbSet<Usuario> Usuario { get; set; }
         
-        public DbSet<UsuarioRol> UsuarioRol { get; set; }
-
         public DbSet<UsuarioPersonaFisica> UsuarioPersonaFisica { get; set; }
 
         public DbSet<UsuarioPersonaJuridica> UsuarioPersonaJuridica { get; set; }
+        
+        public DbSet<UsuarioRol> UsuarioRol { get; set; }
         
         public MainContext(String connectionString)
             : base(connectionString)

@@ -8,7 +8,6 @@ namespace MingaDigital.App.Entities
 {
     public class TipoComponente
     {
-        [Key]
         public Int32 TipoComponenteId { get; set; }
 
         [Index(IsUnique = true)]
