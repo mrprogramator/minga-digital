@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public class Usuario
+    public abstract class Usuario
     {
         public Int32 UsuarioId { get; set; }
         
