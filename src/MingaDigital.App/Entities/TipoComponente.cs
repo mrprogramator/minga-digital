@@ -6,14 +6,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public enum TipoComponente
+    public class TipoComponente
     {
-        Carcasa = 0,
-        Procesador = 1,
-        Memoria = 2,
-        DiscoDuro = 3,
-        Monitor = 4,
-        Teclado = 5,
-        Mouse = 6
+        [Key]
+        public Int32 TipoComponenteId { get; set; }
+
+        [Index(IsUnique = true)]
+        public String Nombre { get; set; }
     }
 }
