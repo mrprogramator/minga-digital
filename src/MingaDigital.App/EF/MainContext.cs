@@ -25,6 +25,8 @@ namespace MingaDigital.App.EF
         
         public DbSet<Componente> Componente { get; set; }
         
+        public DbSet<Ctel> Ctel { get; set; }
+        
         public DbSet<Equipo> Equipo { get; set; }
         
         public DbSet<EstablecimientoMinga> EstablecimientoMinga { get; set; }
@@ -40,6 +42,8 @@ namespace MingaDigital.App.EF
         public DbSet<PermisoRol> PermisoRol { get; set; }
         
         public DbSet<PersonaFisica> PersonaFisica { get; set; }
+        
+        public DbSet<PersonaFisicaCtel> PersonaFisicaCtel { get; set; }
         
         public DbSet<PersonaJuridica> PersonaJuridica { get; set; }
         
