@@ -10,15 +10,13 @@ namespace MingaDigital.App.Entities
     {
         public Int32 TelecentroId { get; set; }
         
-        public Int32 EstadoId { get; set; }
-        
         public Nullable<Int32> PatrocinadorId { get; set; }
         
-        public virtual EstadoTelecentro Estado { get; set; }
+        public EstadoTelecentro Estado { get; set; }
         
         [ForeignKey(nameof(PatrocinadorId))]
         public virtual PersonaJuridica Patrocinador { get; set; }
-
+        
         public virtual ICollection<UnidadEducativa> UnidadesEducativas { get; set; }
     }
 }
