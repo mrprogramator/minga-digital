@@ -1,5 +1,6 @@
 using System;
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
@@ -8,6 +9,7 @@ namespace MingaDigital.App.Entities
     {
         public Int32 UnidadEducativaId { get; set; }
         
+        [Required]
         public String Nombre { get; set; }
         
         public Int32 UbicacionId { get; set; }
@@ -18,5 +20,7 @@ namespace MingaDigital.App.Entities
 
         [ForeignKey(nameof(TelecentroId))]
         public virtual Telecentro Telecentro { get; set; }
+        
+        public virtual Ctel Ctel { get; set; }
     }
 }

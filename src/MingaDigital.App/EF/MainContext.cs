@@ -82,6 +82,11 @@ namespace MingaDigital.App.EF
             modelBuilder.HasDefaultSchema("public");
             
             modelBuilder
+                .Entity<UnidadEducativa>()
+                .HasOptional(ue => ue.Ctel)
+                .WithRequired(ct => ct.UnidadEducativa);
+            
+            modelBuilder
                 .Types()
                 .Configure(config => config.ToTable(GetTableName(config.ClrType)));
             

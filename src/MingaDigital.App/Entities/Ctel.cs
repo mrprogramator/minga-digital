@@ -10,6 +10,7 @@ namespace MingaDigital.App.Entities
     {
         public Int32 CtelId { get; set; }
         
+        [Index(IsUnique = true)]
         public Int32 UnidadEducativaId { get; set; }
         
         public virtual UnidadEducativa UnidadEducativa { get; set; }

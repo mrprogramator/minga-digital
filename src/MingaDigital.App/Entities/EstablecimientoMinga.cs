@@ -10,6 +10,8 @@ namespace MingaDigital.App.Entities
     {
         public Int32 EstablecimientoMingaId { get; set; }
         
+        [Required]
+        [Index(IsUnique = true)]
         public String Nombre { get; set; }
         
         public Int32 UbicacionId { get; set; }
