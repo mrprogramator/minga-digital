@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
@@ -9,6 +10,8 @@ namespace MingaDigital.App.Entities
     {
         public Int32 RolId { get; set; }
         
+        [Required]
+        [Index(IsUnique = true)]
         public String Nombre { get; set; }
     }
 }

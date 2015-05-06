@@ -7,9 +7,9 @@ namespace MingaDigital.App.Entities
 {
     public class UsuarioPersonaFisica : Usuario
     {
+        [Index(IsUnique = true)]
         public Int32 PersonaFisicaId { get; set; }
         
-        [Index(IsUnique = true)]
         public virtual PersonaFisica PersonaFisica { get; set; }
     }
 }
