@@ -3,7 +3,7 @@ namespace MingaDigital.App.EF
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class First : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -28,48 +28,49 @@ namespace MingaDigital.App.EF
                         tipo_actividad_id = c.Int(nullable: false),
                         usuario_creador_id = c.Int(nullable: false),
                         persona_encargada_id = c.Int(nullable: false),
-                        unidad_educativa_id = c.Int(nullable: false),
+                        telecentro_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.actividad_id)
                 .ForeignKey("public.persona_fisica", t => t.persona_encargada_id, cascadeDelete: true)
+                .ForeignKey("public.telecentro", t => t.telecentro_id)
                 .ForeignKey("public.tipo_actividad", t => t.tipo_actividad_id, cascadeDelete: true)
-                .ForeignKey("public.unidad_educativa", t => t.unidad_educativa_id, cascadeDelete: true)
                 .ForeignKey("public.usuario", t => t.usuario_creador_id, cascadeDelete: true)
                 .Index(t => t.tipo_actividad_id)
                 .Index(t => t.usuario_creador_id)
                 .Index(t => t.persona_encargada_id)
-                .Index(t => t.unidad_educativa_id);
+                .Index(t => t.telecentro_id);
             
             CreateTable(
                 "public.persona_fisica",
                 c => new
                     {
                         persona_fisica_id = c.Int(nullable: false, identity: true),
-                        nombres = c.String(),
-                        apellidos = c.String(),
+                        nombres = c.String(nullable: false),
+                        apellidos = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.persona_fisica_id);
             
             CreateTable(
-                "public.tipo_actividad",
+                "public.establecimiento_minga",
                 c => new
                     {
-                        tipo_actividad_id = c.Int(nullable: false, identity: true),
-                        descripcion = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.tipo_actividad_id);
-            
-            CreateTable(
-                "public.unidad_educativa",
-                c => new
-                    {
-                        unidad_educativa_id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(),
+                        establecimiento_minga_id = c.Int(nullable: false, identity: true),
+                        nombre = c.String(nullable: false),
                         ubicacion_id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.unidad_educativa_id)
+                .PrimaryKey(t => t.establecimiento_minga_id)
                 .ForeignKey("public.ubicacion", t => t.ubicacion_id, cascadeDelete: true)
+                .Index(t => t.nombre, unique: true)
                 .Index(t => t.ubicacion_id);
+            
+            CreateTable(
+                "public.persona_juridica",
+                c => new
+                    {
+                        persona_juridica_id = c.Int(nullable: false, identity: true),
+                        nombre = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.persona_juridica_id);
             
             CreateTable(
                 "public.ubicacion",
@@ -92,16 +93,53 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         municipio_id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(),
+                        nombre = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.municipio_id);
+                .PrimaryKey(t => t.municipio_id)
+                .Index(t => t.nombre, unique: true);
+            
+            CreateTable(
+                "public.unidad_educativa",
+                c => new
+                    {
+                        unidad_educativa_id = c.Int(nullable: false, identity: true),
+                        nombre = c.String(nullable: false),
+                        ubicacion_id = c.Int(nullable: false),
+                        telecentro_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.unidad_educativa_id)
+                .ForeignKey("public.telecentro", t => t.telecentro_id)
+                .ForeignKey("public.ubicacion", t => t.ubicacion_id, cascadeDelete: true)
+                .Index(t => t.ubicacion_id)
+                .Index(t => t.telecentro_id);
+            
+            CreateTable(
+                "public.ctel",
+                c => new
+                    {
+                        ctel_id = c.Int(nullable: false),
+                        unidad_educativa_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ctel_id)
+                .ForeignKey("public.unidad_educativa", t => t.ctel_id)
+                .Index(t => t.ctel_id)
+                .Index(t => t.unidad_educativa_id, unique: true);
+            
+            CreateTable(
+                "public.tipo_actividad",
+                c => new
+                    {
+                        tipo_actividad_id = c.Int(nullable: false, identity: true),
+                        descripcion = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.tipo_actividad_id);
             
             CreateTable(
                 "public.usuario",
                 c => new
                     {
                         usuario_id = c.Int(nullable: false, identity: true),
-                        username = c.String(),
+                        username = c.String(nullable: false),
                         password_hash = c.Binary(nullable: false),
                         password_salt = c.Binary(nullable: false),
                         password_algorithm = c.String(nullable: false),
@@ -134,25 +172,14 @@ namespace MingaDigital.App.EF
                 .Index(t => t.establecimiento_id);
             
             CreateTable(
-                "public.establecimiento_minga",
+                "public.tipo_componente",
                 c => new
                     {
-                        establecimiento_minga_id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(),
-                        ubicacion_id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.establecimiento_minga_id)
-                .ForeignKey("public.ubicacion", t => t.ubicacion_id, cascadeDelete: true)
-                .Index(t => t.ubicacion_id);
-            
-            CreateTable(
-                "public.persona_juridica",
-                c => new
-                    {
-                        persona_juridica_id = c.Int(nullable: false, identity: true),
+                        tipo_componente_id = c.Int(nullable: false, identity: true),
                         nombre = c.String(),
                     })
-                .PrimaryKey(t => t.persona_juridica_id);
+                .PrimaryKey(t => t.tipo_componente_id)
+                .Index(t => t.nombre, unique: true);
             
             CreateTable(
                 "public.area_incidencia",
@@ -161,7 +188,8 @@ namespace MingaDigital.App.EF
                         area_incidencia_id = c.Int(nullable: false, identity: true),
                         nombre = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.area_incidencia_id);
+                .PrimaryKey(t => t.area_incidencia_id)
+                .Index(t => t.nombre, unique: true);
             
             CreateTable(
                 "public.item_movimiento",
@@ -209,9 +237,23 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         rol_id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(),
+                        nombre = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.rol_id);
+                .PrimaryKey(t => t.rol_id)
+                .Index(t => t.nombre, unique: true);
+            
+            CreateTable(
+                "public.persona_fisica_ctel",
+                c => new
+                    {
+                        persona_fisica_id = c.Int(nullable: false),
+                        ctel_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.persona_fisica_id, t.ctel_id })
+                .ForeignKey("public.ctel", t => t.ctel_id, cascadeDelete: true)
+                .ForeignKey("public.persona_fisica", t => t.persona_fisica_id, cascadeDelete: true)
+                .Index(t => t.persona_fisica_id)
+                .Index(t => t.ctel_id);
             
             CreateTable(
                 "public.ticket",
@@ -252,6 +294,7 @@ namespace MingaDigital.App.EF
                     })
                 .PrimaryKey(t => t.tipo_incidencia_id)
                 .ForeignKey("public.area_incidencia", t => t.area_id, cascadeDelete: true)
+                .Index(t => t.nombre, unique: true)
                 .Index(t => t.area_id);
             
             CreateTable(
@@ -272,7 +315,6 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         establecimiento_minga_id = c.Int(nullable: false),
-                        almacen_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.establecimiento_minga_id)
                 .ForeignKey("public.establecimiento_minga", t => t.establecimiento_minga_id)
@@ -284,15 +326,17 @@ namespace MingaDigital.App.EF
                     {
                         activo_minga_id = c.Int(nullable: false),
                         componente_id = c.Int(nullable: false),
-                        tipo = c.Int(nullable: false),
+                        tipo_componente_id = c.Int(nullable: false),
                         marca = c.String(),
                         caracteristica = c.String(),
                         equipo_id = c.Int(),
                     })
                 .PrimaryKey(t => t.activo_minga_id)
                 .ForeignKey("public.activo_minga", t => t.activo_minga_id)
+                .ForeignKey("public.tipo_componente", t => t.tipo_componente_id, cascadeDelete: true)
                 .ForeignKey("public.equipo", t => t.equipo_id)
                 .Index(t => t.activo_minga_id)
+                .Index(t => t.tipo_componente_id)
                 .Index(t => t.equipo_id);
             
             CreateTable(
@@ -313,25 +357,58 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         establecimiento_minga_id = c.Int(nullable: false),
-                        telecentro_id = c.Int(nullable: false),
-                        estado_id = c.Int(nullable: false),
-                        patrocinador_id = c.Int(nullable: false),
+                        patrocinador_id = c.Int(),
+                        proveedor_internet_id = c.Int(),
                         estado = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.establecimiento_minga_id)
                 .ForeignKey("public.establecimiento_minga", t => t.establecimiento_minga_id)
-                .ForeignKey("public.persona_juridica", t => t.patrocinador_id, cascadeDelete: true)
+                .ForeignKey("public.persona_juridica", t => t.patrocinador_id)
+                .ForeignKey("public.persona_juridica", t => t.proveedor_internet_id)
                 .Index(t => t.establecimiento_minga_id)
-                .Index(t => t.patrocinador_id);
+                .Index(t => t.patrocinador_id)
+                .Index(t => t.proveedor_internet_id);
+            
+            CreateTable(
+                "public.usuario_persona_fisica",
+                c => new
+                    {
+                        usuario_id = c.Int(nullable: false),
+                        persona_fisica_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.usuario_id)
+                .ForeignKey("public.usuario", t => t.usuario_id)
+                .ForeignKey("public.persona_fisica", t => t.persona_fisica_id, cascadeDelete: true)
+                .Index(t => t.usuario_id)
+                .Index(t => t.persona_fisica_id, unique: true);
+            
+            CreateTable(
+                "public.usuario_persona_juridica",
+                c => new
+                    {
+                        usuario_id = c.Int(nullable: false),
+                        persona_juridica_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.usuario_id)
+                .ForeignKey("public.usuario", t => t.usuario_id)
+                .ForeignKey("public.persona_juridica", t => t.persona_juridica_id, cascadeDelete: true)
+                .Index(t => t.usuario_id)
+                .Index(t => t.persona_juridica_id, unique: true);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("public.usuario_persona_juridica", "persona_juridica_id", "public.persona_juridica");
+            DropForeignKey("public.usuario_persona_juridica", "usuario_id", "public.usuario");
+            DropForeignKey("public.usuario_persona_fisica", "persona_fisica_id", "public.persona_fisica");
+            DropForeignKey("public.usuario_persona_fisica", "usuario_id", "public.usuario");
+            DropForeignKey("public.telecentro", "proveedor_internet_id", "public.persona_juridica");
             DropForeignKey("public.telecentro", "patrocinador_id", "public.persona_juridica");
             DropForeignKey("public.telecentro", "establecimiento_minga_id", "public.establecimiento_minga");
             DropForeignKey("public.equipo", "activo_minga_id", "public.activo_minga");
             DropForeignKey("public.componente", "equipo_id", "public.equipo");
+            DropForeignKey("public.componente", "tipo_componente_id", "public.tipo_componente");
             DropForeignKey("public.componente", "activo_minga_id", "public.activo_minga");
             DropForeignKey("public.almacen", "establecimiento_minga_id", "public.establecimiento_minga");
             DropForeignKey("public.usuario_rol", "usuario_id", "public.usuario");
@@ -342,6 +419,8 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.ticket", "telecentro_id", "public.telecentro");
             DropForeignKey("public.ticket", "equipo_id", "public.equipo");
             DropForeignKey("public.ticket", "encargado_id", "public.usuario");
+            DropForeignKey("public.persona_fisica_ctel", "persona_fisica_id", "public.persona_fisica");
+            DropForeignKey("public.persona_fisica_ctel", "ctel_id", "public.ctel");
             DropForeignKey("public.permiso_rol", "rol_id", "public.rol");
             DropForeignKey("public.permiso_rol", "accion_id", "public.accion");
             DropForeignKey("public.item_movimiento", "movimiento_id", "public.movimiento");
@@ -353,42 +432,63 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.actividad", "usuario_creador_id", "public.usuario");
             DropForeignKey("public.permiso_global", "usuario_id", "public.usuario");
             DropForeignKey("public.permiso_global", "accion_id", "public.accion");
-            DropForeignKey("public.actividad", "unidad_educativa_id", "public.unidad_educativa");
-            DropForeignKey("public.unidad_educativa", "ubicacion_id", "public.ubicacion");
-            DropForeignKey("public.ubicacion", "municipio_id", "public.municipio");
             DropForeignKey("public.actividad", "tipo_actividad_id", "public.tipo_actividad");
+            DropForeignKey("public.actividad", "telecentro_id", "public.telecentro");
+            DropForeignKey("public.unidad_educativa", "ubicacion_id", "public.ubicacion");
+            DropForeignKey("public.unidad_educativa", "telecentro_id", "public.telecentro");
+            DropForeignKey("public.ctel", "ctel_id", "public.unidad_educativa");
+            DropForeignKey("public.ubicacion", "municipio_id", "public.municipio");
             DropForeignKey("public.actividad", "persona_encargada_id", "public.persona_fisica");
+            DropIndex("public.usuario_persona_juridica", new[] { "persona_juridica_id" });
+            DropIndex("public.usuario_persona_juridica", new[] { "usuario_id" });
+            DropIndex("public.usuario_persona_fisica", new[] { "persona_fisica_id" });
+            DropIndex("public.usuario_persona_fisica", new[] { "usuario_id" });
+            DropIndex("public.telecentro", new[] { "proveedor_internet_id" });
             DropIndex("public.telecentro", new[] { "patrocinador_id" });
             DropIndex("public.telecentro", new[] { "establecimiento_minga_id" });
             DropIndex("public.equipo", new[] { "activo_minga_id" });
             DropIndex("public.componente", new[] { "equipo_id" });
+            DropIndex("public.componente", new[] { "tipo_componente_id" });
             DropIndex("public.componente", new[] { "activo_minga_id" });
             DropIndex("public.almacen", new[] { "establecimiento_minga_id" });
             DropIndex("public.usuario_rol", new[] { "rol_id" });
             DropIndex("public.usuario_rol", new[] { "usuario_id" });
             DropIndex("public.tipo_incidencia", new[] { "area_id" });
+            DropIndex("public.tipo_incidencia", new[] { "nombre" });
             DropIndex("public.ticket", new[] { "encargado_id" });
             DropIndex("public.ticket", new[] { "usuario_id" });
             DropIndex("public.ticket", new[] { "equipo_id" });
             DropIndex("public.ticket", new[] { "telecentro_id" });
             DropIndex("public.ticket", new[] { "tipo_incidencia_id" });
+            DropIndex("public.persona_fisica_ctel", new[] { "ctel_id" });
+            DropIndex("public.persona_fisica_ctel", new[] { "persona_fisica_id" });
+            DropIndex("public.rol", new[] { "nombre" });
             DropIndex("public.permiso_rol", new[] { "rol_id" });
             DropIndex("public.permiso_rol", new[] { "accion_id" });
             DropIndex("public.movimiento", new[] { "destino_id" });
             DropIndex("public.movimiento", new[] { "origen_id" });
             DropIndex("public.item_movimiento", new[] { "activo_minga_id" });
             DropIndex("public.item_movimiento", new[] { "movimiento_id" });
-            DropIndex("public.establecimiento_minga", new[] { "ubicacion_id" });
+            DropIndex("public.area_incidencia", new[] { "nombre" });
+            DropIndex("public.tipo_componente", new[] { "nombre" });
             DropIndex("public.activo_minga", new[] { "establecimiento_id" });
             DropIndex("public.permiso_global", new[] { "usuario_id" });
             DropIndex("public.permiso_global", new[] { "accion_id" });
             DropIndex("public.usuario", new[] { "username" });
-            DropIndex("public.ubicacion", new[] { "municipio_id" });
+            DropIndex("public.ctel", new[] { "unidad_educativa_id" });
+            DropIndex("public.ctel", new[] { "ctel_id" });
+            DropIndex("public.unidad_educativa", new[] { "telecentro_id" });
             DropIndex("public.unidad_educativa", new[] { "ubicacion_id" });
-            DropIndex("public.actividad", new[] { "unidad_educativa_id" });
+            DropIndex("public.municipio", new[] { "nombre" });
+            DropIndex("public.ubicacion", new[] { "municipio_id" });
+            DropIndex("public.establecimiento_minga", new[] { "ubicacion_id" });
+            DropIndex("public.establecimiento_minga", new[] { "nombre" });
+            DropIndex("public.actividad", new[] { "telecentro_id" });
             DropIndex("public.actividad", new[] { "persona_encargada_id" });
             DropIndex("public.actividad", new[] { "usuario_creador_id" });
             DropIndex("public.actividad", new[] { "tipo_actividad_id" });
+            DropTable("public.usuario_persona_juridica");
+            DropTable("public.usuario_persona_fisica");
             DropTable("public.telecentro");
             DropTable("public.equipo");
             DropTable("public.componente");
@@ -396,20 +496,23 @@ namespace MingaDigital.App.EF
             DropTable("public.usuario_rol");
             DropTable("public.tipo_incidencia");
             DropTable("public.ticket");
+            DropTable("public.persona_fisica_ctel");
             DropTable("public.rol");
             DropTable("public.permiso_rol");
             DropTable("public.movimiento");
             DropTable("public.item_movimiento");
             DropTable("public.area_incidencia");
-            DropTable("public.persona_juridica");
-            DropTable("public.establecimiento_minga");
+            DropTable("public.tipo_componente");
             DropTable("public.activo_minga");
             DropTable("public.permiso_global");
             DropTable("public.usuario");
+            DropTable("public.tipo_actividad");
+            DropTable("public.ctel");
+            DropTable("public.unidad_educativa");
             DropTable("public.municipio");
             DropTable("public.ubicacion");
-            DropTable("public.unidad_educativa");
-            DropTable("public.tipo_actividad");
+            DropTable("public.persona_juridica");
+            DropTable("public.establecimiento_minga");
             DropTable("public.persona_fisica");
             DropTable("public.actividad");
             DropTable("public.accion");
