@@ -13,10 +13,5 @@ namespace MingaDigital.App.Entities
         [Required]
         [Index(IsUnique = true)]
         public String Nombre { get; set; }
-        
-        public Int32 AreaId { get; set; }
-        
-        [ForeignKey(nameof(AreaId))]
-        public virtual AreaIncidencia Area { get; set; }
     }
 }
