@@ -21,8 +21,6 @@ namespace MingaDigital.App.EF
         
         public DbSet<Almacen> Almacen { get; set; }
         
-        public DbSet<AreaIncidencia> AreaIncidencia { get; set; }
-        
         public DbSet<Componente> Componente { get; set; }
         
         public DbSet<Ctel> Ctel { get; set; }
