@@ -1,0 +1,24 @@
+@model PersonaFisicaIndexTable
+
+<table class="table table-hover basic-table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  @if (!Model.Rows.Any())
+  {
+    <tr>
+      <td>No hay registros.</td>
+    </tr>
+  }
+  @foreach (var row in Model.Rows)
+  {
+    <tr>
+      <td>@row.Nombres @row.Apellidos</td>
+    </tr>
+  }
+  </tbody>
+</table>

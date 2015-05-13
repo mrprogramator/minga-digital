@@ -1,0 +1,26 @@
+@model PersonaFisicaIndexModel
+
+@{
+    ViewBag.Title = "Personas Fisicas";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<div class="panel panel-default">
+  <div class="panel-heading table-watson">
+    <div class="row table-watson">
+      <div class="col-md-8">
+        <a class="btn btn-primary btn-sm" href="#">
+          <span class="glyphicon glyphicon-file"></span>
+          Nuevo
+        </a>
+      </div>
+      <div class="col-md-4">
+        @*Html.EditorFor(m => m.Search, new { @class = "input-sm", placeholder = "Buscar...", autofocus = true })*@
+      </div>
+    </div>
+  </div>
+  @Html.DisplayFor(m => m.Table)
+</div>

@@ -25,3 +25,11 @@
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }
+
+#main > .page-header {
+  margin-top: 0px;
+}
+
+.panel-heading.table-watson {
+  padding: 5px;
+}

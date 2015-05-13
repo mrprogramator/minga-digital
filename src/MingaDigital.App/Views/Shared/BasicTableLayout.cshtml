@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+@if (IsSectionDefined("PanelHeading"))
+{
+  <div class="panel-heading table-watson">
+    <div class="row table-watson">
+      @RenderSection("PanelHeading")
+    </div>
+  </div>
+}
+  <table class="table table-hover basic-table">
+    @RenderSection("TableContents", true)
+  </table>
+  @RenderSection("PostBasicTable", false)
+</div>
