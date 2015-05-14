@@ -24,11 +24,6 @@ namespace MingaDigital.App.Models
         public String Apellidos { get; set; }
     }
     
-    public class PersonaDetailModel : PersonaEditorModel
-    {
-        public Int32 PersonaFisicaId { get; set; }
-    }
-    
     public class PersonaEditorModel
     {
         [Required(ErrorMessage = "{0} es un campo requerido.")]

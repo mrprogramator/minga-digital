@@ -1,0 +1,36 @@
+@model PersonaEditorModel
+
+@{
+    ViewBag.Title = "Nueva Persona Fisica";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<form method="POST">
+  @Html.ValidationSummary("")
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        @Html.LabelFor(m => m.Nombres, new { @class = "control-label" })
+        
+        @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control" })
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        @Html.LabelFor(m => m.Apellidos, new { @class = "control-label" })
+        
+        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control" })
+      </div>
+    </div>
+  </div>
+  
+  <div class="text-right">
+    <a href="@Url.Action("Index")" class="btn btn-link">Cancelar</a>
+    
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>
