@@ -11,17 +11,12 @@ using MingaDigital.App.Models;
 namespace MingaDigital.App.Controllers
 {
     [Route("personas-fisicas")]
-    public class PersonaFisicaController : Controller
+    public class PersonaFisicaController : BasicCrudController<MainContext, PersonaFisica, PersonaFisicaIndexModel, PersonaEditorModel>
     {
-        [FromServices]
-        public MainContext Db { get; set; }
-        
-        [HttpGet("")]
-        public IActionResult Index()
+        protected override PersonaFisicaIndexModel GetIndexModel(IQueryable<PersonaFisica> source)
         {
             var query =
-                Db.PersonaFisica
-                .Select(x => new { x.PersonaFisicaId, x.Nombres, x.Apellidos });
+                source;
             
             var result =
                 query.ToArray()
@@ -37,104 +32,31 @@ namespace MingaDigital.App.Controllers
                 Table = new PersonaFisicaIndexTable { Rows = result }
             };
             
-            return View(model);
+            return model;
         }
         
-        [HttpGet("nuevo")]
-        public IActionResult Create()
+        protected override PersonaFisica EditorModelToEntity(PersonaEditorModel model)
         {
-            return View("Editor");
-        }
-        
-        [HttpPost("nuevo")]
-        public IActionResult Create(PersonaEditorModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Editor", model);
-            }
-            
-            var entity = new PersonaFisica
+            return new PersonaFisica
             {
                 Nombres = model.Nombres,
                 Apellidos = model.Apellidos
             };
-            
-            Db.PersonaFisica.Add(entity);
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
         }
         
-        [HttpGet("{id}/modificar")]
-        public IActionResult Update(Int32 id)
+        protected override PersonaEditorModel EntityToEditorModel(PersonaFisica entity)
         {
-            var entity = Db.PersonaFisica.Find(id);
-            
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            
-            var model = new PersonaEditorModel
+            return new PersonaEditorModel
             {
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos
             };
-            
-            return View("Editor", model);
         }
         
-        [HttpPost("{id}/modificar")]
-        public IActionResult Update(Int32 id, PersonaEditorModel model)
+        protected override void ApplyEditorModel(PersonaEditorModel model, PersonaFisica entity)
         {
-            var entity = Db.PersonaFisica.Find(id);
-            
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            
-            if (!ModelState.IsValid)
-            {
-                return View("Editor", model);
-            }
-            
             entity.Nombres = model.Nombres;
             entity.Apellidos = model.Apellidos;
-            
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
-        }
-        
-        [HttpGet("{id}/eliminar")]
-        public IActionResult Delete(Int32 id)
-        {
-            var entity = Db.PersonaFisica.Find(id);
-            
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            
-            return View(entity);
-        }
-        
-         [HttpPost("{id}/eliminar")]
-        public IActionResult DeleteConfirm(Int32 id)
-        {
-            var entity = Db.PersonaFisica.Find(id);
-            
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            
-            Db.PersonaFisica.Remove(entity);
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
         }
     }
 }
