@@ -1,0 +1,39 @@
+@model Ubicacion[]
+
+<h2 class="page-header">
+  Ubicaciones
+</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-primary">Nuevo</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Municipio</th>
+      <th>Distrito</th>
+      <th>Unidad Vecinal</th>
+      <th>Direccion</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var row in Model)
+  {
+    <tr>
+      <td>@row.Municipio.Nombre</td>
+      <td>@row.Distrito</td>
+      <td>@row.UnidadVecinal</td>
+      <td>@row.Direccion</td>
+      
+      <td style="white-space:nowrap">
+        <a href="@Url.Action("Update", new { id = row.UbicacionId })" class="btn btn-xs btn-warning">
+          Modificar
+        </a>
+        <a href="@Url.Action("Delete", new { id = row.UbicacionId })" class="btn btn-xs btn-danger">
+          Eliminar
+        </a>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
