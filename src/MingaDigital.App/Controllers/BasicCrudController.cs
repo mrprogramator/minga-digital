@@ -5,12 +5,6 @@ using System.Data.Entity;
 
 using Microsoft.AspNet.Mvc;
 
-using MingaDigital.App.EF;
-using MingaDigital.App.Entities;
-using MingaDigital.App.Models;
-
-using Mappper = AutoMapper.Mapper;
-
 namespace MingaDigital.App.Controllers
 {
     public abstract class BasicCrudController<ContextT, EntityT, IndexModelT, EditorModelT> : Controller
