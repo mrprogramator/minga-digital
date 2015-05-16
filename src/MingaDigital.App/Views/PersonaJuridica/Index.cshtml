@@ -1,7 +1,7 @@
-@model PersonaFisicaIndexModel
+@model PersonaJuridicaIndexModel
 
 @{
-    ViewBag.Title = "Personas Físicas";
+    ViewBag.Title = "Personas Jurídicas";
 }
 
 <style>
@@ -47,17 +47,17 @@
     @foreach (var row in Model.Table.Rows)
     {
       <tr>
-        <td>@row.Nombres @row.Apellidos</td>
+        <td>@row.Nombre</td>
         
         <td><!-- spacer --></td>
         
         <td>
-          <a href="@Url.Action("Update", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-default">
+          <a href="@Url.Action("Update", new { id = row.PersonaJuridicaId })" class="btn btn-xs btn-default">
             <span class="glyphicon glyphicon-pencil"></span>
             Modificar
           </a>
           
-          <a href="@Url.Action("Delete", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-default">
+          <a href="@Url.Action("Delete", new { id = row.PersonaJuridicaId })" class="btn btn-xs btn-default">
             <span class="glyphicon glyphicon-remove"></span>
             Eliminar
           </a>
