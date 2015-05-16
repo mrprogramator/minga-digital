@@ -20,6 +20,8 @@ namespace MingaDigital.App.Controllers
         
         protected abstract DetailModelT EntityToDetailModel(EntityT entity);
         
+        protected abstract EditorModelT GetInitialEditorModel();
+        
         protected abstract EditorModelT EntityToEditorModel(EntityT entity);
         
         protected abstract EntityT EditorModelToEntity(EditorModelT model);
@@ -52,7 +54,9 @@ namespace MingaDigital.App.Controllers
         [HttpGet("nuevo")]
         public virtual IActionResult Create()
         {
-            return View();
+            var model = GetInitialEditorModel();
+            
+            return View(model);
         }
         
         [HttpPost("nuevo")]

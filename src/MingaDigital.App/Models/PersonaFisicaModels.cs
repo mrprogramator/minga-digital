@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MingaDigital.App.Models
@@ -24,6 +25,7 @@ namespace MingaDigital.App.Models
         public String Apellidos { get; set; }
     }
     
+    [Description("Persona Física")]
     public class PersonaDetailModel
     {
         public Int32 PersonaFisicaId { get; set; }
@@ -35,6 +37,7 @@ namespace MingaDigital.App.Models
         public String Apellidos { get; set; }
     }
     
+    [Description("Persona Física")]
     public class PersonaEditorModel
     {
         [Required(ErrorMessage = "{0} es un campo requerido.")]

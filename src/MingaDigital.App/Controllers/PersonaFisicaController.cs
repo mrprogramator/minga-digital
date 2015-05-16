@@ -52,6 +52,11 @@ namespace MingaDigital.App.Controllers
             };
         }
         
+        protected override PersonaEditorModel GetInitialEditorModel()
+        {
+            return new PersonaEditorModel();
+        }
+        
         protected override PersonaEditorModel EntityToEditorModel(PersonaFisica entity)
         {
             return new PersonaEditorModel

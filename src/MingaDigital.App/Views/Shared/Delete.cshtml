@@ -1,0 +1,39 @@
+@using System.Reflection
+@using System.ComponentModel
+@using System.ComponentModel.DataAnnotations
+
+@{
+    var model = (Object)Model;
+    var modelType = model.GetType();
+    var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
+    
+    var displayProps =
+      from prop in modelType.GetProperties()
+      let disp = prop.GetCustomAttribute<DisplayAttribute>()
+      where disp != null
+      select prop;
+    
+    ViewBag.Title = "Eliminar " + modelDescription;
+}
+
+<div class="panel panel-danger" >
+  <div class="panel-heading">
+    <b>Advertencia</b>
+  </div>
+  
+  <div class="panel-body">
+    <p>&iquest;Desea <strong>eliminar</strong> el siguiente registro de <strong>@modelDescription</strong>?</p>
+    
+    <div class="well">
+      @Component.Invoke("DetailList", Html, model)
+    </div>
+    
+    <form role="form" name="form" method="POST">
+      <div class="text-right">
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-link">Cancelar</a>
+        
+        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+      </div>
+    </form>
+  </div>
+</div>
