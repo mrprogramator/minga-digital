@@ -16,8 +16,8 @@ namespace MingaDigital.App.Controllers
             MainContext,
             PersonaFisica,
             PersonaFisicaIndexModel,
-            PersonaDetailModel,
-            PersonaEditorModel
+            PersonaFisicaDetailModel,
+            PersonaFisicaEditorModel
         >
     {
         protected override PersonaFisicaIndexModel GetIndexModel()
@@ -42,9 +42,9 @@ namespace MingaDigital.App.Controllers
             return model;
         }
         
-        protected override PersonaDetailModel EntityToDetailModel(PersonaFisica entity)
+        protected override PersonaFisicaDetailModel EntityToDetailModel(PersonaFisica entity)
         {
-            return new PersonaDetailModel
+            return new PersonaFisicaDetailModel
             {
                 PersonaFisicaId = entity.PersonaFisicaId,
                 Nombres = entity.Nombres,
@@ -52,21 +52,21 @@ namespace MingaDigital.App.Controllers
             };
         }
         
-        protected override PersonaEditorModel GetInitialEditorModel()
+        protected override PersonaFisicaEditorModel GetInitialEditorModel()
         {
-            return new PersonaEditorModel();
+            return new PersonaFisicaEditorModel();
         }
         
-        protected override PersonaEditorModel EntityToEditorModel(PersonaFisica entity)
+        protected override PersonaFisicaEditorModel EntityToEditorModel(PersonaFisica entity)
         {
-            return new PersonaEditorModel
+            return new PersonaFisicaEditorModel
             {
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos
             };
         }
         
-        protected override PersonaFisica EditorModelToEntity(PersonaEditorModel model)
+        protected override PersonaFisica EditorModelToEntity(PersonaFisicaEditorModel model)
         {
             return new PersonaFisica
             {
@@ -75,7 +75,7 @@ namespace MingaDigital.App.Controllers
             };
         }
         
-        protected override void ApplyEditorModel(PersonaEditorModel model, PersonaFisica entity)
+        protected override void ApplyEditorModel(PersonaFisicaEditorModel model, PersonaFisica entity)
         {
             entity.Nombres = model.Nombres;
             entity.Apellidos = model.Apellidos;

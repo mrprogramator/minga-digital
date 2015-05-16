@@ -26,7 +26,7 @@ namespace MingaDigital.App.Models
     }
     
     [Description("Persona Física")]
-    public class PersonaDetailModel
+    public class PersonaFisicaDetailModel
     {
         public Int32 PersonaFisicaId { get; set; }
         
@@ -38,7 +38,7 @@ namespace MingaDigital.App.Models
     }
     
     [Description("Persona Física")]
-    public class PersonaEditorModel
+    public class PersonaFisicaEditorModel
     {
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Nombres")]
