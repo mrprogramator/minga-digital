@@ -20,10 +20,10 @@ namespace MingaDigital.App.Controllers
             PersonaEditorModel
         >
     {
-        protected override PersonaFisicaIndexModel GetIndexModel(IQueryable<PersonaFisica> source)
+        protected override PersonaFisicaIndexModel GetIndexModel()
         {
             var query =
-                source;
+                CrudSet;
             
             var result =
                 query.ToArray()

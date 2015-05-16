@@ -16,7 +16,7 @@ namespace MingaDigital.App.Controllers
         
         protected DbSet<EntityT> CrudSet => Db.Set<EntityT>();
         
-        protected abstract IndexModelT GetIndexModel(IQueryable<EntityT> source);
+        protected abstract IndexModelT GetIndexModel();
         
         protected abstract DetailModelT EntityToDetailModel(EntityT entity);
         
@@ -31,7 +31,7 @@ namespace MingaDigital.App.Controllers
         [HttpGet("")]
         public virtual IActionResult Index()
         {
-            var model = GetIndexModel(CrudSet);
+            var model = GetIndexModel();
             
             return View(model);
         }
