@@ -1,19 +1,15 @@
 @using System.Reflection
-@using System.ComponentModel
 @using System.ComponentModel.DataAnnotations
 
 @{
     var model = (Object)Model;
     var modelType = model.GetType();
-    var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
     
     var displayProps =
       from prop in modelType.GetProperties()
       let disp = prop.GetCustomAttribute<DisplayAttribute>()
       where disp != null
       select prop;
-    
-    ViewBag.Title = ViewBag.ActionName + " " + modelDescription;
 }
 
 <div class="entity-editor">
