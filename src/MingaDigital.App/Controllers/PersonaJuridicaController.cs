@@ -10,7 +10,7 @@ using MingaDigital.App.Models;
 
 namespace MingaDigital.App.Controllers
 {
-    [Route("personas-Juridicas")]
+    [Route("personas-juridicas")]
     public class PersonaJuridicaController
         : BasicCrudController<
             MainContext,
