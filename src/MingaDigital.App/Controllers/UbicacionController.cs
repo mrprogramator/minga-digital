@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-//using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Microsoft.AspNet.Mvc;
@@ -12,63 +11,60 @@ using MingaDigital.App.Models;
 namespace MingaDigital.App.Controllers
 {
     [Route("ubicaciones")]
-    public class UbicacionController : Controller
+    public class UbicacionController
+        : BasicCrudController<
+            MainContext,
+            Ubicacion,
+            UbicacionIndexModel,
+            UbicacionDetailModel,
+            UbicacionEditorModel
+        >
     {
-        [FromServices]
-        public MainContext Db { get; set; }
-        
-        [HttpGet("")]
-        public IActionResult Index()
+        protected override UbicacionIndexModel GetIndexModel()
         {
             var query =
-                Db.Ubicacion
-                .OrderBy(x => x.MunicipioId);
+                CrudSet
+                .Select(x => new UbicacionIndexTableRow
+                {
+                    UbicacionId = x.UbicacionId,
+                    Municipio = x.Municipio.Nombre,
+                    Distrito = x.Distrito,
+                    UnidadVecinal = x.UnidadVecinal,
+                    Direccion = x.Direccion
+                });
             
-            var result = query.ToArray();
+            var result =
+                query.ToArray();
             
-            return View(result);
-        }
-        
-        [HttpGet("nuevo")]
-        public IActionResult Create()
-        {
-            return View();
-        }
-        
-        [HttpPost("nuevo")]
-        public IActionResult Create(UbicacionEditorModel model)
-        {
-            if (!ModelState.IsValid)
+            var model = new UbicacionIndexModel
             {
-                return View(model);
-            }
-            
-            var entity = new Ubicacion
-            {
-                MunicipioId = model.MunicipioId,
-                Distrito = model.Distrito,
-                UnidadVecinal = model.UnidadVecinal,
-                Direccion = model.Direccion,
-                Coordenada = model.Coordenada
+                Table = new UbicacionIndexTable { Rows = result }
             };
             
-            Db.Ubicacion.Add(entity);
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
+            return model;
         }
         
-        [HttpGet("{id}/modificar")]
-        public IActionResult Update(Int32 id)
+        protected override UbicacionDetailModel EntityToDetailModel(Ubicacion entity)
         {
-            var entity = Db.Ubicacion.Find(id);
-            
-            if (entity == null)
+            return new UbicacionDetailModel
             {
-                return HttpNotFound();
-            }
-            
-            var model = new UbicacionEditorModel
+                UbicacionId = entity.UbicacionId,
+                Municipio = entity.Municipio.Nombre,
+                Distrito = entity.Distrito,
+                UnidadVecinal = entity.UnidadVecinal,
+                Direccion = entity.Direccion,
+                Coordenada = entity.Coordenada
+            };
+        }
+        
+        protected override UbicacionEditorModel GetInitialEditorModel()
+        {
+            return new UbicacionEditorModel();
+        }
+        
+        protected override UbicacionEditorModel EntityToEditorModel(Ubicacion entity)
+        {
+            return new UbicacionEditorModel
             {
                 MunicipioId = entity.MunicipioId,
                 Distrito = entity.Distrito,
@@ -76,50 +72,27 @@ namespace MingaDigital.App.Controllers
                 Direccion = entity.Direccion,
                 Coordenada = entity.Coordenada
             };
-            
-            return View("Create", model);
         }
         
-        [HttpPost("{id}/modificar")]
-        public IActionResult Update(Int32 id, UbicacionEditorModel model)
+        protected override Ubicacion EditorModelToEntity(UbicacionEditorModel model)
         {
-            var entity = Db.Ubicacion.Find(id);
-            
-            if (entity == null)
+            return new Ubicacion
             {
-                return HttpNotFound();
-            }
-            
-            if (!ModelState.IsValid)
-            {
-                return View("Create", model);
-            }
-            
+                MunicipioId = model.MunicipioId,
+                Distrito = model.Distrito,
+                UnidadVecinal = model.UnidadVecinal,
+                Direccion = model.Direccion,
+                Coordenada = model.Coordenada
+            };
+        }
+        
+        protected override void ApplyEditorModel(UbicacionEditorModel model, Ubicacion entity)
+        {
             entity.MunicipioId = model.MunicipioId;
             entity.Distrito = model.Distrito;
             entity.UnidadVecinal = model.UnidadVecinal;
             entity.Direccion = model.Direccion;
             entity.Coordenada = model.Coordenada;
-            
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
-        }
-        
-        [HttpGet("{id}/eliminar")]
-        public IActionResult Delete(Int32 id)
-        {
-            var entity = Db.Ubicacion.Find(id);
-            
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            
-            Db.Ubicacion.Remove(entity);
-            Db.SaveChanges();
-            
-            return RedirectToAction("Index");
         }
     }
 }
