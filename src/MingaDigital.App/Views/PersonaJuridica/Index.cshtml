@@ -1,0 +1,69 @@
+@model PersonaJuridicaIndexModel
+
+@{
+    ViewBag.Title = "Personas Jurídicas";
+}
+
+<style>
+.table td {
+  white-space: nowrap;
+}
+</style>
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<div class="panel panel-default with-table">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-8">
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Create")">
+          <span class="glyphicon glyphicon-file"></span>
+          Nuevo
+        </a>
+      </div>
+      <div class="col-md-4">
+        
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th width="90%"><!-- spacer --></th>
+        <th><!-- actions --></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+    @if (!Model.Table.Rows.Any())
+    {
+      <tr>
+        <td colspan="3">No hay registros.</td>
+      </tr>
+    }
+    @foreach (var row in Model.Table.Rows)
+    {
+      <tr>
+        <td>@row.Nombre</td>
+        
+        <td><!-- spacer --></td>
+        
+        <td>
+          <a href="@Url.Action("Update", new { id = row.PersonaJuridicaId })" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-pencil"></span>
+            Modificar
+          </a>
+          
+          <a href="@Url.Action("Delete", new { id = row.PersonaJuridicaId })" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-remove"></span>
+            Eliminar
+          </a>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+</div>

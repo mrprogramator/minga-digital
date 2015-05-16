@@ -1,0 +1,12 @@
+@using System.Reflection
+@using System.ComponentModel
+
+@{
+    var model = (Object)Model;
+    var modelType = model.GetType();
+    var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
+    
+    ViewBag.Title = "Modificar " + modelDescription;
+}
+
+@Html.Partial("BasicEditor", (Object)Model)

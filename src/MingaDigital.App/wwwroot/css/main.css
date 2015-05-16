@@ -15,13 +15,38 @@
       color: #888;
     }
 
-.well .detail-list {
-  
+.panel-body .well {
+  margin: 20px 0;
+  padding: 10px 20px;
 }
-  .well .detail-list .row {
-    border-bottom: 1px solid #CCC;
+  .panel-body .well .detail-list {
+    
   }
+    .panel-body .well .detail-list .row {
+      border-bottom: 1px solid #CCC;
+    }
+      .panel-body .well .detail-list .row:last-child {
+        border-bottom: 0;
+      }
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
+}
+
+#main > .page-header {
+  margin-top: 0px;
+}
+
+.panel.with-table > .panel-heading {
+  padding: 5px;
+}
+
+.entity-editor {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#main > .inline-modal {
+  max-width: 600px;
+  margin: 0 auto;
 }

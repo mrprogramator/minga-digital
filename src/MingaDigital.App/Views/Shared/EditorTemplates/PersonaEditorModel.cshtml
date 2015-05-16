@@ -1,0 +1,18 @@
+@model PersonaEditorModel
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      @Html.LabelFor(m => m.Nombres, new { @class = "control-label" })
+      
+      @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control" })
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      @Html.LabelFor(m => m.Apellidos, new { @class = "control-label" })
+      
+      @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control" })
+    </div>
+  </div>
+</div>
