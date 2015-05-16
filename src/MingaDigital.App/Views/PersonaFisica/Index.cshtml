@@ -28,7 +28,7 @@
       </div>
     </div>
   </div>
-  <table class="table table-hover">
+  <table class="table">
     <thead>
       <tr>
         <th>Nombre</th>
@@ -52,11 +52,13 @@
         <td><!-- spacer --></td>
         
         <td>
-          <a href="@Url.Action("Update", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-warning">
+          <a href="@Url.Action("Update", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-pencil"></span>
             Modificar
           </a>
           
-          <a href="@Url.Action("Delete", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-danger">
+          <a href="@Url.Action("Delete", new { id = row.PersonaFisicaId })" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-remove"></span>
             Eliminar
           </a>
         </td>

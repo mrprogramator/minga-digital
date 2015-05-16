@@ -15,12 +15,19 @@
       color: #888;
     }
 
-.well .detail-list {
-  
+.panel-body .well {
+  margin: 20px 0;
+  padding: 15px 20px;
 }
-  .well .detail-list .row {
-    border-bottom: 1px solid #CCC;
+  .panel-body .well .detail-list {
+    
   }
+    .panel-body .well .detail-list .row {
+      border-bottom: 1px solid #CCC;
+    }
+      .panel-body .well .detail-list .row:last-child {
+        border-bottom: 0;
+      }
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }

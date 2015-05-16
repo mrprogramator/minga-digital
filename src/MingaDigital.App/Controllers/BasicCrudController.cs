@@ -7,7 +7,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace MingaDigital.App.Controllers
 {
-    public abstract class BasicCrudController<ContextT, EntityT, IndexModelT, EditorModelT> : Controller
+    public abstract class BasicCrudController<ContextT, EntityT, IndexModelT, DetailModelT, EditorModelT> : Controller
         where ContextT : DbContext
         where EntityT : class
     {
@@ -18,9 +18,11 @@ namespace MingaDigital.App.Controllers
         
         protected abstract IndexModelT GetIndexModel(IQueryable<EntityT> source);
         
-        protected abstract EntityT EditorModelToEntity(EditorModelT model);
+        protected abstract DetailModelT EntityToDetailModel(EntityT entity);
         
         protected abstract EditorModelT EntityToEditorModel(EntityT entity);
+        
+        protected abstract EntityT EditorModelToEntity(EditorModelT model);
         
         protected abstract void ApplyEditorModel(EditorModelT model, EntityT entity);
         
@@ -28,6 +30,21 @@ namespace MingaDigital.App.Controllers
         public virtual IActionResult Index()
         {
             var model = GetIndexModel(CrudSet);
+            
+            return View(model);
+        }
+        
+        [HttpGet("{id}")]
+        public virtual IActionResult Detail(Int32 id)
+        {
+            var entity = CrudSet.Find(id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var model = EntityToDetailModel(entity);
             
             return View(model);
         }
@@ -101,7 +118,9 @@ namespace MingaDigital.App.Controllers
                 return HttpNotFound();
             }
             
-            return View(entity);
+            var model = EntityToDetailModel(entity);
+            
+            return View(model);
         }
         
          [HttpPost("{id}/eliminar")]

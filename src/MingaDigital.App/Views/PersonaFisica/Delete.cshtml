@@ -1,19 +1,27 @@
-@model PersonaFisica
+@model PersonaDetailModel
 
 @{
     ViewBag.Title = "Eliminar Persona Fisica";
 }
 
-<h2 class="page-header">
-  @ViewBag.Title
-</h2>
-
-<form method="POST">
-  <p>Est&aacute; seguro que desea eliminar el registro?</p>
-  
-  <div class="text-right">
-    <a href="@Url.Action("Index")" class="btn btn-link">Cancelar</a>
-    
-    <button type="submit" class="btn btn-danger">Eliminar</button>
+<div class="panel panel-danger" >
+  <div class="panel-heading">
+    <b>Advertencia</b>
   </div>
-</form>
+  
+  <div class="panel-body">
+    <p>&iquest;Desea <strong>eliminar</strong> el siguiente registro de <strong>Persona Física</strong>?</p>
+    
+    <div class="well">
+      @Html.DisplayFor(m => m)
+    </div>
+    
+    <form role="form" name="form" method="POST">
+      <div class="text-right">
+        <a href="@Url.Action("Index")" class="btn btn-sm btn-link">Cancelar</a>
+        
+        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+      </div>
+    </form>
+  </div>
+</div>

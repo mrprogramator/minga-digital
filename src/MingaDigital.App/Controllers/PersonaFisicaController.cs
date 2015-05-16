@@ -11,7 +11,14 @@ using MingaDigital.App.Models;
 namespace MingaDigital.App.Controllers
 {
     [Route("personas-fisicas")]
-    public class PersonaFisicaController : BasicCrudController<MainContext, PersonaFisica, PersonaFisicaIndexModel, PersonaEditorModel>
+    public class PersonaFisicaController
+        : BasicCrudController<
+            MainContext,
+            PersonaFisica,
+            PersonaFisicaIndexModel,
+            PersonaDetailModel,
+            PersonaEditorModel
+        >
     {
         protected override PersonaFisicaIndexModel GetIndexModel(IQueryable<PersonaFisica> source)
         {
@@ -35,12 +42,13 @@ namespace MingaDigital.App.Controllers
             return model;
         }
         
-        protected override PersonaFisica EditorModelToEntity(PersonaEditorModel model)
+        protected override PersonaDetailModel EntityToDetailModel(PersonaFisica entity)
         {
-            return new PersonaFisica
+            return new PersonaDetailModel
             {
-                Nombres = model.Nombres,
-                Apellidos = model.Apellidos
+                PersonaFisicaId = entity.PersonaFisicaId,
+                Nombres = entity.Nombres,
+                Apellidos = entity.Apellidos
             };
         }
         
@@ -50,6 +58,15 @@ namespace MingaDigital.App.Controllers
             {
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos
+            };
+        }
+        
+        protected override PersonaFisica EditorModelToEntity(PersonaEditorModel model)
+        {
+            return new PersonaFisica
+            {
+                Nombres = model.Nombres,
+                Apellidos = model.Apellidos
             };
         }
         
