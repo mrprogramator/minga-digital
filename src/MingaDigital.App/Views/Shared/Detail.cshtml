@@ -1,0 +1,17 @@
+@using System.Reflection
+@using System.ComponentModel
+@using System.ComponentModel.DataAnnotations
+
+@{
+    var model = (Object)Model;
+    var modelType = model.GetType();
+    var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
+    
+    ViewBag.Title = modelDescription;
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+@Component.Invoke("DetailList", Html, model)
