@@ -13,21 +13,10 @@
 </head>
 <body>
 
-@{
-  var controllers = new Dictionary<String, String> {
-    ["Home"]              = "Inicio",
-    ["PersonaFisica"]     = "Personas Físicas",
-    ["PersonaJuridica"]   = "Personas Jurídicas",
-    ["TipoActividad"]     = "Tipo de actividad"
-  };
-    
-  var controller = ViewContext.RouteData.Values["Controller"].ToString();
-}
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -36,16 +25,45 @@
       <a class="navbar-brand" href="@Url.Action("Index", "Home")">Minga Digital</a>
     </div>
     
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
-      @foreach (var pair in controllers)
-      {
-        var classes = "";
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            Establecimientos <span class="caret"></span>
+          </a>
+          
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index", "Telecentro")">Telecentros</a></li>
+            <li><a href="@Url.Action("Index", "Almacen")">Almacenes</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Index", "Ubicacion")">Ubicaciones</a></li>
+          </ul>
+        </li>
         
-        if (controller == pair.Key) { classes += " active"; }
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            Personas <span class="caret"></span>
+          </a>
+          
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index", "PersonaJuridica")">Personas Jurídicas</a></li>
+            <li><a href="@Url.Action("Index", "PersonaFisica")">Personas Físicas</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Index", "Usuario")">Usuarios</a></li>
+          </ul>
+        </li>
         
-        <li class="@classes"><a href="@Url.Action("Index", pair.Key)">@pair.Value</a></li>
-      }
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            Actividades <span class="caret"></span>
+          </a>
+          
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index", "Actividad")">Actividades</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Index", "TipoActividad")">Tipos de Actividad</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
