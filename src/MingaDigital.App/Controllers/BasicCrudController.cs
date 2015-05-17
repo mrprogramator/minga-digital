@@ -5,18 +5,21 @@ using System.Data.Entity;
 
 using Microsoft.AspNet.Mvc;
 
+using MingaDigital.App.Models;
+
 namespace MingaDigital.App.Controllers
 {
-    public abstract class BasicCrudController<ContextT, EntityT, IndexModelT, DetailModelT, EditorModelT> : Controller
+    public abstract class BasicCrudController<ContextT, EntityT, IndexModelT, IndexRowT, DetailModelT, EditorModelT> : Controller
         where ContextT : DbContext
         where EntityT : class
+        where IndexModelT : BasicIndexModel<IndexRowT>
     {
         [FromServices]
         public ContextT Db { get; set; }
         
         protected DbSet<EntityT> CrudSet => Db.Set<EntityT>();
         
-        protected abstract IndexModelT GetIndexModel();
+        protected abstract IEnumerable<IndexRowT> GetIndexRows(IndexModelT model);
         
         protected abstract DetailModelT EntityToDetailModel(EntityT entity);
         
@@ -29,9 +32,14 @@ namespace MingaDigital.App.Controllers
         protected abstract void ApplyEditorModel(EditorModelT model, EntityT entity);
         
         [HttpGet("")]
-        public virtual IActionResult Index()
+        public virtual IActionResult Index(IndexModelT model)
         {
-            var model = GetIndexModel();
+            var rows = GetIndexRows(model);
+            
+            model.Table = new BasicTable<IndexRowT>
+            {
+                Rows = rows
+            };
             
             return View(model);
         }

@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace MingaDigital.App.Models
 {
+    public class BasicIndexModel<RowT>
+    {
+        public BasicTable<RowT> Table { get; set; }
+    } 
+    
     public class BasicTable<RowT>
     {
         public IEnumerable<RowT> Rows { get; set; }

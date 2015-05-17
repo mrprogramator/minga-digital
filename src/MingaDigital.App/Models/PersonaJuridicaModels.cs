@@ -5,12 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MingaDigital.App.Models
 {
-    public class PersonaJuridicaIndexModel
-    {
-        public PersonaJuridicaIndexTable Table { get; set; }
-    }
-    
-    public class PersonaJuridicaIndexTable : BasicTable<PersonaJuridicaIndexTableRow>
+    public class PersonaJuridicaIndexModel : BasicIndexModel<PersonaJuridicaIndexTableRow>
     {
     }
     

@@ -16,11 +16,12 @@ namespace MingaDigital.App.Controllers
             MainContext,
             Ubicacion,
             UbicacionIndexModel,
+            UbicacionIndexTableRow,
             UbicacionDetailModel,
             UbicacionEditorModel
         >
     {
-        protected override UbicacionIndexModel GetIndexModel()
+        protected override IEnumerable<UbicacionIndexTableRow> GetIndexRows(UbicacionIndexModel model)
         {
             var query =
                 CrudSet
@@ -33,15 +34,9 @@ namespace MingaDigital.App.Controllers
                     Direccion = x.Direccion
                 });
             
-            var result =
-                query.ToArray();
+            var result = query.ToArray();
             
-            var model = new UbicacionIndexModel
-            {
-                Table = new UbicacionIndexTable { Rows = result }
-            };
-            
-            return model;
+            return result;
         }
         
         protected override UbicacionDetailModel EntityToDetailModel(Ubicacion entity)

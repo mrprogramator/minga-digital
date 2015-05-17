@@ -5,12 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MingaDigital.App.Models
 {
-    public class PersonaFisicaIndexModel
-    {
-        public PersonaFisicaIndexTable Table { get; set; }
-    }
-    
-    public class PersonaFisicaIndexTable : BasicTable<PersonaFisicaIndexTableRow>
+    [Description("Personas Físicas")]
+    public class PersonaFisicaIndexModel : BasicIndexModel<PersonaFisicaIndexTableRow>
     {
     }
     

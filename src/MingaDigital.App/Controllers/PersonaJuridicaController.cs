@@ -16,29 +16,24 @@ namespace MingaDigital.App.Controllers
             MainContext,
             PersonaJuridica,
             PersonaJuridicaIndexModel,
+            PersonaJuridicaIndexTableRow,
             PersonaJuridicaDetailModel,
             PersonaJuridicaEditorModel
         >
     {
-        protected override PersonaJuridicaIndexModel GetIndexModel()
+        protected override IEnumerable<PersonaJuridicaIndexTableRow> GetIndexRows(PersonaJuridicaIndexModel model)
         {
             var query =
-                CrudSet;
-            
-            var result =
-                query.ToArray()
+                CrudSet
                 .Select(x => new PersonaJuridicaIndexTableRow
                 {
                     PersonaJuridicaId = x.PersonaJuridicaId,
                     Nombre = x.Nombre
                 });
             
-            var model = new PersonaJuridicaIndexModel
-            {
-                Table = new PersonaJuridicaIndexTable { Rows = result }
-            };
+            var result = query.ToArray();
             
-            return model;
+            return result;
         }
         
         protected override PersonaJuridicaDetailModel EntityToDetailModel(PersonaJuridica entity)

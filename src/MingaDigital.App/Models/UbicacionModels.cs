@@ -7,12 +7,7 @@ using MingaDigital.App.Entities;
 
 namespace MingaDigital.App.Models
 {
-    public class UbicacionIndexModel
-    {
-        public UbicacionIndexTable Table { get; set; }
-    }
-    
-    public class UbicacionIndexTable : BasicTable<UbicacionIndexTableRow>
+    public class UbicacionIndexModel : BasicIndexModel<UbicacionIndexTableRow>
     {
     }
     

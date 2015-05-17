@@ -16,17 +16,15 @@ namespace MingaDigital.App.Controllers
             MainContext,
             PersonaFisica,
             PersonaFisicaIndexModel,
+            PersonaFisicaIndexTableRow,
             PersonaFisicaDetailModel,
             PersonaFisicaEditorModel
         >
     {
-        protected override PersonaFisicaIndexModel GetIndexModel()
+        protected override IEnumerable<PersonaFisicaIndexTableRow> GetIndexRows(PersonaFisicaIndexModel model)
         {
             var query =
-                CrudSet;
-            
-            var result =
-                query.ToArray()
+                CrudSet
                 .Select(x => new PersonaFisicaIndexTableRow
                 {
                     PersonaFisicaId = x.PersonaFisicaId,
@@ -34,12 +32,9 @@ namespace MingaDigital.App.Controllers
                     Apellidos = x.Apellidos
                 });
             
-            var model = new PersonaFisicaIndexModel
-            {
-                Table = new PersonaFisicaIndexTable { Rows = result }
-            };
+            var result = query.ToArray();
             
-            return model;
+            return result;
         }
         
         protected override PersonaFisicaDetailModel EntityToDetailModel(PersonaFisica entity)
