@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MingaDigital.App.Models
 {
+    [Description("Personas Jurídicas")]
     public class PersonaJuridicaIndexModel : BasicIndexModel<PersonaJuridicaIndexTableRow>
     {
     }
