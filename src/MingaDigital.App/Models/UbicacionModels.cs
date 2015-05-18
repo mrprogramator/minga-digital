@@ -12,7 +12,6 @@ namespace MingaDigital.App.Models
     {
     }
     
-    [Description("Ubicación")]
     public class UbicacionIndexTableRow
     {
         public Int32 UbicacionId { get; set; }
@@ -60,6 +59,7 @@ namespace MingaDigital.App.Models
         public GeoCoordenada Coordenada { get; set; }
     }
     
+    [Description("Ubicación")]
     public class UbicacionEditorModel
     {
         [Required(ErrorMessage = "{0} es un campo requerido.")]
