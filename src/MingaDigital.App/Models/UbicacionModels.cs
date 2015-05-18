@@ -16,19 +16,15 @@ namespace MingaDigital.App.Models
     {
         public Int32 UbicacionId { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Distrito")]
         public Int32 Distrito { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Unidad Vecinal")]
         public Int32 UnidadVecinal { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Dirección")]
         public String Direccion { get; set; }
     }
@@ -38,23 +34,18 @@ namespace MingaDigital.App.Models
     {
         public Int32 UbicacionId { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Distrito")]
         public Int32 Distrito { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Unidad Vecinal")]
         public Int32 UnidadVecinal { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Dirección")]
         public String Direccion { get; set; }
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Coordenada")]
         public GeoCoordenada Coordenada { get; set; }
     }
