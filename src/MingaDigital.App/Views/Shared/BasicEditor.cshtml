@@ -18,11 +18,22 @@
   </h2>
   
   <form method="POST">
-    @Html.ValidationSummary("")
+  @if (!ViewContext.ViewData.ModelState.IsValid)
+  {
+    <div class="bg-danger error-list">
+      <h4 class="title">Error</h4>
+      @Html.ValidationSummary("")
+    </div>
+  }
     
   @foreach (var prop in displayProps)
   {
-    <div class="form-group">
+    var isInvalid = ViewContext.ViewData.ModelState[prop.Name]?.Errors.Any();
+    var classes = "";
+    
+    if (isInvalid == true) { classes += " has-error"; }
+    
+    <div class="form-group @classes">
       @Html.Label(prop.Name, null, new { @class = "control-label" })
       
       @Html.Editor(prop.Name)
