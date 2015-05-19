@@ -37,6 +37,12 @@
       @Html.Label(prop.Name, null, new { @class = "control-label" })
       
       @Html.Editor(prop.Name)
+      
+      @*
+      <span class="help-block">
+        @Html.ValidationMessage(prop.Name)
+      </span>
+      *@
     </div>
   }
     
