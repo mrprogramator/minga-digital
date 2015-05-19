@@ -1,0 +1,3 @@
+@model Enum
+
+@Html.DropDownList("", Html.GetEnumSelectList(Model.GetType()), null, new { @class = "form-control" })
