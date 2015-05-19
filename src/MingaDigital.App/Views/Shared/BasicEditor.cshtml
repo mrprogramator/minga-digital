@@ -20,7 +20,7 @@
   <form method="POST">
   @if (!ViewContext.ViewData.ModelState.IsValid)
   {
-    <div class="bg-danger error-list">
+    <div class="alert alert-danger">
       <h4 class="title">Error</h4>
       @Html.ValidationSummary("")
     </div>
