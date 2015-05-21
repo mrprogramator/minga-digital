@@ -19,7 +19,7 @@ namespace MingaDigital.App.Entities
         
         public Password Password { get; set; }
         
-        public virtual Persona Persona { get; set; }
+        public virtual PersonaFisica PersonaFisica { get; set; }
         
         public virtual ICollection<PermisoGlobal> PermisosGlobales { get; set; }
     }

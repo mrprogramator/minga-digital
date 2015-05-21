@@ -13,5 +13,9 @@ namespace MingaDigital.App.Entities
         
         [Required]
         public String Apellidos { get; set; }
+        
+        public String Nit { get; set; }
+        
+        public virtual Usuario Usuario { get; set; }
     }
 }

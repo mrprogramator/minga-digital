@@ -39,6 +39,8 @@ namespace MingaDigital.App.EF
         
         public DbSet<PermisoRol> PermisoRol { get; set; }
         
+        public DbSet<Persona> Persona { get; set; }
+        
         public DbSet<PersonaFisica> PersonaFisica { get; set; }
         
         public DbSet<PersonaFisicaCtel> PersonaFisicaCtel { get; set; }
@@ -81,9 +83,9 @@ namespace MingaDigital.App.EF
                 .WithRequired(ct => ct.UnidadEducativa);
             
             modelBuilder
-                .Entity<Persona>()
+                .Entity<PersonaFisica>()
                 .HasOptional(p => p.Usuario)
-                .WithRequired(u => u.Persona);
+                .WithRequired(u => u.PersonaFisica);
             
             modelBuilder
                 .Types()
