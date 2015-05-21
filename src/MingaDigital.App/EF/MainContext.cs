@@ -81,6 +81,11 @@ namespace MingaDigital.App.EF
                 .WithRequired(ct => ct.UnidadEducativa);
             
             modelBuilder
+                .Entity<Persona>()
+                .HasOptional(p => p.Usuario)
+                .WithRequired(u => u.Persona);
+            
+            modelBuilder
                 .Types()
                 .Configure(config => config.ToTable(GetTableName(config.ClrType)));
             
