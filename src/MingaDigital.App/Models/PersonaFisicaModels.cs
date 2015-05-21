@@ -19,6 +19,9 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Apellidos")]
         public String Apellidos { get; set; }
+        
+        [Display(Name = "NIT")]
+        public String Nit { get; set; }
     }
     
     [Description("Persona Física")]
@@ -31,6 +34,12 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Apellidos")]
         public String Apellidos { get; set; }
+        
+        [Display(Name = "NIT")]
+        public String Nit { get; set; }
+        
+        [Display(Name = "Dirección")]
+        public String Direccion { get; set; }
     }
     
     [Description("Persona Física")]
@@ -43,5 +52,11 @@ namespace MingaDigital.App.Models
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Apellidos")]
         public String Apellidos { get; set; }
+        
+        [Display(Name = "NIT")]
+        public String Nit { get; set; }
+        
+        [Display(Name = "Dirección")]
+        public String Direccion { get; set; }
     }
 }

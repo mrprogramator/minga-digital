@@ -29,7 +29,8 @@ namespace MingaDigital.App.Controllers
                 {
                     PersonaId = x.PersonaId,
                     Nombres = x.Nombres,
-                    Apellidos = x.Apellidos
+                    Apellidos = x.Apellidos,
+                    Nit = x.Nit
                 });
             
             var result = query.ToArray();
@@ -43,7 +44,9 @@ namespace MingaDigital.App.Controllers
             {
                 PersonaId = entity.PersonaId,
                 Nombres = entity.Nombres,
-                Apellidos = entity.Apellidos
+                Apellidos = entity.Apellidos,
+                Nit = entity.Nit,
+                Direccion = entity.Direccion
             };
         }
         
@@ -57,7 +60,9 @@ namespace MingaDigital.App.Controllers
             return new PersonaFisicaEditorModel
             {
                 Nombres = entity.Nombres,
-                Apellidos = entity.Apellidos
+                Apellidos = entity.Apellidos,
+                Nit = entity.Nit,
+                Direccion = entity.Direccion
             };
         }
         
@@ -66,7 +71,9 @@ namespace MingaDigital.App.Controllers
             return new PersonaFisica
             {
                 Nombres = model.Nombres,
-                Apellidos = model.Apellidos
+                Apellidos = model.Apellidos,
+                Nit = model.Nit,
+                Direccion = model.Direccion
             };
         }
         
@@ -74,6 +81,8 @@ namespace MingaDigital.App.Controllers
         {
             entity.Nombres = model.Nombres;
             entity.Apellidos = model.Apellidos;
+            entity.Nit = model.Nit;
+            entity.Direccion = model.Direccion;
         }
     }
 }
