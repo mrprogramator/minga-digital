@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public class PersonaJuridica
+    public class PersonaJuridica : Persona
     {
-        public Int32 PersonaJuridicaId { get; set; }
-        
         [Required]
         public String Nombre { get; set; }
     }

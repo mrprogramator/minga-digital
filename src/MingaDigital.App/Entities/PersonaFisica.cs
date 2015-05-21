@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MingaDigital.App.Entities
 {
-    public class PersonaFisica
+    public class PersonaFisica : Persona
     {
-        public Int32 PersonaFisicaId { get; set; }
-        
         [Required]
         public String Nombres { get; set; }
         
