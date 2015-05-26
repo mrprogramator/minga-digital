@@ -27,7 +27,7 @@ namespace MingaDigital.App.Controllers
                 CrudSet
                 .Select(x => new PersonaFisicaIndexTableRow
                 {
-                    PersonaId = x.PersonaId,
+                    PersonaFisicaId = x.PersonaFisicaId,
                     Nombres = x.Nombres,
                     Apellidos = x.Apellidos,
                     Nit = x.Nit
@@ -42,7 +42,7 @@ namespace MingaDigital.App.Controllers
         {
             return new PersonaFisicaDetailModel
             {
-                PersonaId = entity.PersonaId,
+                PersonaFisicaId = entity.PersonaFisicaId,
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
                 Nit = entity.Nit,

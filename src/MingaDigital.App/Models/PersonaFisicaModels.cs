@@ -12,7 +12,7 @@ namespace MingaDigital.App.Models
     
     public class PersonaFisicaIndexTableRow
     {
-        public Int32 PersonaId { get; set; }
+        public Int32 PersonaFisicaId { get; set; }
         
         [Display(Name = "Nombres")]
         public String Nombres { get; set; }
@@ -27,7 +27,7 @@ namespace MingaDigital.App.Models
     [Description("Persona Física")]
     public class PersonaFisicaDetailModel
     {
-        public Int32 PersonaId { get; set; }
+        public Int32 PersonaFisicaId { get; set; }
         
         [Display(Name = "Nombres")]
         public String Nombres { get; set; }

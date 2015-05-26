@@ -39,8 +39,6 @@ namespace MingaDigital.App.EF
         
         public DbSet<PermisoRol> PermisoRol { get; set; }
         
-        public DbSet<Persona> Persona { get; set; }
-        
         public DbSet<PersonaFisica> PersonaFisica { get; set; }
         
         public DbSet<PersonaFisicaCtel> PersonaFisicaCtel { get; set; }

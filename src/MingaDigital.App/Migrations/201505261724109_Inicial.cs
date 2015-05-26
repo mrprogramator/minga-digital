@@ -31,7 +31,7 @@ namespace MingaDigital.App.EF
                         telecentro_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.actividad_id)
-                .ForeignKey("public.persona_fisica", t => t.persona_encargada_id)
+                .ForeignKey("public.persona_fisica", t => t.persona_encargada_id, cascadeDelete: true)
                 .ForeignKey("public.telecentro", t => t.telecentro_id)
                 .ForeignKey("public.tipo_actividad", t => t.tipo_actividad_id, cascadeDelete: true)
                 .ForeignKey("public.usuario", t => t.usuario_creador_id, cascadeDelete: true)
@@ -41,14 +41,16 @@ namespace MingaDigital.App.EF
                 .Index(t => t.telecentro_id);
             
             CreateTable(
-                "public.persona",
+                "public.persona_fisica",
                 c => new
                     {
-                        persona_id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(nullable: false),
+                        persona_fisica_id = c.Int(nullable: false, identity: true),
+                        nombres = c.String(nullable: false),
+                        apellidos = c.String(nullable: false),
+                        nit = c.String(),
                         direccion = c.String(),
                     })
-                .PrimaryKey(t => t.persona_id);
+                .PrimaryKey(t => t.persona_fisica_id);
             
             CreateTable(
                 "public.usuario",
@@ -92,6 +94,26 @@ namespace MingaDigital.App.EF
                 .ForeignKey("public.ubicacion", t => t.ubicacion_id, cascadeDelete: true)
                 .Index(t => t.nombre, unique: true)
                 .Index(t => t.ubicacion_id);
+            
+            CreateTable(
+                "public.persona_juridica",
+                c => new
+                    {
+                        persona_juridica_id = c.Int(nullable: false, identity: true),
+                        nombre = c.String(nullable: false),
+                        rubro_id = c.Int(nullable: false),
+                        tipo_empresa_id = c.Int(nullable: false),
+                        encargado_id = c.Int(nullable: false),
+                        nit = c.String(nullable: false),
+                        direccion = c.String(),
+                    })
+                .PrimaryKey(t => t.persona_juridica_id)
+                .ForeignKey("public.persona_fisica", t => t.encargado_id, cascadeDelete: true)
+                .ForeignKey("public.rubro", t => t.rubro_id, cascadeDelete: true)
+                .ForeignKey("public.tipo_empresa", t => t.tipo_empresa_id, cascadeDelete: true)
+                .Index(t => t.rubro_id)
+                .Index(t => t.tipo_empresa_id)
+                .Index(t => t.encargado_id);
             
             CreateTable(
                 "public.rubro",
@@ -251,13 +273,12 @@ namespace MingaDigital.App.EF
                     {
                         persona_fisica_id = c.Int(nullable: false),
                         ctel_id = c.Int(nullable: false),
-                        PersonaFisica_PersonaId = c.Int(),
                     })
                 .PrimaryKey(t => new { t.persona_fisica_id, t.ctel_id })
                 .ForeignKey("public.ctel", t => t.ctel_id, cascadeDelete: true)
-                .ForeignKey("public.persona_fisica", t => t.PersonaFisica_PersonaId)
-                .Index(t => t.ctel_id)
-                .Index(t => t.PersonaFisica_PersonaId);
+                .ForeignKey("public.persona_fisica", t => t.persona_fisica_id, cascadeDelete: true)
+                .Index(t => t.persona_fisica_id)
+                .Index(t => t.ctel_id);
             
             CreateTable(
                 "public.ticket",
@@ -354,39 +375,6 @@ namespace MingaDigital.App.EF
                 .Index(t => t.activo_minga_id);
             
             CreateTable(
-                "public.persona_fisica",
-                c => new
-                    {
-                        persona_id = c.Int(nullable: false),
-                        nombres = c.String(nullable: false),
-                        apellidos = c.String(nullable: false),
-                        nit = c.String(),
-                    })
-                .PrimaryKey(t => t.persona_id)
-                .ForeignKey("public.persona", t => t.persona_id)
-                .Index(t => t.persona_id);
-            
-            CreateTable(
-                "public.persona_juridica",
-                c => new
-                    {
-                        persona_id = c.Int(nullable: false),
-                        rubro_id = c.Int(nullable: false),
-                        tipo_empresa_id = c.Int(nullable: false),
-                        encargado_id = c.Int(nullable: false),
-                        nit = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.persona_id)
-                .ForeignKey("public.persona", t => t.persona_id)
-                .ForeignKey("public.rubro", t => t.rubro_id, cascadeDelete: true)
-                .ForeignKey("public.tipo_empresa", t => t.tipo_empresa_id, cascadeDelete: true)
-                .ForeignKey("public.persona_fisica", t => t.encargado_id)
-                .Index(t => t.persona_id)
-                .Index(t => t.rubro_id)
-                .Index(t => t.tipo_empresa_id)
-                .Index(t => t.encargado_id);
-            
-            CreateTable(
                 "public.telecentro",
                 c => new
                     {
@@ -410,11 +398,6 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.telecentro", "proveedor_internet_id", "public.persona_juridica");
             DropForeignKey("public.telecentro", "patrocinador_id", "public.persona_juridica");
             DropForeignKey("public.telecentro", "establecimiento_minga_id", "public.establecimiento_minga");
-            DropForeignKey("public.persona_juridica", "encargado_id", "public.persona_fisica");
-            DropForeignKey("public.persona_juridica", "tipo_empresa_id", "public.tipo_empresa");
-            DropForeignKey("public.persona_juridica", "rubro_id", "public.rubro");
-            DropForeignKey("public.persona_juridica", "persona_id", "public.persona");
-            DropForeignKey("public.persona_fisica", "persona_id", "public.persona");
             DropForeignKey("public.equipo", "activo_minga_id", "public.activo_minga");
             DropForeignKey("public.componente", "equipo_id", "public.equipo");
             DropForeignKey("public.componente", "tipo_componente_id", "public.tipo_componente");
@@ -427,7 +410,7 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.ticket", "telecentro_id", "public.telecentro");
             DropForeignKey("public.ticket", "equipo_id", "public.equipo");
             DropForeignKey("public.ticket", "encargado_id", "public.usuario");
-            DropForeignKey("public.persona_fisica_ctel", "PersonaFisica_PersonaId", "public.persona_fisica");
+            DropForeignKey("public.persona_fisica_ctel", "persona_fisica_id", "public.persona_fisica");
             DropForeignKey("public.persona_fisica_ctel", "ctel_id", "public.ctel");
             DropForeignKey("public.permiso_rol", "rol_id", "public.rol");
             DropForeignKey("public.permiso_rol", "accion_id", "public.accion");
@@ -444,6 +427,9 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.unidad_educativa", "telecentro_id", "public.telecentro");
             DropForeignKey("public.ctel", "ctel_id", "public.unidad_educativa");
             DropForeignKey("public.ubicacion", "municipio_id", "public.municipio");
+            DropForeignKey("public.persona_juridica", "tipo_empresa_id", "public.tipo_empresa");
+            DropForeignKey("public.persona_juridica", "rubro_id", "public.rubro");
+            DropForeignKey("public.persona_juridica", "encargado_id", "public.persona_fisica");
             DropForeignKey("public.actividad", "persona_encargada_id", "public.persona_fisica");
             DropForeignKey("public.usuario", "usuario_id", "public.persona_fisica");
             DropForeignKey("public.permiso_global", "usuario_id", "public.usuario");
@@ -451,11 +437,6 @@ namespace MingaDigital.App.EF
             DropIndex("public.telecentro", new[] { "proveedor_internet_id" });
             DropIndex("public.telecentro", new[] { "patrocinador_id" });
             DropIndex("public.telecentro", new[] { "establecimiento_minga_id" });
-            DropIndex("public.persona_juridica", new[] { "encargado_id" });
-            DropIndex("public.persona_juridica", new[] { "tipo_empresa_id" });
-            DropIndex("public.persona_juridica", new[] { "rubro_id" });
-            DropIndex("public.persona_juridica", new[] { "persona_id" });
-            DropIndex("public.persona_fisica", new[] { "persona_id" });
             DropIndex("public.equipo", new[] { "activo_minga_id" });
             DropIndex("public.componente", new[] { "equipo_id" });
             DropIndex("public.componente", new[] { "tipo_componente_id" });
@@ -469,8 +450,8 @@ namespace MingaDigital.App.EF
             DropIndex("public.ticket", new[] { "equipo_id" });
             DropIndex("public.ticket", new[] { "telecentro_id" });
             DropIndex("public.ticket", new[] { "tipo_incidencia_id" });
-            DropIndex("public.persona_fisica_ctel", new[] { "PersonaFisica_PersonaId" });
             DropIndex("public.persona_fisica_ctel", new[] { "ctel_id" });
+            DropIndex("public.persona_fisica_ctel", new[] { "persona_fisica_id" });
             DropIndex("public.rol", new[] { "nombre" });
             DropIndex("public.permiso_rol", new[] { "rol_id" });
             DropIndex("public.permiso_rol", new[] { "accion_id" });
@@ -486,6 +467,9 @@ namespace MingaDigital.App.EF
             DropIndex("public.unidad_educativa", new[] { "ubicacion_id" });
             DropIndex("public.municipio", new[] { "nombre" });
             DropIndex("public.ubicacion", new[] { "municipio_id" });
+            DropIndex("public.persona_juridica", new[] { "encargado_id" });
+            DropIndex("public.persona_juridica", new[] { "tipo_empresa_id" });
+            DropIndex("public.persona_juridica", new[] { "rubro_id" });
             DropIndex("public.establecimiento_minga", new[] { "ubicacion_id" });
             DropIndex("public.establecimiento_minga", new[] { "nombre" });
             DropIndex("public.permiso_global", new[] { "usuario_id" });
@@ -498,8 +482,6 @@ namespace MingaDigital.App.EF
             DropIndex("public.actividad", new[] { "usuario_creador_id" });
             DropIndex("public.actividad", new[] { "tipo_actividad_id" });
             DropTable("public.telecentro");
-            DropTable("public.persona_juridica");
-            DropTable("public.persona_fisica");
             DropTable("public.equipo");
             DropTable("public.componente");
             DropTable("public.almacen");
@@ -520,10 +502,11 @@ namespace MingaDigital.App.EF
             DropTable("public.ubicacion");
             DropTable("public.tipo_empresa");
             DropTable("public.rubro");
+            DropTable("public.persona_juridica");
             DropTable("public.establecimiento_minga");
             DropTable("public.permiso_global");
             DropTable("public.usuario");
-            DropTable("public.persona");
+            DropTable("public.persona_fisica");
             DropTable("public.actividad");
             DropTable("public.accion");
         }
