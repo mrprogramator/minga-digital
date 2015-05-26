@@ -34,7 +34,7 @@ namespace MingaDigital.App
         public static IConfiguration LoadConfiguration()
         {
             return
-                new Configuration("./")
+                new Configuration()
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
         }
@@ -47,7 +47,7 @@ namespace MingaDigital.App
             {
                 var settings = 
                     options.OutputFormatters
-                           .Select(f => f as JsonOutputFormatter)
+                           .Select(f => f.Instance as JsonOutputFormatter)
                            .First(f => f != null)
                            .SerializerSettings;
                 
