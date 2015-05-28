@@ -57,7 +57,6 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         usuario_id = c.Int(nullable: false),
-                        persona_id = c.Int(nullable: false),
                         username = c.String(nullable: false),
                         password_hash = c.Binary(nullable: false),
                         password_salt = c.Binary(nullable: false),
@@ -66,7 +65,6 @@ namespace MingaDigital.App.EF
                 .PrimaryKey(t => t.usuario_id)
                 .ForeignKey("public.persona_fisica", t => t.usuario_id)
                 .Index(t => t.usuario_id)
-                .Index(t => t.persona_id, unique: true)
                 .Index(t => t.username, unique: true);
             
             CreateTable(
@@ -475,7 +473,6 @@ namespace MingaDigital.App.EF
             DropIndex("public.permiso_global", new[] { "usuario_id" });
             DropIndex("public.permiso_global", new[] { "accion_id" });
             DropIndex("public.usuario", new[] { "username" });
-            DropIndex("public.usuario", new[] { "persona_id" });
             DropIndex("public.usuario", new[] { "usuario_id" });
             DropIndex("public.actividad", new[] { "telecentro_id" });
             DropIndex("public.actividad", new[] { "persona_encargada_id" });

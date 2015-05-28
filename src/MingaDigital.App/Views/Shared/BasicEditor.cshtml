@@ -1,4 +1,5 @@
 @using System.Reflection
+@using System.ComponentModel
 @using System.ComponentModel.DataAnnotations
 
 @{
@@ -8,8 +9,14 @@
     var displayProps =
       from prop in modelType.GetProperties()
       let disp = prop.GetCustomAttribute<DisplayAttribute>()
+      let readOnly = prop.GetCustomAttribute<ReadOnlyAttribute>()
       where disp != null
-      select prop;
+      select new
+      {
+          Name = prop.Name,
+          Property = prop,
+          ReadOnly = readOnly?.IsReadOnly
+      };
 }
 
 <div class="entity-editor">
@@ -36,7 +43,14 @@
     <div class="form-group @classes">
       @Html.Label(prop.Name, null, new { @class = "control-label" })
       
+    @if (prop.ReadOnly == true)
+    {
+      @Html.TextBox(prop.Name, null, new { disabled = "disabled", @class = "form-control" })
+    }
+    else
+    {
       @Html.Editor(prop.Name)
+    }
       
       @*
       <span class="help-block">

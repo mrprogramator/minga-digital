@@ -8,10 +8,8 @@ namespace MingaDigital.App.Entities
 {
     public class Usuario
     {
+        // Sirve de FK para PersonaFisica
         public Int32 UsuarioId { get; set; }
-        
-        [Index(IsUnique = true)]
-        public Int32 PersonaId { get; set; }
         
         [Required]
         [Index(IsUnique = true)]

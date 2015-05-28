@@ -30,7 +30,8 @@ namespace MingaDigital.App.Controllers
                     PersonaFisicaId = x.PersonaFisicaId,
                     Nombres = x.Nombres,
                     Apellidos = x.Apellidos,
-                    Nit = x.Nit
+                    Nit = x.Nit,
+                    UsuarioId = x.Usuario.UsuarioId
                 });
             
             var result = query.ToArray();
@@ -83,6 +84,60 @@ namespace MingaDigital.App.Controllers
             entity.Apellidos = model.Apellidos;
             entity.Nit = model.Nit;
             entity.Direccion = model.Direccion;
+        }
+        
+        [HttpGet("{id}/crear-usuario")]
+        public IActionResult CreateUser(Int32 id)
+        {
+            var entity = Db.PersonaFisica.Find(id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var model = new UsuarioEditorModel();
+            model.PersonaFisicaNombre = $"{entity.Nombres} {entity.Apellidos}";
+            
+            return View("/Views/Shared/Create", model);
+        }
+        
+        [HttpPost("{id}/crear-usuario")]
+        public IActionResult CreateUser(Int32 id, UsuarioEditorModel model)
+        {
+            var entity = Db.PersonaFisica.Find(id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            model.PersonaFisicaNombre = $"{entity.Nombres} {entity.Apellidos}";
+            
+            if (!ModelState.IsValid)
+            {
+                return View("/Views/Shared/Create", model);
+            }
+            
+            // TODO usar algo de verdad!
+            var password = new Password
+            {
+                Hash = System.Text.Encoding.UTF8.GetBytes(model.Password),
+                Salt = new Byte[0],
+                Algorithm = "plain"
+            };
+            
+            var usuario = new Usuario
+            {
+                PersonaFisica = entity,
+                Username = model.Username,
+                Password = password
+            };
+            
+            Db.Usuario.Add(usuario);
+            Db.SaveChanges();
+            
+            return RedirectToAction("Index");
         }
     }
 }

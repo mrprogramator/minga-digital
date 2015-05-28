@@ -22,6 +22,8 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "NIT")]
         public String Nit { get; set; }
+        
+        public Nullable<Int32> UsuarioId { get; set; }
     }
     
     [Description("Persona Física")]
