@@ -87,6 +87,11 @@ namespace MingaDigital.App.Controllers
             entity.Direccion = model.Direccion;
         }
         
+        private void LoadEntityData(PersonaFisica entity, UsuarioEditorModel model)
+        {
+            model.PersonaFisicaNombre = entity.Nombre;
+        }
+        
         [HttpGet("{id}/crear-usuario")]
         public IActionResult CreateUser(Int32 id)
         {
@@ -98,7 +103,7 @@ namespace MingaDigital.App.Controllers
             }
             
             var model = new UsuarioEditorModel();
-            model.PersonaFisicaNombre = entity.Nombre;
+            LoadEntityData(entity, model);
             
             return View("/Views/Shared/Create", model);
         }
@@ -113,7 +118,7 @@ namespace MingaDigital.App.Controllers
                 return HttpNotFound();
             }
             
-            model.PersonaFisicaNombre = entity.Nombre;
+            LoadEntityData(entity, model);
             
             if (!ModelState.IsValid)
             {

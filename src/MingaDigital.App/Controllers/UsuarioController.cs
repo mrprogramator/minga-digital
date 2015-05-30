@@ -6,7 +6,9 @@ using System.Data.Entity;
 using Microsoft.AspNet.Mvc;
 
 using MingaDigital.App.EF;
+using MingaDigital.App.Entities;
 using MingaDigital.App.Models;
+using MingaDigital.Security;
 
 namespace MingaDigital.App.Controllers
 {
@@ -36,7 +38,61 @@ namespace MingaDigital.App.Controllers
                 Username = entity.Username
             };
             
-            return View("Detail", model);
+            return View(model);
+        }
+
+        private void LoadEntityData(Usuario entity, UsuarioChangePasswordModel model)
+        {
+            model.UsuarioId             = entity.UsuarioId;
+            model.PersonaFisicaNombre   = entity.PersonaFisica.Nombre;
+            model.Username              = entity.Username;
+        }
+
+        [HttpGet("{id}/reestablecer-password")]
+        public IActionResult ChangePassword(Int32 id)
+        {
+            var entity =
+                Db.Usuario
+                .Include(x => x.PersonaFisica)
+                .First(x => x.UsuarioId == id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var model = new UsuarioChangePasswordModel();
+            LoadEntityData(entity, model);
+            
+            return View("/Views/Shared/Update", model);
+        }
+        
+        [HttpPost("{id}/reestablecer-password")]
+        public IActionResult ChangePassword(Int32 id, UsuarioChangePasswordModel model)
+        {
+            var entity =
+                Db.Usuario
+                .Include(x => x.PersonaFisica)
+                .First(x => x.UsuarioId == id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            LoadEntityData(entity, model);
+            
+            if (!ModelState.IsValid)
+            {
+                return View("/Views/Shared/Update", model);
+            }
+            
+            var password = PasswordHash.Plain(model.Password);
+            
+            entity.Password = password;
+            Db.SaveChanges();
+            
+            return RedirectToAction("Detail");
         }
     }
 }

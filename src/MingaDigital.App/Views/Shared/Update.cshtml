@@ -1,12 +1,9 @@
-@using System.Reflection
-@using System.ComponentModel
+@model UsuarioChangePasswordModel
 
 @{
-    var model = (Object)Model;
-    var modelType = model.GetType();
-    var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
+    ViewBag.Title = "Reestablecer Password";
     
-    ViewBag.Title = "Modificar " + modelDescription;
+    ViewBag.CancelUrl = Url.Action("Detail", new { id = Model.UsuarioId });
 }
 
-@Html.Partial("BasicEditor", (Object)Model)
+@Html.Partial("BasicEditor", Model)

@@ -17,6 +17,10 @@
           Property = prop,
           ReadOnly = readOnly?.IsReadOnly
       };
+    
+    var cancelUrl = (String)ViewBag.CancelUrl;
+    
+    if (cancelUrl == null) { cancelUrl = @Url.Action("Index"); }
 }
 
 <div class="entity-editor">
@@ -25,43 +29,43 @@
   </h2>
   
   <form method="POST">
-  @if (!ViewContext.ViewData.ModelState.IsValid)
-  {
-    <div class="alert alert-danger">
-      <h4 class="title">Error</h4>
-      @Html.ValidationSummary("")
-    </div>
-  }
-    
-  @foreach (var prop in displayProps)
-  {
-    var isInvalid = ViewContext.ViewData.ModelState[prop.Name]?.Errors.Any();
-    var classes = "";
-    
-    if (isInvalid == true) { classes += " has-error"; }
-    
-    <div class="form-group @classes">
-      @Html.Label(prop.Name, null, new { @class = "control-label" })
-      
-    @if (prop.ReadOnly == true)
+    @if (!ViewContext.ViewData.ModelState.IsValid)
     {
-      @Html.TextBox(prop.Name, null, new { disabled = "disabled", @class = "form-control" })
-    }
-    else
-    {
-      @Html.Editor(prop.Name)
+      <div class="alert alert-danger">
+        <h4 class="title">Error</h4>
+        @Html.ValidationSummary("")
+      </div>
     }
       
-      @*
-      <span class="help-block">
-        @Html.ValidationMessage(prop.Name)
-      </span>
-      *@
-    </div>
-  }
+    @foreach (var prop in displayProps)
+    {
+      var isInvalid = ViewContext.ViewData.ModelState[prop.Name]?.Errors.Any();
+      var classes = "";
+      
+      if (isInvalid == true) { classes += " has-error"; }
+      
+      <div class="form-group @classes">
+        @Html.Label(prop.Name, null, new { @class = "control-label" })
+        
+        @if (prop.ReadOnly == true)
+        {
+          @Html.TextBox(prop.Name, null, new { disabled = "disabled", @class = "form-control" })
+        }
+        else
+        {
+          @Html.Editor(prop.Name)
+        }
+        
+        @*
+        <span class="help-block">
+          @Html.ValidationMessage(prop.Name)
+        </span>
+        *@
+      </div>
+    }
     
     <div class="text-right">
-      <a href="@Url.Action("Index")" class="btn btn-link">Cancelar</a>
+      <a href="@cancelUrl" class="btn btn-link">Cancelar</a>
       
       <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
