@@ -24,7 +24,7 @@ namespace MingaDigital.App.Controllers
         protected override IEnumerable<UbicacionIndexTableRow> GetIndexRows(UbicacionIndexModel model)
         {
             var query =
-                CrudSet
+                Db.Ubicacion
                 .Select(x => new UbicacionIndexTableRow
                 {
                     UbicacionId = x.UbicacionId,

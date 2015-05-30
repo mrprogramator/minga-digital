@@ -24,7 +24,7 @@ namespace MingaDigital.App.Controllers
         protected override IEnumerable<TipoIncidenciaIndexTableRow> GetIndexRows(TipoIncidenciaIndexModel model)
         {
             var query =
-                CrudSet
+                Db.TipoIncidencia
                 .Select(x => new TipoIncidenciaIndexTableRow
                 {
                     TipoIncidenciaId = x.TipoIncidenciaId,

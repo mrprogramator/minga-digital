@@ -24,7 +24,7 @@ namespace MingaDigital.App.Controllers
         protected override IEnumerable<PersonaJuridicaIndexTableRow> GetIndexRows(PersonaJuridicaIndexModel model)
         {
             var query =
-                CrudSet
+                Db.PersonaJuridica
                 .Select(x => new PersonaJuridicaIndexTableRow
                 {
                     PersonaJuridicaId = x.PersonaJuridicaId,

@@ -24,7 +24,7 @@ namespace MingaDigital.App.Controllers
         protected override IEnumerable<RolIndexTableRow> GetIndexRows(RolIndexModel model)
         {
             var query =
-                CrudSet
+                Db.Rol
                 .Select(x => new RolIndexTableRow
                 {
                     RolId = x.RolId,

@@ -17,8 +17,6 @@ namespace MingaDigital.App.Controllers
         [FromServices]
         public ContextT Db { get; set; }
         
-        protected DbSet<EntityT> CrudSet => Db.Set<EntityT>();
-        
         protected abstract IEnumerable<IndexRowT> GetIndexRows(IndexModelT model);
         
         protected abstract DetailModelT EntityToDetailModel(EntityT entity);
@@ -30,6 +28,8 @@ namespace MingaDigital.App.Controllers
         protected abstract EntityT EditorModelToEntity(EditorModelT model);
         
         protected abstract void ApplyEditorModel(EditorModelT model, EntityT entity);
+        
+        private DbSet<EntityT> CrudSet => Db.Set<EntityT>();
         
         [HttpGet("")]
         public virtual IActionResult Index(IndexModelT model)
