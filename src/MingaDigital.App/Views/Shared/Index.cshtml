@@ -44,50 +44,52 @@
       </div>
     </div>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-      @foreach (var prop in displayProps)
-      {
-        <th>@prop.Name</th>
-      }
-        <th width="90%"><!-- spacer --></th>
-        <th><!-- actions --></th>
-      </tr>
-    </thead>
-    
-    <tbody>
-    @if (!Enumerable.Any(Model.Table.Rows))
-    {
-      <tr>
-        <td colspan="@(displayProps.Count() + 2)">No hay registros.</td>
-      </tr>
-    }
-    @foreach (var row in Model.Table.Rows)
-    {
-      var id = idProp.GetValue(row);
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+        @foreach (var prop in displayProps)
+        {
+          <th>@prop.Name</th>
+        }
+          <th width="90%"><!-- spacer --></th>
+          <th><!-- actions --></th>
+        </tr>
+      </thead>
       
-      <tr>
-      @foreach (var prop in displayProps)
+      <tbody>
+      @if (!Enumerable.Any(Model.Table.Rows))
       {
-        <td>@prop.Property.GetValue(row)</td>
+        <tr>
+          <td colspan="@(displayProps.Count() + 2)">No hay registros.</td>
+        </tr>
       }
+      @foreach (var row in Model.Table.Rows)
+      {
+        var id = idProp.GetValue(row);
         
-        <td><!-- spacer --></td>
-        
-        <td>
-          <a href="@Url.Action("Update", new { id = id })" class="btn btn-xs btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-            Modificar
-          </a>
+        <tr>
+        @foreach (var prop in displayProps)
+        {
+          <td>@prop.Property.GetValue(row)</td>
+        }
           
-          <a href="@Url.Action("Delete", new { id = id })" class="btn btn-xs btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-            Eliminar
-          </a>
-        </td>
-      </tr>
-    }
-    </tbody>
-  </table>
+          <td><!-- spacer --></td>
+          
+          <td>
+            <a href="@Url.Action("Update", new { id = id })" class="btn btn-xs btn-default">
+              <span class="glyphicon glyphicon-pencil"></span>
+              Modificar
+            </a>
+            
+            <a href="@Url.Action("Delete", new { id = id })" class="btn btn-xs btn-default">
+              <span class="glyphicon glyphicon-remove"></span>
+              Eliminar
+            </a>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
 </div>
