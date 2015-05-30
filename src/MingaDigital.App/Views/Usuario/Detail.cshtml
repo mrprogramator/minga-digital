@@ -4,6 +4,8 @@
     ViewBag.Title = "Perfil de Usuario";
 }
 
+<div class="inline-modal">
+
 <h2 class="page-header">
   @ViewBag.Title
 </h2>
@@ -39,5 +41,14 @@
         <span class="glyphicon glyphicon-pencil"></span>
       </a>
     </div>
+  </div>
+</div>
+
+<div class="panel panel-default with-table">
+  <div class="panel-heading text-right">
+    <a class="btn btn-sm btn-danger" href="@Url.Action("Create")">
+      <span class="glyphicon glyphicon-remove"></span>
+      Eliminar
+    </a>
   </div>
 </div>

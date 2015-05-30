@@ -1,13 +1,14 @@
 #main {
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 .detail-list {
-
+  margin: 20px 0;
 }
   .detail-list .row {
-    line-height: 40px;
-    margin: 0;
+    line-height: 30px;
+    margin: 5px 0;
+    padding: 0 0 5px 0;
     
     border-bottom: 1px solid #EEE;
   }
@@ -31,10 +32,6 @@
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
-}
-
-#main > .page-header {
-  margin-top: 0px;
 }
 
 .panel.with-table > .panel-heading {
