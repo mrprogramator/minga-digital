@@ -7,6 +7,7 @@ using Microsoft.AspNet.Mvc;
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
 using MingaDigital.App.Models;
+using MingaDigital.Security;
 
 namespace MingaDigital.App.Controllers
 {
@@ -119,13 +120,7 @@ namespace MingaDigital.App.Controllers
                 return View("/Views/Shared/Create", model);
             }
             
-            // TODO usar algo de verdad!
-            var password = new Password
-            {
-                Hash = System.Text.Encoding.UTF8.GetBytes(model.Password),
-                Salt = new Byte[0],
-                Algorithm = "plain"
-            };
+            var password = PasswordHash.Plain(model.Password);
             
             var usuario = new Usuario
             {

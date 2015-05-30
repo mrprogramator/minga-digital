@@ -1,12 +1,14 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using MingaDigital.App.Entities;
+using MingaDigital.Security;
 
 namespace MingaDigital.App.EF
 {
@@ -71,9 +73,40 @@ namespace MingaDigital.App.EF
             Database.Log = Console.Error.WriteLine;
         }
         
+        // TODO hack-ish
+        private readonly IList<Type> _complexTypes = new List<Type>();
+        
+        private void MakeComplexType<T>(DbModelBuilder modelBuilder)
+            where T : class
+        {
+            _complexTypes.Add(typeof(T));
+            modelBuilder.ComplexType<T>();
+        }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+            
+            // <password>
+            
+            MakeComplexType<Password>(modelBuilder);
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Hash)
+                .IsRequired();
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Salt)
+                .IsRequired();
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Algorithm)
+                .IsRequired();
+            
+            // </password>
             
             modelBuilder
                 .Entity<UnidadEducativa>()
@@ -96,16 +129,16 @@ namespace MingaDigital.App.EF
             base.OnModelCreating(modelBuilder);
         }
         
-        private static String GetTableName(Type type)
+        private String GetTableName(Type type)
         {
             return PascalCaseToLowerUnderscore(type.Name);
         }
         
-        private static String GetColumnName(PropertyInfo property)
+        private String GetColumnName(PropertyInfo property)
         {
             String columnName = "";
             
-            if (property.ReflectedType.GetCustomAttribute<ComplexTypeAttribute>() != null)
+            if (_complexTypes.Contains(property.DeclaringType))
             {
                 columnName += PascalCaseToLowerUnderscore(property.DeclaringType.Name) + "_";
             }
