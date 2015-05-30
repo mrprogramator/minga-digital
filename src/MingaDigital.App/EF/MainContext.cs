@@ -87,6 +87,8 @@ namespace MingaDigital.App.EF
         {
             modelBuilder.HasDefaultSchema("public");
             
+            MakeComplexType<GeoCoordenada>(modelBuilder);
+            
             // <password>
             
             MakeComplexType<Password>(modelBuilder);
