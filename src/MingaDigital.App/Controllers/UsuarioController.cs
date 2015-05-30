@@ -31,11 +31,12 @@ namespace MingaDigital.App.Controllers
             
             var model = new UsuarioDetailModel
             {
-                PersonaFisicaNombre = $"{entity.PersonaFisica.Nombres} {entity.PersonaFisica.Apellidos}",
+                PersonaFisicaId = entity.PersonaFisica.PersonaFisicaId,
+                PersonaFisicaNombre = entity.PersonaFisica.Nombre,
                 Username = entity.Username
             };
             
-            return View("/Views/Shared/Detail", model);
+            return View("Detail", model);
         }
     }
 }

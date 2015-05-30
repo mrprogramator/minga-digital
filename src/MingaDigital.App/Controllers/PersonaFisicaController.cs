@@ -98,7 +98,7 @@ namespace MingaDigital.App.Controllers
             }
             
             var model = new UsuarioEditorModel();
-            model.PersonaFisicaNombre = $"{entity.Nombres} {entity.Apellidos}";
+            model.PersonaFisicaNombre = entity.Nombre;
             
             return View("/Views/Shared/Create", model);
         }
@@ -113,7 +113,7 @@ namespace MingaDigital.App.Controllers
                 return HttpNotFound();
             }
             
-            model.PersonaFisicaNombre = $"{entity.Nombres} {entity.Apellidos}";
+            model.PersonaFisicaNombre = entity.Nombre;
             
             if (!ModelState.IsValid)
             {
