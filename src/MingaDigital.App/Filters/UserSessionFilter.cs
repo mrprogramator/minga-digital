@@ -42,7 +42,11 @@ namespace MingaDigital.App.Filters
                     .Include(x => x.Usuario.PersonaFisica)
                     .FirstOrDefault(x => x.Id == sessionId);
                 
-                if (session != null)
+                if (session == null)
+                {
+                    context.HttpContext.Response.Cookies.Delete("session_token");
+                }
+                else
                 {
                     if (session.FechaHoraExpiracion <= DateTimeOffset.UtcNow)
                     {
