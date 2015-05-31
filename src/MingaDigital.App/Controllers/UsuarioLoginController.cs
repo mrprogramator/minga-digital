@@ -65,5 +65,16 @@ namespace MingaDigital.App.Controllers
             
             return Redirect("/");
         }
+        
+        [HttpGet("/logout")]
+        public IActionResult Logout()
+        {
+            // TODO mover nombre de cookie
+            Response.Cookies.Delete("session_token");
+            
+            // TODO eliminar objeto de sesion?
+            
+            return Redirect("/");
+        }
     }
 }
