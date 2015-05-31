@@ -3,6 +3,9 @@
 @using System.ComponentModel.DataAnnotations
 
 @{
+    Layout = "_CenteredLayout";
+    ViewBag.LayoutColumns = 6;
+    
     var model = (Object)Model;
     var modelType = model.GetType();
     var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
