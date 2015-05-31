@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 using Microsoft.AspNet.Mvc;
 
@@ -40,6 +41,11 @@ namespace MingaDigital.App.Controllers
             return result;
         }
         
+        protected override PersonaFisica GetDetailEntity(Int32 id) =>
+            Db.PersonaFisica
+            .Include(x => x.Usuario)
+            .FirstOrDefault(x => x.PersonaFisicaId == id);
+        
         protected override PersonaFisicaDetailModel EntityToDetailModel(PersonaFisica entity)
         {
             return new PersonaFisicaDetailModel
@@ -49,7 +55,6 @@ namespace MingaDigital.App.Controllers
                 Apellidos = entity.Apellidos,
                 Nit = entity.Nit,
                 Direccion = entity.Direccion,
-                // TODO include Usuario en query
                 UsuarioId = entity.Usuario?.UsuarioId
             };
         }
@@ -63,7 +68,6 @@ namespace MingaDigital.App.Controllers
         {
             return new PersonaFisicaEditorModel
             {
-                PersonaFisicaId = entity.PersonaFisicaId,
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
                 Nit = entity.Nit,
@@ -82,6 +86,11 @@ namespace MingaDigital.App.Controllers
             };
         }
         
+        protected override void LoadStaticData(Int32 id, PersonaFisica entity, PersonaFisicaEditorModel model)
+        {
+            model.PersonaFisicaId = entity.PersonaFisicaId;
+        }
+        
         protected override void ApplyEditorModel(PersonaFisicaEditorModel model, PersonaFisica entity)
         {
             entity.Nombres = model.Nombres;
@@ -92,6 +101,7 @@ namespace MingaDigital.App.Controllers
         
         private void LoadEntityData(PersonaFisica entity, UsuarioEditorModel model)
         {
+            model.PersonaFisicaId = entity.PersonaFisicaId;
             model.PersonaFisicaNombre = entity.Nombre;
         }
         
@@ -108,7 +118,7 @@ namespace MingaDigital.App.Controllers
             var model = new UsuarioEditorModel();
             LoadEntityData(entity, model);
             
-            return View("/Views/Shared/Create", model);
+            return View(model);
         }
         
         [HttpPost("{id}/crear-usuario")]
@@ -125,7 +135,7 @@ namespace MingaDigital.App.Controllers
             
             if (!ModelState.IsValid)
             {
-                return View("/Views/Shared/Create", model);
+                return View(model);
             }
             
             var password = PasswordHash.Plain(model.Password);

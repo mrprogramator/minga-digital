@@ -40,6 +40,8 @@ namespace MingaDigital.App.Models
     [Description("Usuario")]
     public class UsuarioEditorModel
     {
+        public Int32 PersonaFisicaId { get; set; }
+        
         [ReadOnly(true)]
         [Display(Name = "Persona Física")]
         public String PersonaFisicaNombre { get; set; }
