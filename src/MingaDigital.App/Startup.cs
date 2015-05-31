@@ -19,6 +19,7 @@ using Newtonsoft.Json.Serialization;
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
 using MingaDigital.App.Filters;
+using MingaDigital.App.Services;
 
 namespace MingaDigital.App
 {
@@ -43,6 +44,7 @@ namespace MingaDigital.App
         {
             services.AddMvc();
             
+            services.AddScoped<UserSessionService>();
             services.AddScoped<UserSessionFilter>();
             
             services.Configure<MvcOptions>(options =>

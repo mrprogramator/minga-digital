@@ -7,16 +7,17 @@ using Microsoft.AspNet.Mvc;
 
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
+using MingaDigital.App.Services;
 
 namespace MingaDigital.App.Filters
 {
     public class UserSessionFilter : IActionFilter
     {
-        private readonly MainContext _db;
+        private readonly UserSessionService _service;
         
-        public UserSessionFilter(MainContext db)
+        public UserSessionFilter(UserSessionService service)
         {
-            _db = db;
+            _service = service;
         }
         
         public void OnActionExecuting(ActionExecutingContext context)
@@ -27,32 +28,7 @@ namespace MingaDigital.App.Filters
             
             var allowAnon = actionDescriptor.MethodInfo.GetCustomAttribute<AllowAnonymousAttribute>();
             
-            // TODO factorizar logica de sesion
-            SesionUsuario session = null;
-            var sessionId = context.HttpContext.Request.Cookies.Get("session_token");
-            
-            if (sessionId != null)
-            {
-                session =
-                    _db.SesionUsuario
-                    .Include(x => x.Usuario)
-                    .Include(x => x.Usuario.PersonaFisica)
-                    .FirstOrDefault(x => x.Id == sessionId);
-                
-                if (session == null)
-                {
-                    context.HttpContext.Response.Cookies.Delete("session_token");
-                }
-                else
-                {
-                    if (session.FechaHoraExpiracion <= DateTimeOffset.UtcNow)
-                    {
-                        _db.SesionUsuario.Remove(session);
-                        _db.SaveChanges();
-                        session = null;
-                    }
-                }
-            }
+            var session = _service.ActiveUserSession;
             
             if (allowAnon == null && session == null)
             {

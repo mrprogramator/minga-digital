@@ -8,12 +8,16 @@ using Microsoft.AspNet.Mvc;
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
 using MingaDigital.App.Models;
+using MingaDigital.App.Services;
 using MingaDigital.Security;
 
 namespace MingaDigital.App.Controllers
 {
     public partial class UsuarioController : Controller
     {
+        [FromServices]
+        public UserSessionService UserSession { get; set; }
+        
         [AllowAnonymous]
         [HttpGet("/login")]
         public IActionResult Login()
@@ -48,20 +52,7 @@ namespace MingaDigital.App.Controllers
                 return View(model);
             }
             
-            // TODO factorizar logica de sesion
-            var sesion = new SesionUsuario
-            {
-                Id = Guid.NewGuid().ToString(),
-                Usuario = entity,
-                FechaHoraCreacion = DateTimeOffset.UtcNow,
-                FechaHoraExpiracion = DateTimeOffset.UtcNow.AddMinutes(5)
-            };
-            
-            Db.SesionUsuario.Add(sesion);
-            Db.SaveChanges();
-            
-            // TODO mover nombre de cookie
-            Response.Cookies.Append("session_token", sesion.Id);
+            UserSession.StartUserSession(entity);
             
             return Redirect("/");
         }
@@ -69,10 +60,7 @@ namespace MingaDigital.App.Controllers
         [HttpGet("/logout")]
         public IActionResult Logout()
         {
-            // TODO mover nombre de cookie
-            Response.Cookies.Delete("session_token");
-            
-            // TODO eliminar objeto de sesion?
+            UserSession.EndUserSession();
             
             return Redirect("/");
         }
