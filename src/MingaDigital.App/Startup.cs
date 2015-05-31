@@ -18,7 +18,7 @@ using Newtonsoft.Json.Serialization;
 
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
-//using MingaDigital.App.Models;
+using MingaDigital.App.Filters;
 
 namespace MingaDigital.App
 {
@@ -43,6 +43,8 @@ namespace MingaDigital.App
         {
             services.AddMvc();
             
+            services.AddScoped<UserSessionFilter>();
+            
             services.Configure<MvcOptions>(options =>
             {
                 var settings = 
@@ -52,6 +54,8 @@ namespace MingaDigital.App
                            .SerializerSettings;
                 
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                
+                options.Filters.AddService(typeof(UserSessionFilter));
             });
             
             services.AddSingleton(serviceProvider =>

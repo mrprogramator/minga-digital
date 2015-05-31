@@ -2,6 +2,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
 using MingaDigital.App.Entities;
+using MingaDigital.Security;
 
 namespace MingaDigital.App.EF
 {
@@ -14,7 +15,22 @@ namespace MingaDigital.App.EF
         
         protected override void Seed(MainContext db)
         {
-            // pass
+            var personaAdmin = new PersonaFisica
+            {
+                Nombres = "Admin",
+                Apellidos = "Admin"
+            };
+            
+            db.PersonaFisica.AddOrUpdate(x => x.Nombres, personaAdmin);
+            
+            var usuarioAdmin = new Usuario
+            {
+                PersonaFisica = personaAdmin,
+                Username = "admin",
+                Password = PasswordHash.Plain("admin")
+            };
+            
+            db.Usuario.AddOrUpdate(x => x.Username, usuarioAdmin);
         }
     }
 }

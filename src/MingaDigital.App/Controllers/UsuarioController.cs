@@ -13,7 +13,7 @@ using MingaDigital.Security;
 namespace MingaDigital.App.Controllers
 {
     [Route("usuarios")]
-    public class UsuarioController : Controller
+    public partial class UsuarioController : Controller
     {
         [FromServices]
         public MainContext Db { get; set; }

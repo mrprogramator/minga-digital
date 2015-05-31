@@ -53,4 +53,16 @@ namespace MingaDigital.App.Models
         [DataType(DataType.Password)]
         public String Password { get; set; }
     }
+    
+    public class UsuarioLoginModel
+    {
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Username")]
+        public String Username { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        public String Password { get; set; }
+    }
 }
