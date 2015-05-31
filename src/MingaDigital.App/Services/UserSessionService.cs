@@ -33,6 +33,8 @@ namespace MingaDigital.App.Services
         
         public Usuario ActiveUser => ActiveUserSession?.Usuario;
         
+        public Boolean IsLoggedIn => ActiveUserSession != null;
+        
         private SesionUsuario GetActiveUserSession()
         {
             var sessionToken = _actionContext.HttpContext.Request.Cookies.Get(SessionCookieName);

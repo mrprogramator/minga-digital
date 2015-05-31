@@ -1,4 +1,6 @@
 @using System.Collections.Generic
+@inject MingaDigital.App.Services.UserSessionService UserSession
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,6 +83,30 @@
         </li>
         
       </ul>
+      
+      @if (UserSession.IsLoggedIn)
+      {
+        var personUrl =
+          Url.Action(
+            "Detail",
+            "PersonaFisica",
+            new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
+          );
+        
+        <div class="navbar-right">
+          <p class="navbar-text">
+            Hola,
+            <a href="@personUrl" class="navbar-link">
+              @UserSession.ActiveUser.PersonaFisica.Nombre
+            </a>
+          </p>
+          
+          <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Salir
+          </a>
+        </div>
+      }
     </div>
   </div>
 </nav>
