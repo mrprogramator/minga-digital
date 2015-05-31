@@ -14,6 +14,19 @@
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="/css/main.css">
+  
+  <script>
+    // TODO mover a un lugar mejor
+    $(window).ready(function () {
+      $('a.row-link').each(function () {
+        var link = $(this);
+        
+        link.parents('tr').css('cursor', 'pointer').click(function () {
+          window.location = link.attr('href');
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 

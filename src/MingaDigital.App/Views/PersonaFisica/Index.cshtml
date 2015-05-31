@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Nombres</th>
@@ -53,29 +53,9 @@
           <td><!-- spacer --></td>
           
           <td class="text-right">
-          @if (row.UsuarioId == null)
-          {
-            <a href="@Url.Action("CreateUser", new { id = id })" class="btn btn-xs btn-primary">
-              <span class="glyphicon glyphicon-user"></span>
-              Crear Usuario
-            </a>
-          }
-          else
-          {
-            <a href="@Url.Action("Detail", "Usuario", new { id = row.UsuarioId.Value })" class="btn btn-xs btn-default">
-              <span class="glyphicon glyphicon-user"></span>
-              Ver Usuario
-            </a>
-          }
-            
-            <a href="@Url.Action("Update", new { id = id })" class="btn btn-xs btn-default">
-              <span class="glyphicon glyphicon-pencil"></span>
-              Modificar
-            </a>
-            
-            <a href="@Url.Action("Delete", new { id = id })" class="btn btn-xs btn-default">
-              <span class="glyphicon glyphicon-remove"></span>
-              Eliminar
+            <a href="@Url.Action("Detail", new { id = id })" class="btn btn-xs btn-default row-link">
+              Detalle
+              <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
           </td>
         </tr>

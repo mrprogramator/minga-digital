@@ -42,11 +42,15 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Dirección")]
         public String Direccion { get; set; }
+        
+        public Nullable<Int32> UsuarioId { get; set; }
     }
     
     [Description("Persona Física")]
     public class PersonaFisicaEditorModel
     {
+        public Nullable<Int32> PersonaFisicaId { get; set; }
+        
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Nombres")]
         public String Nombres { get; set; }

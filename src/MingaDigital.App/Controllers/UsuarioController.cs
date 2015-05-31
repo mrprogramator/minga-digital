@@ -64,7 +64,7 @@ namespace MingaDigital.App.Controllers
             var model = new UsuarioChangePasswordModel();
             LoadEntityData(entity, model);
             
-            return View("/Views/Shared/Update", model);
+            return View(model);
         }
         
         [HttpPost("{id}/reestablecer-password")]
@@ -84,7 +84,7 @@ namespace MingaDigital.App.Controllers
             
             if (!ModelState.IsValid)
             {
-                return View("/Views/Shared/Update", model);
+                return View(model);
             }
             
             var password = PasswordHash.Plain(model.Password);

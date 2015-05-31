@@ -48,7 +48,9 @@ namespace MingaDigital.App.Controllers
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
                 Nit = entity.Nit,
-                Direccion = entity.Direccion
+                Direccion = entity.Direccion,
+                // TODO include Usuario en query
+                UsuarioId = entity.Usuario?.UsuarioId
             };
         }
         
@@ -61,6 +63,7 @@ namespace MingaDigital.App.Controllers
         {
             return new PersonaFisicaEditorModel
             {
+                PersonaFisicaId = entity.PersonaFisicaId,
                 Nombres = entity.Nombres,
                 Apellidos = entity.Apellidos,
                 Nit = entity.Nit,

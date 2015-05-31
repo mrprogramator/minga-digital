@@ -42,11 +42,6 @@
   white-space: nowrap;
 }
 
-.entity-editor {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
 .inline-modal {
   max-width: 600px;
   margin: 0 auto;
