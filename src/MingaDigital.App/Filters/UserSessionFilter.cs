@@ -12,12 +12,11 @@ namespace MingaDigital.App.Filters
 {
     public class UserSessionFilter : IActionFilter
     {
-        [FromServices]
-        public MainContext Db { get; set; }
+        private readonly MainContext _db;
         
         public UserSessionFilter(MainContext db)
         {
-            Db = db;
+            _db = db;
         }
         
         public void OnActionExecuting(ActionExecutingContext context)
@@ -28,8 +27,6 @@ namespace MingaDigital.App.Filters
             
             var allowAnon = actionDescriptor.MethodInfo.GetCustomAttribute<AllowAnonymousAttribute>();
             
-            if (Db == null) throw new Exception("WHAT");
-            
             // TODO factorizar logica de sesion
             SesionUsuario session = null;
             var sessionId = context.HttpContext.Request.Cookies.Get("session_token");
@@ -37,7 +34,7 @@ namespace MingaDigital.App.Filters
             if (sessionId != null)
             {
                 session =
-                    Db.SesionUsuario
+                    _db.SesionUsuario
                     .Include(x => x.Usuario)
                     .Include(x => x.Usuario.PersonaFisica)
                     .FirstOrDefault(x => x.Id == sessionId);
@@ -50,8 +47,8 @@ namespace MingaDigital.App.Filters
                 {
                     if (session.FechaHoraExpiracion <= DateTimeOffset.UtcNow)
                     {
-                        Db.SesionUsuario.Remove(session);
-                        Db.SaveChanges();
+                        _db.SesionUsuario.Remove(session);
+                        _db.SaveChanges();
                         session = null;
                     }
                 }
