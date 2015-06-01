@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Data.Entity;
 
 using Microsoft.AspNet.Mvc;
@@ -29,14 +28,14 @@ namespace MingaDigital.App.Filters
             
             if (actionDescriptor == null) return;
             
-            var allowAnon = actionDescriptor.MethodInfo.GetCustomAttribute<AllowAnonymousAttribute>();
-            
-            var session = _userSession.ActiveUserSession;
+            var allowAnon = context.Filters.OfType<AllowAnonymousAttribute>().FirstOrDefault();
             
             if (allowAnon != null)
             {
                 return;
             }
+            
+            var session = _userSession.ActiveUserSession;
             
             if (session == null)
             {
