@@ -40,11 +40,13 @@ namespace MingaDigital.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
-            services.AddScoped<UserSessionService>();
-            
             services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
+            
+            services.AddSingleton<ActionScavenger>();
+            
+            services.AddScoped<UserSessionService>();
+            services.AddScoped<UserPermissionsService>();
             
             AddDataServices(services);
         }

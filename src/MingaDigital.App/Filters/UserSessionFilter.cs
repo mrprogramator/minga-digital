@@ -13,11 +13,14 @@ namespace MingaDigital.App.Filters
 {
     public class UserSessionFilter : IActionFilter
     {
-        private readonly UserSessionService _service;
+        private readonly UserSessionService _userSession;
+        private readonly UserPermissionsService _userPermissions;
         
-        public UserSessionFilter(UserSessionService service)
+        public UserSessionFilter(UserSessionService userSession,
+                                 UserPermissionsService userPermissions)
         {
-            _service = service;
+            _userSession = userSession;
+            _userPermissions = userPermissions;
         }
         
         public void OnActionExecuting(ActionExecutingContext context)
@@ -28,11 +31,44 @@ namespace MingaDigital.App.Filters
             
             var allowAnon = actionDescriptor.MethodInfo.GetCustomAttribute<AllowAnonymousAttribute>();
             
-            var session = _service.ActiveUserSession;
+            var session = _userSession.ActiveUserSession;
             
-            if (allowAnon == null && session == null)
+            if (allowAnon != null)
+            {
+                return;
+            }
+            
+            if (session == null)
             {
                 context.Result = new RedirectToActionResult("Login", "Usuario", routeValues: null);
+                return;
+            }
+            
+            // TODO below: weird & hacky
+            
+            var controllerName = context.Controller.GetType().Name;
+            
+            if (controllerName.EndsWith("Controller"))
+            {
+                controllerName =
+                    controllerName.Substring(
+                        0, controllerName.Length - "Controller".Length
+                    );
+            }
+            
+            var actionIdParts = new[] {
+                context.HttpContext.Request.Method,
+                context.ActionDescriptor.Name,
+                controllerName
+            };
+            
+            var actionId = String.Join(":", actionIdParts);
+            
+            if (!_userPermissions.CanCallAction(actionId))
+            {
+                // TODO send 403?
+                // context.Result = new RedirectToActionResult("Forbidden", "Usuario", routeValues: null);
+                return;
             }
         }
         
