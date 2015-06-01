@@ -92,7 +92,7 @@ namespace MingaDigital.App.Controllers
             entity.Password = password;
             Db.SaveChanges();
             
-            return RedirectToAction("Detail");
+            return RedirectToAction("Detail", new { id = id });
         }
     }
 }

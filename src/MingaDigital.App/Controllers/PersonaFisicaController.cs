@@ -99,6 +99,11 @@ namespace MingaDigital.App.Controllers
             entity.Direccion = model.Direccion;
         }
         
+        protected override IActionResult ResultAfterWrite(PersonaFisica entity)
+        {
+            return RedirectToAction("Detail", new { id = entity.PersonaFisicaId });
+        }
+        
         private void LoadEntityData(PersonaFisica entity, UsuarioEditorModel model)
         {
             model.PersonaFisicaId = entity.PersonaFisicaId;
@@ -150,7 +155,7 @@ namespace MingaDigital.App.Controllers
             Db.Usuario.Add(usuario);
             Db.SaveChanges();
             
-            return RedirectToAction("Index");
+            return ResultAfterWrite(entity);
         }
     }
 }

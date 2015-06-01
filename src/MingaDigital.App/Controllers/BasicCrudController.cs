@@ -34,6 +34,11 @@ namespace MingaDigital.App.Controllers
         
         protected abstract void ApplyEditorModel(EditorModelT model, EntityT entity);
         
+        protected virtual IActionResult ResultAfterWrite(EntityT entity)
+        {
+            return RedirectToAction("Index");
+        }
+        
         private DbSet<EntityT> CrudSet => Db.Set<EntityT>();
         
         protected virtual EntityT GetDetailEntity(Int32 id) => CrudSet.Find(id);
@@ -87,7 +92,7 @@ namespace MingaDigital.App.Controllers
             CrudSet.Add(entity);
             Db.SaveChanges();
             
-            return RedirectToAction("Index");
+            return ResultAfterWrite(entity);
         }
         
         [HttpGet("{id}/modificar")]
@@ -127,7 +132,7 @@ namespace MingaDigital.App.Controllers
             
             Db.SaveChanges();
             
-            return RedirectToAction("Index");
+            return ResultAfterWrite(entity);
         }
         
         [HttpGet("{id}/eliminar")]
