@@ -63,7 +63,7 @@ namespace MingaDigital.App.EF
                         password_algorithm = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.usuario_id)
-                .ForeignKey("public.persona_fisica", t => t.usuario_id)
+                .ForeignKey("public.persona_fisica", t => t.usuario_id, cascadeDelete: true)
                 .Index(t => t.usuario_id)
                 .Index(t => t.username, unique: true);
             
@@ -180,7 +180,7 @@ namespace MingaDigital.App.EF
                         unidad_educativa_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ctel_id)
-                .ForeignKey("public.unidad_educativa", t => t.ctel_id)
+                .ForeignKey("public.unidad_educativa", t => t.ctel_id, cascadeDelete: true)
                 .Index(t => t.ctel_id)
                 .Index(t => t.unidad_educativa_id, unique: true);
             

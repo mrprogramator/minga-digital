@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -115,12 +116,14 @@ namespace MingaDigital.App.EF
             modelBuilder
                 .Entity<UnidadEducativa>()
                 .HasOptional(ue => ue.Ctel)
-                .WithRequired(ct => ct.UnidadEducativa);
+                .WithRequired(ct => ct.UnidadEducativa)
+                .WillCascadeOnDelete();
             
             modelBuilder
                 .Entity<PersonaFisica>()
                 .HasOptional(p => p.Usuario)
-                .WithRequired(u => u.PersonaFisica);
+                .WithRequired(u => u.PersonaFisica)
+                .WillCascadeOnDelete();
             
             modelBuilder
                 .Types()
