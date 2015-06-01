@@ -42,6 +42,30 @@
       <a class="navbar-brand" href="@Url.Action("Index", "Home")">Minga Digital</a>
     </div>
     
+    @if (UserSession.IsLoggedIn)
+    {
+      var personUrl =
+        Url.Action(
+          "Detail",
+          "PersonaFisica",
+          new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
+        );
+      
+      <div class="navbar-right">
+        <p class="navbar-text">
+          Hola,
+          <a href="@personUrl" class="navbar-link">
+            @UserSession.ActiveUser.PersonaFisica.Nombre
+          </a>
+        </p>
+        
+        <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
+          <span class="glyphicon glyphicon-log-out"></span>
+          Salir
+        </a>
+      </div>
+    }
+    
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -93,32 +117,7 @@
             <li><a href="@Url.Action("Index", "TipoIncidencia")">Tipos de Incidencia</a></li>
           </ul>
         </li>
-        
       </ul>
-      
-      @if (UserSession.IsLoggedIn)
-      {
-        var personUrl =
-          Url.Action(
-            "Detail",
-            "PersonaFisica",
-            new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
-          );
-        
-        <div class="navbar-right">
-          <p class="navbar-text">
-            Hola,
-            <a href="@personUrl" class="navbar-link">
-              @UserSession.ActiveUser.PersonaFisica.Nombre
-            </a>
-          </p>
-          
-          <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
-            <span class="glyphicon glyphicon-log-out"></span>
-            Salir
-          </a>
-        </div>
-      }
     </div>
   </div>
 </nav>
