@@ -124,7 +124,7 @@ namespace MingaDigital.App
                     {
                         await next(ctx);
                     }
-                    catch (ExceptionT ex)
+                    catch (ExceptionT)
                     {
                         ctx.Response.Redirect(targetUrl);
                     }
