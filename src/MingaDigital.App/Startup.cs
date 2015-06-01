@@ -55,6 +55,8 @@ namespace MingaDigital.App
         {
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             
+            UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
+            
             app.UseStatusCodePages();
             
             app.UseMvc();
@@ -65,8 +67,10 @@ namespace MingaDigital.App
                 ServeDirectory(app, "bower_components", "/bower_components");
         }
         
+        // TODO organizar
         private static void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
         {
+            // TODO utilizar directorio de proyecto (solo si ruta es relativa)
             var currentDirectory = Directory.GetCurrentDirectory();
             var fullPath = Path.Combine(currentDirectory, directoryPath);
             
@@ -105,6 +109,26 @@ namespace MingaDigital.App
                 var factory = serviceProvider.GetRequiredService<MainContextFactory>();
                 
                 return factory.Create();
+            });
+        }
+        
+        // TODO organizar
+        private void UseRedirectOnException<ExceptionT>(IApplicationBuilder app, String targetUrl)
+            where ExceptionT : Exception
+        {
+            app.Use(next =>
+            {
+                return async (HttpContext ctx) =>
+                {
+                    try
+                    {
+                        await next(ctx);
+                    }
+                    catch (ExceptionT ex)
+                    {
+                        ctx.Response.Redirect(targetUrl);
+                    }
+                };
             });
         }
     }
