@@ -32,13 +32,10 @@ namespace MingaDigital.App
             Configuration = LoadConfiguration();
         }
         
-        public static IConfiguration LoadConfiguration()
-        {
-            return
-                new Configuration()
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-        }
+        public static IConfiguration LoadConfiguration() =>
+            new Configuration()
+            .AddJsonFile("config.json")
+            .AddEnvironmentVariables();
         
         public void ConfigureServices(IServiceCollection services)
         {
@@ -47,44 +44,22 @@ namespace MingaDigital.App
             services.AddScoped<UserSessionService>();
             services.AddScoped<UserSessionFilter>();
             
-            services.Configure<MvcOptions>(options =>
-            {
-                var settings = 
-                    options.OutputFormatters
-                           .Select(f => f.Instance as JsonOutputFormatter)
-                           .First(f => f != null)
-                           .SerializerSettings;
-                
-                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                
-                options.Filters.AddService(typeof(UserSessionFilter));
-            });
+            services.Configure<MvcOptions>(ConfigureJsonFormatter);
+            services.Configure<MvcOptions>(ConfigureGlobalFilters);
             
-            services.AddSingleton(serviceProvider =>
-            {
-                return new MainContextFactory(Configuration);
-            });
-            
-            services.AddScoped(serviceProvider =>
-            {
-                var factory = serviceProvider.GetRequiredService<MainContextFactory>();
-                
-                return factory.Create();
-            });
+            AddDataServices(services);
         }
         
         public void Configure(IApplicationBuilder app)
         {
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             
-            //app.UseStatusPages();
+            app.UseStatusCodePages();
             
             app.UseMvc();
             
-            // wwwroot
             app.UseStaticFiles();
             
-            // bower_components
             if (Directory.Exists("bower_components"))
                 ServeDirectory(app, "bower_components", "/bower_components");
         }
@@ -98,6 +73,37 @@ namespace MingaDigital.App
             {
                 RequestPath = new PathString(requestPath),
                 FileProvider = new PhysicalFileProvider(fullPath)
+            });
+        }
+        
+        private void ConfigureJsonFormatter(MvcOptions options)
+        {
+            var settings = 
+                options.OutputFormatters
+                       .Select(f => f.Instance as JsonOutputFormatter)
+                       .First(f => f != null)
+                       .SerializerSettings;
+            
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+        
+        private void ConfigureGlobalFilters(MvcOptions options)
+        {
+            options.Filters.AddService(typeof(UserSessionFilter));
+        }
+        
+        private void AddDataServices(IServiceCollection services)
+        {
+            services.AddSingleton(serviceProvider =>
+            {
+                return new MainContextFactory(Configuration);
+            });
+            
+            services.AddScoped(serviceProvider =>
+            {
+                var factory = serviceProvider.GetRequiredService<MainContextFactory>();
+                
+                return factory.Create();
             });
         }
     }
