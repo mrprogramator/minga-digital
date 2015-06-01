@@ -42,7 +42,6 @@ namespace MingaDigital.App
             services.AddMvc();
             
             services.AddScoped<UserSessionService>();
-            services.AddScoped<UserSessionFilter>();
             
             services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
@@ -89,7 +88,7 @@ namespace MingaDigital.App
         
         private void ConfigureGlobalFilters(MvcOptions options)
         {
-            options.Filters.AddService(typeof(UserSessionFilter));
+            options.Filters.Add(typeof(UserSessionFilter));
         }
         
         private void AddDataServices(IServiceCollection services)
