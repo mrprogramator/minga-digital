@@ -27,7 +27,7 @@ namespace MingaDigital.App.Controllers
         
         [AllowAnonymous]
         [HttpPost("/login")]
-        public IActionResult Login(UsuarioLoginModel model)
+        public IActionResult Login(UsuarioLoginModel model, String redirect)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace MingaDigital.App.Controllers
             
             UserSession.StartUserSession(entity);
             
-            return Redirect("/");
+            return Redirect(redirect);
         }
         
         [HttpGet("/logout")]

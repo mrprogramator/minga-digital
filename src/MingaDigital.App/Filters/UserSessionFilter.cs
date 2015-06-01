@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 using Microsoft.AspNet.Mvc;
 
@@ -39,7 +40,12 @@ namespace MingaDigital.App.Filters
             
             if (session == null)
             {
-                context.Result = new RedirectToActionResult("Login", "Usuario", routeValues: null);
+                var routeValues = new Dictionary<String, Object>
+                {
+                    ["redirect"] = context.HttpContext.Request.Path
+                };
+                
+                context.Result = new RedirectToActionResult("Login", "Usuario", routeValues);
                 return;
             }
             
