@@ -1,0 +1,54 @@
+@model UsuarioDetailModel
+
+@{
+    Layout = "_CenteredLayout";
+    
+    ViewBag.Title = "Perfil de Usuario";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<div class="detail-list">
+  <div class="row">
+    <div class="col-md-3">
+      @Html.DisplayNameFor(m => m.PersonaFisicaNombre)
+    </div>
+    <div class="col-md-9">
+      <a href="@Url.Action("Detail", "PersonaFisica", new { id = Model.PersonaFisicaId })">
+        @Html.DisplayFor(m => m.PersonaFisicaNombre)
+      </a>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      @Html.DisplayNameFor(m => m.Username)
+    </div>
+    <div class="col-md-9">
+      @Html.DisplayFor(m => m.Username)
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      Password
+    </div>
+    <div class="col-md-9">
+      <a href="@Url.Action("ChangePassword")" class="btn btn-xs btn-success">
+        Reestablecer
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default with-table">
+  <div class="panel-heading text-right">
+    <a class="btn btn-sm btn-danger" href="@Url.Action("Create")">
+      <span class="glyphicon glyphicon-remove"></span>
+      Eliminar
+    </a>
+  </div>
+</div>

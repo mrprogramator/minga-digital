@@ -1,8 +1,12 @@
 @using System.Collections.Generic
+@inject MingaDigital.App.Services.UserSessionService UserSession
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>@ViewBag.Title – Minga Digital</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   
@@ -10,6 +14,19 @@
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="/css/main.css">
+  
+  <script>
+    // TODO mover a un lugar mejor
+    $(window).ready(function () {
+      $('a.row-link').each(function () {
+        var link = $(this);
+        
+        link.parents('tr').css('cursor', 'pointer').click(function () {
+          window.location = link.attr('href');
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -24,6 +41,30 @@
       </button>
       <a class="navbar-brand" href="@Url.Action("Index", "Home")">Minga Digital</a>
     </div>
+    
+    @if (UserSession.IsLoggedIn)
+    {
+      var personUrl =
+        Url.Action(
+          "Detail",
+          "PersonaFisica",
+          new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
+        );
+      
+      <div class="navbar-right">
+        <p class="navbar-text">
+          Hola,
+          <a href="@personUrl" class="navbar-link">
+            @UserSession.ActiveUser.PersonaFisica.Nombre
+          </a>
+        </p>
+        
+        <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
+          <span class="glyphicon glyphicon-log-out"></span>
+          Salir
+        </a>
+      </div>
+    }
     
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
@@ -49,7 +90,6 @@
             <li><a href="@Url.Action("Index", "PersonaJuridica")">Personas Jurídicas</a></li>
             <li><a href="@Url.Action("Index", "PersonaFisica")">Personas Físicas</a></li>
             <li class="divider"></li>
-            <li><a href="@Url.Action("Index", "Usuario")">Usuarios</a></li>
             <li><a href="@Url.Action("Index", "Rol")">Roles</a></li>
           </ul>
         </li>
@@ -77,7 +117,6 @@
             <li><a href="@Url.Action("Index", "TipoIncidencia")">Tipos de Incidencia</a></li>
           </ul>
         </li>
-        
       </ul>
     </div>
   </div>

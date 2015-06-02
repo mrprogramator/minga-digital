@@ -57,16 +57,14 @@ namespace MingaDigital.App.EF
                 c => new
                     {
                         usuario_id = c.Int(nullable: false),
-                        persona_id = c.Int(nullable: false),
                         username = c.String(nullable: false),
                         password_hash = c.Binary(nullable: false),
                         password_salt = c.Binary(nullable: false),
                         password_algorithm = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.usuario_id)
-                .ForeignKey("public.persona_fisica", t => t.usuario_id)
+                .ForeignKey("public.persona_fisica", t => t.usuario_id, cascadeDelete: true)
                 .Index(t => t.usuario_id)
-                .Index(t => t.persona_id, unique: true)
                 .Index(t => t.username, unique: true);
             
             CreateTable(
@@ -182,7 +180,7 @@ namespace MingaDigital.App.EF
                         unidad_educativa_id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ctel_id)
-                .ForeignKey("public.unidad_educativa", t => t.ctel_id)
+                .ForeignKey("public.unidad_educativa", t => t.ctel_id, cascadeDelete: true)
                 .Index(t => t.ctel_id)
                 .Index(t => t.unidad_educativa_id, unique: true);
             
@@ -279,6 +277,19 @@ namespace MingaDigital.App.EF
                 .ForeignKey("public.persona_fisica", t => t.persona_fisica_id, cascadeDelete: true)
                 .Index(t => t.persona_fisica_id)
                 .Index(t => t.ctel_id);
+            
+            CreateTable(
+                "public.sesion_usuario",
+                c => new
+                    {
+                        id = c.String(nullable: false, maxLength: 128),
+                        usuario_id = c.Int(nullable: false),
+                        fecha_hora_creacion = c.DateTimeOffset(nullable: false, precision: 7),
+                        fecha_hora_expiracion = c.DateTimeOffset(nullable: false, precision: 7),
+                    })
+                .PrimaryKey(t => t.id)
+                .ForeignKey("public.usuario", t => t.usuario_id, cascadeDelete: true)
+                .Index(t => t.usuario_id);
             
             CreateTable(
                 "public.ticket",
@@ -410,6 +421,7 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.ticket", "telecentro_id", "public.telecentro");
             DropForeignKey("public.ticket", "equipo_id", "public.equipo");
             DropForeignKey("public.ticket", "encargado_id", "public.usuario");
+            DropForeignKey("public.sesion_usuario", "usuario_id", "public.usuario");
             DropForeignKey("public.persona_fisica_ctel", "persona_fisica_id", "public.persona_fisica");
             DropForeignKey("public.persona_fisica_ctel", "ctel_id", "public.ctel");
             DropForeignKey("public.permiso_rol", "rol_id", "public.rol");
@@ -450,6 +462,7 @@ namespace MingaDigital.App.EF
             DropIndex("public.ticket", new[] { "equipo_id" });
             DropIndex("public.ticket", new[] { "telecentro_id" });
             DropIndex("public.ticket", new[] { "tipo_incidencia_id" });
+            DropIndex("public.sesion_usuario", new[] { "usuario_id" });
             DropIndex("public.persona_fisica_ctel", new[] { "ctel_id" });
             DropIndex("public.persona_fisica_ctel", new[] { "persona_fisica_id" });
             DropIndex("public.rol", new[] { "nombre" });
@@ -475,7 +488,6 @@ namespace MingaDigital.App.EF
             DropIndex("public.permiso_global", new[] { "usuario_id" });
             DropIndex("public.permiso_global", new[] { "accion_id" });
             DropIndex("public.usuario", new[] { "username" });
-            DropIndex("public.usuario", new[] { "persona_id" });
             DropIndex("public.usuario", new[] { "usuario_id" });
             DropIndex("public.actividad", new[] { "telecentro_id" });
             DropIndex("public.actividad", new[] { "persona_encargada_id" });
@@ -488,6 +500,7 @@ namespace MingaDigital.App.EF
             DropTable("public.usuario_rol");
             DropTable("public.tipo_incidencia");
             DropTable("public.ticket");
+            DropTable("public.sesion_usuario");
             DropTable("public.persona_fisica_ctel");
             DropTable("public.rol");
             DropTable("public.permiso_rol");

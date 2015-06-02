@@ -1,0 +1,66 @@
+@model PersonaFisicaIndexModel
+
+@{
+    ViewBag.Title = "Personas Físicas";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<div class="panel panel-default with-table">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-8">
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Create")">
+          <span class="glyphicon glyphicon-file"></span>
+          Nuevo
+        </a>
+      </div>
+      <div class="col-md-4">
+        
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>NIT</th>
+          <th width="90%"><!-- spacer --></th>
+          <th><!-- actions --></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+      @if (!Enumerable.Any(Model.Table.Rows))
+      {
+        <tr>
+          <td colspan="5">No hay registros.</td>
+        </tr>
+      }
+      @foreach (var row in Model.Table.Rows)
+      {
+        var id = row.PersonaFisicaId;
+        
+        <tr>
+          <td>@row.Nombres</td>
+          <td>@row.Apellidos</td>
+          <td>@row.Nit</td>
+          
+          <td><!-- spacer --></td>
+          
+          <td class="text-right">
+            <a href="@Url.Action("Detail", new { id = id })" class="btn btn-xs btn-default row-link">
+              Detalle
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</div>

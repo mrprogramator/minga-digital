@@ -1,0 +1,17 @@
+@model String
+
+@{
+    Layout = "_MinimalLayout";
+    
+    ViewBag.Title = "Error de Aplicación";
+}
+
+<div class="panel panel-warning inline-modal">
+  <div class="panel-heading">
+    <b>@ViewBag.Title</b>
+  </div>
+  
+  <div class="panel-body">
+    @(ViewBag.ErrorMessage ?? "):")
+  </div>
+</div>

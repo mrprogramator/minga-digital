@@ -27,9 +27,21 @@ namespace MingaDigital.App.Controllers
         
         protected abstract EntityT EditorModelToEntity(EditorModelT model);
         
+        protected virtual void LoadStaticData(Int32 id, EntityT entity, EditorModelT model)
+        {
+            
+        }
+        
         protected abstract void ApplyEditorModel(EditorModelT model, EntityT entity);
         
+        protected virtual IActionResult ResultAfterWrite(EntityT entity)
+        {
+            return RedirectToAction("Index");
+        }
+        
         private DbSet<EntityT> CrudSet => Db.Set<EntityT>();
+        
+        protected virtual EntityT GetDetailEntity(Int32 id) => CrudSet.Find(id);
         
         [HttpGet("")]
         public virtual IActionResult Index(IndexModelT model)
@@ -47,7 +59,7 @@ namespace MingaDigital.App.Controllers
         [HttpGet("{id}")]
         public virtual IActionResult Detail(Int32 id)
         {
-            var entity = CrudSet.Find(id);
+            var entity = GetDetailEntity(id);
             
             if (entity == null)
             {
@@ -80,7 +92,7 @@ namespace MingaDigital.App.Controllers
             CrudSet.Add(entity);
             Db.SaveChanges();
             
-            return RedirectToAction("Index");
+            return ResultAfterWrite(entity);
         }
         
         [HttpGet("{id}/modificar")]
@@ -94,6 +106,7 @@ namespace MingaDigital.App.Controllers
             }
             
             var model = EntityToEditorModel(entity);
+            LoadStaticData(id, entity, model);
             
             return View(model);
         }
@@ -108,6 +121,8 @@ namespace MingaDigital.App.Controllers
                 return HttpNotFound();
             }
             
+            LoadStaticData(id, entity, model);
+            
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -117,7 +132,7 @@ namespace MingaDigital.App.Controllers
             
             Db.SaveChanges();
             
-            return RedirectToAction("Index");
+            return ResultAfterWrite(entity);
         }
         
         [HttpGet("{id}/eliminar")]

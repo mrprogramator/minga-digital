@@ -1,5 +1,3 @@
-using System;
-
 using Microsoft.AspNet.Mvc;
 
 namespace MingaDigital.App.Controllers

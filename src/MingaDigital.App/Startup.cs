@@ -18,7 +18,8 @@ using Newtonsoft.Json.Serialization;
 
 using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
-//using MingaDigital.App.Models;
+using MingaDigital.App.Filters;
+using MingaDigital.App.Services;
 
 namespace MingaDigital.App
 {
@@ -31,29 +32,73 @@ namespace MingaDigital.App
             Configuration = LoadConfiguration();
         }
         
-        public static IConfiguration LoadConfiguration()
-        {
-            return
-                new Configuration()
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-        }
+        public static IConfiguration LoadConfiguration() =>
+            new Configuration()
+            .AddJsonFile("config.json")
+            .AddEnvironmentVariables();
         
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Configure<MvcOptions>(ConfigureJsonFormatter);
+            services.Configure<MvcOptions>(ConfigureGlobalFilters);
             
-            services.Configure<MvcOptions>(options =>
+            services.AddSingleton<ActionScavenger>();
+            
+            services.AddScoped<UserSessionService>();
+            services.AddScoped<UserPermissionsService>();
+            
+            AddDataServices(services);
+        }
+        
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseErrorPage(ErrorPageOptions.ShowAll);
+            
+            UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
+            
+            app.UseStatusCodePages();
+            
+            app.UseMvc();
+            
+            app.UseStaticFiles();
+            
+            if (Directory.Exists("bower_components"))
+                ServeDirectory(app, "bower_components", "/bower_components");
+        }
+        
+        // TODO organizar
+        private static void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
+        {
+            // TODO utilizar directorio de proyecto (solo si ruta es relativa)
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var fullPath = Path.Combine(currentDirectory, directoryPath);
+            
+            app.UseStaticFiles(new StaticFileOptions()
             {
-                var settings = 
-                    options.OutputFormatters
-                           .Select(f => f.Instance as JsonOutputFormatter)
-                           .First(f => f != null)
-                           .SerializerSettings;
-                
-                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                RequestPath = new PathString(requestPath),
+                FileProvider = new PhysicalFileProvider(fullPath)
             });
+        }
+        
+        private void ConfigureJsonFormatter(MvcOptions options)
+        {
+            var settings = 
+                options.OutputFormatters
+                       .Select(f => f.Instance as JsonOutputFormatter)
+                       .First(f => f != null)
+                       .SerializerSettings;
             
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+        
+        private void ConfigureGlobalFilters(MvcOptions options)
+        {
+            options.Filters.Add(typeof(UserSessionFilter));
+        }
+        
+        private void AddDataServices(IServiceCollection services)
+        {
             services.AddSingleton(serviceProvider =>
             {
                 return new MainContextFactory(Configuration);
@@ -67,31 +112,23 @@ namespace MingaDigital.App
             });
         }
         
-        public void Configure(IApplicationBuilder app)
+        // TODO organizar
+        private void UseRedirectOnException<ExceptionT>(IApplicationBuilder app, String targetUrl)
+            where ExceptionT : Exception
         {
-            app.UseErrorPage(ErrorPageOptions.ShowAll);
-            
-            //app.UseStatusPages();
-            
-            app.UseMvc();
-            
-            // wwwroot
-            app.UseStaticFiles();
-            
-            // bower_components
-            if (Directory.Exists("bower_components"))
-                ServeDirectory(app, "bower_components", "/bower_components");
-        }
-        
-        private static void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
-        {
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var fullPath = Path.Combine(currentDirectory, directoryPath);
-            
-            app.UseStaticFiles(new StaticFileOptions()
+            app.Use(next =>
             {
-                RequestPath = new PathString(requestPath),
-                FileProvider = new PhysicalFileProvider(fullPath)
+                return async (HttpContext ctx) =>
+                {
+                    try
+                    {
+                        await next(ctx);
+                    }
+                    catch (ExceptionT)
+                    {
+                        ctx.Response.Redirect(targetUrl);
+                    }
+                };
             });
         }
     }

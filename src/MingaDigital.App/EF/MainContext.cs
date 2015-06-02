@@ -1,12 +1,15 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using MingaDigital.App.Entities;
+using MingaDigital.Security;
 
 namespace MingaDigital.App.EF
 {
@@ -47,6 +50,8 @@ namespace MingaDigital.App.EF
         
         public DbSet<Rol> Rol { get; set; }
         
+        public DbSet<SesionUsuario> SesionUsuario { get; set; }
+        
         public DbSet<Telecentro> Telecentro { get; set; }
         
         public DbSet<Ticket> Ticket { get; set; }
@@ -71,19 +76,54 @@ namespace MingaDigital.App.EF
             Database.Log = Console.Error.WriteLine;
         }
         
+        // TODO hack-ish
+        private readonly IList<Type> _complexTypes = new List<Type>();
+        
+        private void MakeComplexType<T>(DbModelBuilder modelBuilder)
+            where T : class
+        {
+            _complexTypes.Add(typeof(T));
+            modelBuilder.ComplexType<T>();
+        }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
             
+            MakeComplexType<GeoCoordenada>(modelBuilder);
+            
+            // <password>
+            
+            MakeComplexType<Password>(modelBuilder);
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Hash)
+                .IsRequired();
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Salt)
+                .IsRequired();
+            
+            modelBuilder
+                .ComplexType<Password>()
+                .Property(p => p.Algorithm)
+                .IsRequired();
+            
+            // </password>
+            
             modelBuilder
                 .Entity<UnidadEducativa>()
                 .HasOptional(ue => ue.Ctel)
-                .WithRequired(ct => ct.UnidadEducativa);
+                .WithRequired(ct => ct.UnidadEducativa)
+                .WillCascadeOnDelete();
             
             modelBuilder
                 .Entity<PersonaFisica>()
                 .HasOptional(p => p.Usuario)
-                .WithRequired(u => u.PersonaFisica);
+                .WithRequired(u => u.PersonaFisica)
+                .WillCascadeOnDelete();
             
             modelBuilder
                 .Types()
@@ -96,16 +136,16 @@ namespace MingaDigital.App.EF
             base.OnModelCreating(modelBuilder);
         }
         
-        private static String GetTableName(Type type)
+        private String GetTableName(Type type)
         {
             return PascalCaseToLowerUnderscore(type.Name);
         }
         
-        private static String GetColumnName(PropertyInfo property)
+        private String GetColumnName(PropertyInfo property)
         {
             String columnName = "";
             
-            if (property.ReflectedType.GetCustomAttribute<ComplexTypeAttribute>() != null)
+            if (_complexTypes.Contains(property.DeclaringType))
             {
                 columnName += PascalCaseToLowerUnderscore(property.DeclaringType.Name) + "_";
             }

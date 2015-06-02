@@ -2,11 +2,19 @@
 @using System.ComponentModel
 
 @{
+    Layout = "_CenteredLayout";
+    
     var model = (Object)Model;
     var modelType = model.GetType();
     var modelDescription = modelType.GetCustomAttribute<DescriptionAttribute>()?.Description;
     
     ViewBag.Title = "Crear " + modelDescription;
+    
+    var cancelUrl = Url.Action("Index");
 }
 
-@Html.Partial("BasicEditor", (Object)Model)
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+@Component.Invoke("BasicEditor", Html, Model, cancelUrl)

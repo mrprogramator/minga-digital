@@ -1,0 +1,15 @@
+@model PersonaFisicaEditorModel
+
+@{
+    Layout = "_CenteredLayout";
+    
+    ViewBag.Title = "Modificar Persona Física";
+    
+    var cancelUrl = Url.Action("Detail", new { id = Model.PersonaFisicaId });
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+@Component.Invoke("BasicEditor", Html, Model, cancelUrl)

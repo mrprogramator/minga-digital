@@ -16,6 +16,9 @@ namespace MingaDigital.App.Entities
         [Required]
         public String Apellidos { get; set; }
         
+        [NotMapped]
+        public String Nombre => $"{Nombres} {Apellidos}";
+        
         public String Nit { get; set; }
         
         public String Direccion { get; set; }

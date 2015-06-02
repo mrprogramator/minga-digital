@@ -1,0 +1,42 @@
+@model PersonaFisicaDetailModel
+
+@{
+    Layout = "_CenteredLayout";
+    
+    ViewBag.Title = "Perfil de Persona Física";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+@Component.Invoke("DetailList", Html, Model)
+
+<div class="panel panel-default with-table">
+  <div class="panel-heading text-right">
+    @if (Model.UsuarioId == null)
+    {
+      <a href="@Url.Action("CreateUser", new { id = Model.PersonaFisicaId })" class="btn btn-sm btn-primary">
+        <span class="glyphicon glyphicon-user"></span>
+        Crear Usuario
+      </a>
+    }
+    else
+    {
+      <a href="@Url.Action("Detail", "Usuario", new { id = Model.UsuarioId.Value })" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-user"></span>
+        Ver Usuario
+      </a>
+    }
+    
+    <a href="@Url.Action("Update")" class="btn btn-sm btn-default">
+      <span class="glyphicon glyphicon-edit"></span>
+      Modificar
+    </a>
+    
+    <a href="@Url.Action("Delete")" class="btn btn-sm btn-danger">
+      <span class="glyphicon glyphicon-remove"></span>
+      Eliminar
+    </a>
+  </div>
+</div>

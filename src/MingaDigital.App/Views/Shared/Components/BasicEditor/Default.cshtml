@@ -1,0 +1,34 @@
+@using MingaDigital.App.Components
+@model IEnumerable<BasicEditorItem>
+
+<div class="entity-editor">
+  <form method="POST">
+    @if (!ViewContext.ViewData.ModelState.IsValid)
+    {
+      <div class="alert alert-danger">
+        <h4 class="title">Error</h4>
+        @Html.ValidationSummary("")
+      </div>
+    }
+    
+    @foreach (var item in Model)
+    {
+      var isInvalid = ViewContext.ViewData.ModelState[item.PropertyName]?.Errors.Any();
+      var classes = "";
+      
+      if (isInvalid == true) { classes += " has-error"; }
+      
+      <div class="form-group @classes">
+        @item.Label
+        
+        @item.Editor
+      </div>
+    }
+    
+    <div class="text-right">
+      <a href="@ViewBag.CancelUrl" class="btn btn-link">Cancelar</a>
+      
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
