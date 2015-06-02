@@ -50,6 +50,8 @@ namespace MingaDigital.App.EF
         
         public DbSet<Rol> Rol { get; set; }
         
+        public DbSet<Rubro> Rubro { get; set; }
+        
         public DbSet<SesionUsuario> SesionUsuario { get; set; }
         
         public DbSet<Telecentro> Telecentro { get; set; }
