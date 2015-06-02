@@ -62,6 +62,8 @@ namespace MingaDigital.App.EF
 
         public DbSet<TipoComponente> TipoComponente { get; set; }
         
+        public DbSet<TipoEmpresa> TipoEmpresa { get; set; }
+        
         public DbSet<TipoIncidencia> TipoIncidencia { get; set; }
         
         public DbSet<Ubicacion> Ubicacion { get; set; }
