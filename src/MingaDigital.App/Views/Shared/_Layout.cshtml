@@ -44,32 +44,28 @@
       </button>
       <a class="navbar-brand" href="@Url.Action("Index", "Home")">Minga Digital</a>
     </div>
-    
-    @if (UserSession.IsLoggedIn)
-    {
-      var personUrl =
-        Url.Action(
-          "Detail",
-          "PersonaFisica",
-          new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
-        );
-      
-      <div class="navbar-right">
-        <p class="navbar-text">
+    <div class="collapse navbar-collapse" id="main-navbar">
+      @if (UserSession.IsLoggedIn)
+      {
+        var personUrl =
+          Url.Action(
+            "Detail",
+            "PersonaFisica",
+            new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
+          );
+        
+        <div class="navbar-right">
           Hola,
           <a href="@personUrl" class="navbar-link">
             @UserSession.ActiveUser.PersonaFisica.Nombre
           </a>
-        </p>
-        
-        <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
-          <span class="glyphicon glyphicon-log-out"></span>
-          Salir
-        </a>
-      </div>
-    }
-    
-    <div class="collapse navbar-collapse" id="main-navbar">
+          <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Salir
+          </a>
+        </div>
+      }
+      
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
