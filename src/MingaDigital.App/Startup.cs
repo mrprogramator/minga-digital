@@ -41,7 +41,6 @@ namespace MingaDigital.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            // Desabilitado!
             // services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
             services.Configure<MvcOptions>(ConfigureMetadataProviders);
@@ -58,7 +57,7 @@ namespace MingaDigital.App
         {
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             
-            UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
+            // UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
             
             app.UseStatusCodePages();
             

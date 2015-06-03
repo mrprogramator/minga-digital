@@ -9,8 +9,8 @@ using MingaDigital.App.ApiModels;
 
 namespace MingaDigital.App.ApiControllers
 {
-    [Route("api/rubro")]
-    public class RubroApiController
+    [Route("api/persona-fisica")]
+    public class PersonaFisicaApiController
     {
         [FromServices]
         public MainContext Db { get; set; }
@@ -19,12 +19,15 @@ namespace MingaDigital.App.ApiControllers
         public IEnumerable<NameSearchApiModel<Int32>> NameSearch(String term)
         {
             var query =
-                Db.Rubro
-                .Where(x => x.Nombre.ToLower().Contains(term.ToLower()))
+                Db.PersonaFisica
+                .Where(x =>
+                    x.Nombres.ToLower().Contains(term.ToLower())
+                    || x.Apellidos.ToLower().Contains(term.ToLower())
+                )
                 .Select(x => new NameSearchApiModel<Int32>
                 {
-                    Id = x.RubroId,
-                    Name = x.Nombre
+                    Id = x.PersonaFisicaId,
+                    Name = x.Nombres + " " + x.Apellidos
                 });
             
             var result = query.ToArray();

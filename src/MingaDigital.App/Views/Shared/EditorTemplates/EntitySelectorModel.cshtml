@@ -13,8 +13,8 @@
     var apiController = param("Controller", true);
     var apiAction     = param("Action", true);
     var apiParam      = param("ParameterName", false) ?? "term";
-    var searchKey     = param("SearchKey", true);
-    var searchValue   = param("SearchValue", true);
+    var searchKey     = param("SearchKey", false) ?? "Id";
+    var searchValue   = param("SearchValue", false) ?? "Name";
     
     var endpointUrl    = Url.Action(apiAction, apiController);
     var apiUrlTemplate = $"{endpointUrl}?{apiParam}=%QUERY";

@@ -9,8 +9,8 @@ using MingaDigital.App.ApiModels;
 
 namespace MingaDigital.App.ApiControllers
 {
-    [Route("api/rubro")]
-    public class RubroApiController
+    [Route("api/tipo-empresa")]
+    public class TipoEmpresaApiController
     {
         [FromServices]
         public MainContext Db { get; set; }
@@ -19,11 +19,11 @@ namespace MingaDigital.App.ApiControllers
         public IEnumerable<NameSearchApiModel<Int32>> NameSearch(String term)
         {
             var query =
-                Db.Rubro
+                Db.TipoEmpresa
                 .Where(x => x.Nombre.ToLower().Contains(term.ToLower()))
                 .Select(x => new NameSearchApiModel<Int32>
                 {
-                    Id = x.RubroId,
+                    Id = x.TipoEmpresaId,
                     Name = x.Nombre
                 });
             

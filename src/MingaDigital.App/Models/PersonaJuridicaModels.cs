@@ -40,11 +40,21 @@ namespace MingaDigital.App.Models
         
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Rubro")]
-        [AdditionalMetadata("Controller",   "RubroApi")]
-        [AdditionalMetadata("Action",       nameof(RubroApiController.NameSearch))]
-        [AdditionalMetadata("SearchKey",    nameof(RubroNameSearchApiModel.RubroId))]
-        [AdditionalMetadata("SearchValue",  nameof(RubroNameSearchApiModel.Nombre))]
+        [AdditionalMetadata("Controller", "RubroApi")]
+        [AdditionalMetadata("Action",     nameof(RubroApiController.NameSearch))]
         public EntitySelectorModel Rubro { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Tipo de Empresa")]
+        [AdditionalMetadata("Controller", "TipoEmpresaApi")]
+        [AdditionalMetadata("Action",     nameof(TipoEmpresaApiController.NameSearch))]
+        public EntitySelectorModel TipoEmpresa { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Encargado")]
+        [AdditionalMetadata("Controller", "PersonaFisicaApi")]
+        [AdditionalMetadata("Action",     nameof(PersonaFisicaApiController.NameSearch))]
+        public EntitySelectorModel Encargado { get; set; }
         
         public String RubroNombre { get; set; }
     }
