@@ -20,6 +20,7 @@ using MingaDigital.App.EF;
 using MingaDigital.App.Entities;
 using MingaDigital.App.Filters;
 using MingaDigital.App.Services;
+using MingaDigital.App.Metadata;
 
 namespace MingaDigital.App
 {
@@ -40,8 +41,10 @@ namespace MingaDigital.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.Configure<MvcOptions>(ConfigureJsonFormatter);
+            // Desabilitado!
+            // services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
+            services.Configure<MvcOptions>(ConfigureMetadataProviders);
             
             services.AddSingleton<ActionScavenger>();
             
@@ -95,6 +98,11 @@ namespace MingaDigital.App
         private void ConfigureGlobalFilters(MvcOptions options)
         {
             options.Filters.Add(typeof(UserSessionFilter));
+        }
+        
+        private void ConfigureMetadataProviders(MvcOptions options)
+        {
+            options.ModelMetadataDetailsProviders.Add(new AdditionalMetadataProvider());
         }
         
         private void AddDataServices(IServiceCollection services)

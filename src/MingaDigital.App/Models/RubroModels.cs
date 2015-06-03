@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
+using Microsoft.AspNet.Mvc;
+
 namespace MingaDigital.App.Models
 {
     [Description("Rubros")]
