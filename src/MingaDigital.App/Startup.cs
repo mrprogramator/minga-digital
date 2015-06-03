@@ -44,6 +44,7 @@ namespace MingaDigital.App
             // services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
             services.Configure<MvcOptions>(ConfigureMetadataProviders);
+            services.Configure<MvcOptions>(ConfigureValidatorProviders);
             
             services.AddSingleton<ActionScavenger>();
             
@@ -102,6 +103,11 @@ namespace MingaDigital.App
         private void ConfigureMetadataProviders(MvcOptions options)
         {
             options.ModelMetadataDetailsProviders.Add(new AdditionalMetadataProvider());
+        }
+        
+        private void ConfigureValidatorProviders(MvcOptions options)
+        {
+            
         }
         
         private void AddDataServices(IServiceCollection services)

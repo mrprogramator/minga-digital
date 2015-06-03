@@ -52,23 +52,38 @@ namespace MingaDigital.App.Controllers
         
         protected override PersonaJuridicaEditorModel EntityToEditorModel(PersonaJuridica entity)
         {
-            return new PersonaJuridicaEditorModel
+            var model = new PersonaJuridicaEditorModel
             {
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                Nit = entity.Nit,
+                Direccion = entity.Direccion
             };
+            
+            model.Rubro.Key = entity.RubroId;
+            model.Rubro.Value = entity.Rubro.Nombre;
+            model.TipoEmpresa.Key = entity.TipoEmpresaId;
+            model.TipoEmpresa.Value = entity.TipoEmpresa.Nombre;
+            model.Encargado.Key = entity.EncargadoId;
+            model.Encargado.Value = entity.Encargado.Nombre;
+            
+            return model;
         }
         
         protected override PersonaJuridica EditorModelToEntity(PersonaJuridicaEditorModel model)
         {
-            return new PersonaJuridica
-            {
-                Nombre = model.Nombre
-            };
+            var entity = new PersonaJuridica();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(PersonaJuridicaEditorModel model, PersonaJuridica entity)
         {
             entity.Nombre = model.Nombre;
+            entity.Nit = model.Nit;
+            entity.Direccion = model.Direccion;
+            entity.RubroId = model.Rubro.Key;
+            entity.TipoEmpresaId = model.TipoEmpresa.Key;
+            entity.EncargadoId = model.Encargado.Key;
         }
     }
 }

@@ -26,8 +26,8 @@ namespace MingaDigital.App.ApiControllers
                 )
                 .Select(x => new NameSearchApiModel<Int32>
                 {
-                    Id = x.PersonaFisicaId,
-                    Name = x.Nombres + " " + x.Apellidos
+                    Key = x.PersonaFisicaId,
+                    Value = x.Nombres + " " + x.Apellidos
                 });
             
             var result = query.ToArray();

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
+using MingaDigital.App.ApiModels;
+using MingaDigital.App.ApiControllers;
+using MingaDigital.App.Metadata;
+
 namespace MingaDigital.App.Models
 {
     [Description("Personas Físicas")]
@@ -64,5 +68,12 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Dirección")]
         public String Direccion { get; set; }
+    }
+    
+    [AdditionalMetadata("Controller", "PersonaFisicaApi")]
+    [AdditionalMetadata("Action", nameof(PersonaFisicaApiController.NameSearch))]
+    public class PersonaFisicaEntitySelectorModel : NameSearchApiModel<Int32>
+    {
+        
     }
 }

@@ -23,8 +23,8 @@ namespace MingaDigital.App.ApiControllers
                 .Where(x => x.Nombre.ToLower().Contains(term.ToLower()))
                 .Select(x => new NameSearchApiModel<Int32>
                 {
-                    Id = x.TipoEmpresaId,
-                    Name = x.Nombre
+                    Key = x.TipoEmpresaId,
+                    Value = x.Nombre
                 });
             
             var result = query.ToArray();

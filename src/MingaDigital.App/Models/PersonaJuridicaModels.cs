@@ -39,23 +39,25 @@ namespace MingaDigital.App.Models
         public String Nombre { get; set; }
         
         [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "NIT")]
+        public String Nit { get; set; }
+        
+        [Display(Name = "Dirección")]
+        public String Direccion { get; set; }
+        
         [Display(Name = "Rubro")]
-        [AdditionalMetadata("Controller", "RubroApi")]
-        [AdditionalMetadata("Action",     nameof(RubroApiController.NameSearch))]
-        public EntitySelectorModel Rubro { get; set; }
+        [UIHint("EntitySelector")]
+        public RubroEntitySelectorModel Rubro { get; set; }
+            = new RubroEntitySelectorModel();
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Tipo de Empresa")]
-        [AdditionalMetadata("Controller", "TipoEmpresaApi")]
-        [AdditionalMetadata("Action",     nameof(TipoEmpresaApiController.NameSearch))]
-        public EntitySelectorModel TipoEmpresa { get; set; }
+        [UIHint("EntitySelector")]
+        public TipoEmpresaEntitySelectorModel TipoEmpresa { get; set; }
+            = new TipoEmpresaEntitySelectorModel();
         
-        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Encargado")]
-        [AdditionalMetadata("Controller", "PersonaFisicaApi")]
-        [AdditionalMetadata("Action",     nameof(PersonaFisicaApiController.NameSearch))]
-        public EntitySelectorModel Encargado { get; set; }
-        
-        public String RubroNombre { get; set; }
+        [UIHint("EntitySelector")]
+        public PersonaFisicaEntitySelectorModel Encargado { get; set; }
+            = new PersonaFisicaEntitySelectorModel();
     }
 }

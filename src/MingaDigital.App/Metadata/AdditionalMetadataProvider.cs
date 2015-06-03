@@ -11,16 +11,17 @@ namespace MingaDigital.App.Metadata
     {
         public void GetDisplayMetadata(DisplayMetadataProviderContext context)
         {
-            Console.WriteLine("KEY: {0}", context.Key.Name);
+            //Console.WriteLine("KEY: {0}", context.Key.Name);
             
-            var xs = context.Attributes.Select(x => x.GetType().Name);
-            Console.WriteLine(String.Join("\n", xs));
+            //var xs = context.Attributes.Select(x => x.GetType().Name);
+            //Console.WriteLine(String.Join("\n", xs));
             
             var additionalMetadataAttributes =
                 context.Attributes.OfType<IAdditionalMetadataAttribute>();
             
             foreach (var obj in additionalMetadataAttributes)
             {
+                //Console.WriteLine($"  {obj.Key}:{obj.Value}");
                 context.DisplayMetadata.AdditionalValues.Add(obj.Key, obj.Value);
             }
         }
