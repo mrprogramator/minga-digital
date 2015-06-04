@@ -1,15 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-using Microsoft.Framework.Runtime.Infrastructure;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.ModelBinding.Validation;
-
-using MingaDigital.App.EF;
-using MingaDigital.App.ApiModels;
 using MingaDigital.App.ApiControllers;
 using MingaDigital.App.Metadata;
 
