@@ -25,6 +25,7 @@ namespace MingaDigital.App.Controllers
         {
             var query =
                 Db.PersonaJuridica
+                .OrderBy(x => x.Nombre)
                 .Select(x => new PersonaJuridicaIndexTableRow
                 {
                     PersonaJuridicaId = x.PersonaJuridicaId,
