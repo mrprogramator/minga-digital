@@ -1,6 +1,23 @@
+body {
+  background: #FFF;
+}
+
 #main {
   padding-top: 50px;
+  padding-bottom: 100px;
+  background: #FFF;
 }
+
+.page-footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: #767676;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+  .page-footer p {
+    margin-bottom: 0;
+  }
 
 .detail-list {
   margin: 20px 0;
