@@ -52,21 +52,16 @@ namespace MingaDigital.App.Controllers
         
         protected override PersonaJuridicaEditorModel EntityToEditorModel(PersonaJuridica entity)
         {
-            var model = new PersonaJuridicaEditorModel
+            return new PersonaJuridicaEditorModel
             {
                 Nombre = entity.Nombre,
                 Nit = entity.Nit,
-                Direccion = entity.Direccion
+                Direccion = entity.Direccion,
+                // TODO prefetch foreign entities:
+                Rubro = entity.Rubro,
+                TipoEmpresa = entity.TipoEmpresa,
+                Encargado = entity.Encargado
             };
-            
-            model.Rubro.Key = entity.RubroId;
-            model.Rubro.Value = entity.Rubro.Nombre;
-            model.TipoEmpresa.Key = entity.TipoEmpresaId;
-            model.TipoEmpresa.Value = entity.TipoEmpresa.Nombre;
-            model.Encargado.Key = entity.EncargadoId;
-            model.Encargado.Value = entity.Encargado.Nombre;
-            
-            return model;
         }
         
         protected override PersonaJuridica EditorModelToEntity(PersonaJuridicaEditorModel model)
@@ -81,9 +76,9 @@ namespace MingaDigital.App.Controllers
             entity.Nombre = model.Nombre;
             entity.Nit = model.Nit;
             entity.Direccion = model.Direccion;
-            entity.RubroId = model.Rubro.Key;
-            entity.TipoEmpresaId = model.TipoEmpresa.Key;
-            entity.EncargadoId = model.Encargado.Key;
+            entity.Rubro = model.Rubro;
+            entity.TipoEmpresa = model.TipoEmpresa;
+            entity.Encargado = model.Encargado;
         }
     }
 }

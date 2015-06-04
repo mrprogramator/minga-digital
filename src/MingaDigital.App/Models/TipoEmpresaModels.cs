@@ -41,8 +41,15 @@ namespace MingaDigital.App.Models
     
     [AdditionalMetadata("Controller", "TipoEmpresaApi")]
     [AdditionalMetadata("Action", nameof(TipoEmpresaApiController.NameSearch))]
-    public class TipoEmpresaEntitySelectorModel : NameSearchApiModel<Int32>
+    public class TipoEmpresaSelector : EntitySelector<Entities.TipoEmpresa, Int32>
     {
+        public override String DisplayValue => Entity?.Nombre;
         
+        public static implicit operator TipoEmpresaSelector(Entities.TipoEmpresa entity) =>
+            new TipoEmpresaSelector
+            {
+                Entity = entity,
+                Key = entity.TipoEmpresaId
+            };
     }
 }

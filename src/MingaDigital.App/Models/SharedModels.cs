@@ -29,10 +29,19 @@ namespace MingaDigital.App.Models
         public IEnumerable<RowT> Rows { get; set; }
     }
     
-    public class EntitySelectorModel
+    [Bind("Key")]
+    public abstract class EntitySelector<EntityT, KeyT> : EntitySelector
     {
-        public String Key { get; set; }
+        public EntityT Entity { get; set; }
         
-        public String Value { get; set; }
+        public KeyT Key { get; set; }
+        
+        public abstract String DisplayValue { get; }
+        
+        public static implicit operator EntityT(EntitySelector<EntityT, KeyT> selector) =>
+            selector.Entity;
     }
+    
+    // Used as UIHint
+    public abstract class EntitySelector { }
 }

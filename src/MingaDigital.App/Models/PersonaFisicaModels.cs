@@ -72,8 +72,15 @@ namespace MingaDigital.App.Models
     
     [AdditionalMetadata("Controller", "PersonaFisicaApi")]
     [AdditionalMetadata("Action", nameof(PersonaFisicaApiController.NameSearch))]
-    public class PersonaFisicaEntitySelectorModel : NameSearchApiModel<Int32>
+    public class PersonaFisicaSelector : EntitySelector<Entities.PersonaFisica, Int32>
     {
+        public override String DisplayValue => Entity?.Nombre;
         
+        public static implicit operator PersonaFisicaSelector(Entities.PersonaFisica entity) =>
+            new PersonaFisicaSelector
+            {
+                Entity = entity,
+                Key = entity.PersonaFisicaId
+            };
     }
 }

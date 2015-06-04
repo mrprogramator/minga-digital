@@ -45,19 +45,19 @@ namespace MingaDigital.App.Models
         [Display(Name = "Dirección")]
         public String Direccion { get; set; }
         
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Rubro")]
-        [UIHint("EntitySelector")]
-        public RubroEntitySelectorModel Rubro { get; set; }
-            = new RubroEntitySelectorModel();
+        public RubroSelector Rubro { get; set; }
+            = new RubroSelector();
         
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Tipo de Empresa")]
-        [UIHint("EntitySelector")]
-        public TipoEmpresaEntitySelectorModel TipoEmpresa { get; set; }
-            = new TipoEmpresaEntitySelectorModel();
+        public TipoEmpresaSelector TipoEmpresa { get; set; }
+            = new TipoEmpresaSelector();
         
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Encargado")]
-        [UIHint("EntitySelector")]
-        public PersonaFisicaEntitySelectorModel Encargado { get; set; }
-            = new PersonaFisicaEntitySelectorModel();
+        public PersonaFisicaSelector Encargado { get; set; }
+            = new PersonaFisicaSelector();
     }
 }

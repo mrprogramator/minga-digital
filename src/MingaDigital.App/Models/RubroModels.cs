@@ -45,29 +45,17 @@ namespace MingaDigital.App.Models
         public String Nombre { get; set; }
     }
     
-    // [RubroReferenceValidator]
     [AdditionalMetadata("Controller", "RubroApi")]
     [AdditionalMetadata("Action", nameof(RubroApiController.NameSearch))]
-    public class RubroEntitySelectorModel : NameSearchApiModel<Int32>
+    public class RubroSelector : EntitySelector<Entities.Rubro, Int32>
     {
+        public override String DisplayValue => Entity?.Nombre;
         
-    }
-    
-    public class RubroReferenceValidatorAttribute : Attribute, IModelValidator
-    {
-        public Boolean IsRequired => true;
-        
-        public IEnumerable<ModelValidationResult> Validate(ModelValidationContext context)
-        {
-            var results = new List<ModelValidationResult>();
-            
-            var keyExplorer = context.ModelExplorer.GetExplorerForProperty("Id");
-            var key = keyExplorer.Model;
-            
-            if (String.IsNullOrEmpty(key as String))
-                results.Add(new ModelValidationResult(context.RootPrefix, "Malo"));
-            
-            return results;
-        }
+        public static implicit operator RubroSelector(Entities.Rubro entity) =>
+            new RubroSelector
+            {
+                Entity = entity,
+                Key = entity.RubroId
+            };
     }
 }

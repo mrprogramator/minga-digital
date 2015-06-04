@@ -1,10 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.StaticFiles;
@@ -17,10 +15,10 @@ using Microsoft.Framework.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
 using MingaDigital.App.EF;
-using MingaDigital.App.Entities;
 using MingaDigital.App.Filters;
 using MingaDigital.App.Services;
 using MingaDigital.App.Metadata;
+using MingaDigital.App.Validators;
 
 namespace MingaDigital.App
 {
@@ -107,7 +105,8 @@ namespace MingaDigital.App
         
         private void ConfigureValidatorProviders(MvcOptions options)
         {
-            
+            // Instantiated like a scoped service (:
+            options.ModelValidatorProviders.Add(typeof(EntitySelectorValidatorProvider));
         }
         
         private void AddDataServices(IServiceCollection services)
