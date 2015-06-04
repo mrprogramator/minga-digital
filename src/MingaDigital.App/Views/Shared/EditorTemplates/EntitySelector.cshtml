@@ -29,9 +29,7 @@
     var inputName = Html.Name("Key");
 }
 
-<input type="hidden"
-  name="@Html.Name("Key")"
-  value="@Html.Value("Key")">
+@Html.Hidden("Key")
 
 <input type="text" class="form-control @ViewData["class"]"
   data-typeahead-for="@Html.Name("Key")"
