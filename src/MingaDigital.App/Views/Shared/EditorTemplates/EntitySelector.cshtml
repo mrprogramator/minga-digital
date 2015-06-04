@@ -38,8 +38,12 @@
   name="@Html.Name("DisplayValue")"
   value="@Html.Value("DisplayValue")">
 
-<script>
+<p class="help-block">
+  Escriba el nombre de un <strong>@Html.DisplayName("")</strong>
+  y el sistema le proveerá opciones.
+</p>
 
+<script>
 $(function () {
 
   var apiUrlTemplate  = '@apiUrlTemplate'
@@ -85,5 +89,4 @@ $(function () {
   });
 
 });
-
 </script>
