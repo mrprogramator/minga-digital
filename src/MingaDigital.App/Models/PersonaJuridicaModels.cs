@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -33,5 +32,27 @@ namespace MingaDigital.App.Models
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "NIT")]
+        public String Nit { get; set; }
+        
+        [Display(Name = "Dirección")]
+        public String Direccion { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Rubro")]
+        public RubroSelector Rubro { get; set; }
+            = new RubroSelector();
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Tipo de Empresa")]
+        public TipoEmpresaSelector TipoEmpresa { get; set; }
+            = new TipoEmpresaSelector();
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Encargado")]
+        public PersonaFisicaSelector Encargado { get; set; }
+            = new PersonaFisicaSelector();
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 using Microsoft.AspNet.Mvc;
 
@@ -90,7 +91,21 @@ namespace MingaDigital.App.Controllers
             var entity = EditorModelToEntity(model);
             
             CrudSet.Add(entity);
-            Db.SaveChanges();
+            
+            try
+            {
+                Db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var s =
+                    ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors.Select(y => $"{y.PropertyName}: {y.ErrorMessage}"));
+                
+                Console.WriteLine(String.Join("\n", s));
+                
+                throw;
+            }
             
             return ResultAfterWrite(entity);
         }

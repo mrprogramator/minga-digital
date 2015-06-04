@@ -50,6 +50,8 @@ namespace MingaDigital.App.EF
         
         public DbSet<Rol> Rol { get; set; }
         
+        public DbSet<Rubro> Rubro { get; set; }
+        
         public DbSet<SesionUsuario> SesionUsuario { get; set; }
         
         public DbSet<Telecentro> Telecentro { get; set; }
@@ -59,6 +61,8 @@ namespace MingaDigital.App.EF
         public DbSet<TipoActividad> TipoActividad { get; set; }
 
         public DbSet<TipoComponente> TipoComponente { get; set; }
+        
+        public DbSet<TipoEmpresa> TipoEmpresa { get; set; }
         
         public DbSet<TipoIncidencia> TipoIncidencia { get; set; }
         
@@ -73,7 +77,7 @@ namespace MingaDigital.App.EF
         public MainContext(String connectionString)
             : base(connectionString)
         {
-            Database.Log = Console.Error.WriteLine;
+            //Database.Log = Console.Error.WriteLine;
         }
         
         // TODO hack-ish

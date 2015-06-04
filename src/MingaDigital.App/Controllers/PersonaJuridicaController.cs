@@ -25,6 +25,7 @@ namespace MingaDigital.App.Controllers
         {
             var query =
                 Db.PersonaJuridica
+                .OrderBy(x => x.Nombre)
                 .Select(x => new PersonaJuridicaIndexTableRow
                 {
                     PersonaJuridicaId = x.PersonaJuridicaId,
@@ -54,21 +55,31 @@ namespace MingaDigital.App.Controllers
         {
             return new PersonaJuridicaEditorModel
             {
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                Nit = entity.Nit,
+                Direccion = entity.Direccion,
+                // TODO prefetch foreign entities:
+                Rubro = entity.Rubro,
+                TipoEmpresa = entity.TipoEmpresa,
+                Encargado = entity.Encargado
             };
         }
         
         protected override PersonaJuridica EditorModelToEntity(PersonaJuridicaEditorModel model)
         {
-            return new PersonaJuridica
-            {
-                Nombre = model.Nombre
-            };
+            var entity = new PersonaJuridica();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(PersonaJuridicaEditorModel model, PersonaJuridica entity)
         {
             entity.Nombre = model.Nombre;
+            entity.Nit = model.Nit;
+            entity.Direccion = model.Direccion;
+            entity.Rubro = model.Rubro;
+            entity.TipoEmpresa = model.TipoEmpresa;
+            entity.Encargado = model.Encargado;
         }
     }
 }

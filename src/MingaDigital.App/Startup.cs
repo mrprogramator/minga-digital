@@ -1,10 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.StaticFiles;
@@ -17,9 +15,10 @@ using Microsoft.Framework.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
 using MingaDigital.App.EF;
-using MingaDigital.App.Entities;
 using MingaDigital.App.Filters;
 using MingaDigital.App.Services;
+using MingaDigital.App.Metadata;
+using MingaDigital.App.Validators;
 
 namespace MingaDigital.App
 {
@@ -40,8 +39,10 @@ namespace MingaDigital.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.Configure<MvcOptions>(ConfigureJsonFormatter);
+            // services.Configure<MvcOptions>(ConfigureJsonFormatter);
             services.Configure<MvcOptions>(ConfigureGlobalFilters);
+            services.Configure<MvcOptions>(ConfigureMetadataProviders);
+            services.Configure<MvcOptions>(ConfigureValidatorProviders);
             
             services.AddSingleton<ActionScavenger>();
             
@@ -55,7 +56,7 @@ namespace MingaDigital.App
         {
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             
-            UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
+            // UseRedirectOnException<System.Data.DataException>(app, "/error/db-conn");
             
             app.UseStatusCodePages();
             
@@ -95,6 +96,17 @@ namespace MingaDigital.App
         private void ConfigureGlobalFilters(MvcOptions options)
         {
             options.Filters.Add(typeof(UserSessionFilter));
+        }
+        
+        private void ConfigureMetadataProviders(MvcOptions options)
+        {
+            options.ModelMetadataDetailsProviders.Add(new AdditionalMetadataProvider());
+        }
+        
+        private void ConfigureValidatorProviders(MvcOptions options)
+        {
+            // Instantiated like a scoped service (:
+            options.ModelValidatorProviders.Add(typeof(EntitySelectorValidatorProvider));
         }
         
         private void AddDataServices(IServiceCollection services)

@@ -15,6 +15,9 @@
 
   <link rel="stylesheet" href="/css/main.css">
   
+  <link rel="stylesheet" href="/css/typeahead.css">
+  <script src="/lib/typeahead.bundle.min.js"></script>
+  
   <script>
     // TODO mover a un lugar mejor
     $(window).ready(function () {
@@ -41,32 +44,28 @@
       </button>
       <a class="navbar-brand" href="@Url.Action("Index", "Home")">Minga Digital</a>
     </div>
-    
-    @if (UserSession.IsLoggedIn)
-    {
-      var personUrl =
-        Url.Action(
-          "Detail",
-          "PersonaFisica",
-          new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
-        );
-      
-      <div class="navbar-right">
-        <p class="navbar-text">
+    <div class="collapse navbar-collapse" id="main-navbar">
+      @if (UserSession.IsLoggedIn)
+      {
+        var personUrl =
+          Url.Action(
+            "Detail",
+            "PersonaFisica",
+            new { id = UserSession.ActiveUser.PersonaFisica.PersonaFisicaId }
+          );
+        
+        <div class="navbar-right">
           Hola,
           <a href="@personUrl" class="navbar-link">
             @UserSession.ActiveUser.PersonaFisica.Nombre
           </a>
-        </p>
-        
-        <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
-          <span class="glyphicon glyphicon-log-out"></span>
-          Salir
-        </a>
-      </div>
-    }
-    
-    <div class="collapse navbar-collapse" id="main-navbar">
+          <a href="@Url.Action("Logout", "Usuario")" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Salir
+          </a>
+        </div>
+      }
+      
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -117,16 +116,34 @@
             <li><a href="@Url.Action("Index", "TipoIncidencia")">Tipos de Incidencia</a></li>
           </ul>
         </li>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            Configuración <span class="caret"></span>
+          </a>
+          
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index", "Rubro")">Rubros</a></li>
+            <li><a href="@Url.Action("Index", "TipoEmpresa")">Tipos de Empresa</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div id="main" class="container">
+<div id="main">
+  <div class="container">
 
 @RenderBody()
 
+  </div>
 </div>
+
+<footer class="page-footer">
+  <p>Desarrollado por alumnos UPSA, 2015 S1.</p>
+  <p>Proyecto supervisado por Ing. Karem Infantas</p>
+</footer>
 
 </body>
 </html>

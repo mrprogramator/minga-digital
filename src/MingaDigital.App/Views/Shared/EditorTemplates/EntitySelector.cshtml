@@ -1,0 +1,92 @@
+@model EntitySelector
+@inject Microsoft.AspNet.Mvc.ModelBinding.IModelMetadataProvider Provider
+
+@{
+    var modelType = ViewData.ModelExplorer.ModelType;
+    var typeValues = Provider.GetMetadataForType(modelType).AdditionalValues;
+    var propertyValues = ViewData.ModelMetadata.AdditionalValues;
+    
+    var valueDictionary = typeValues;
+    
+    Func<String, Boolean, String> param = (key, required) =>
+    {
+        Object value;
+        var found = ViewData.ModelMetadata.AdditionalValues.TryGetValue(key, out value);
+        if (!found && required)
+            throw new Exception($"EntitySelector: Required parameter not found: {key}");
+        return value as String;
+    };
+    
+    var apiController = param("Controller", true);
+    var apiAction     = param("Action", true);
+    var apiParam      = param("ParameterName", false) ?? "term";
+    var searchKey     = param("SearchKey", false) ?? "Key";
+    var searchValue   = param("SearchValue", false) ?? "Value";
+    
+    var endpointUrl    = Url.Action(apiAction, apiController);
+    var apiUrlTemplate = $"{endpointUrl}?{apiParam}=%QUERY";
+    
+    var inputName = Html.Name("Key");
+}
+
+<input type="hidden"
+  name="@Html.Name("Key")"
+  value="@Html.Value("Key")">
+
+<input type="text" class="form-control @ViewData["class"]"
+  data-typeahead-for="@Html.Name("Key")"
+  name="@Html.Name("DisplayValue")"
+  value="@Html.Value("DisplayValue")">
+
+<p class="help-block">
+  Escriba el nombre de un <strong>@Html.DisplayName("")</strong>
+  y el sistema le proveerá opciones.
+</p>
+
+<script>
+$(function () {
+
+  var apiUrlTemplate  = '@apiUrlTemplate'
+  var keyAttribute   = '@searchKey';
+  var valueAttribute = '@searchValue';
+
+  var engine = new Bloodhound({
+    remote: apiUrlTemplate,
+    datumTokenizer: function (item) {
+      return Bloodhound.tokenizers.whitespace(item[valueAttribute]);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+  });
+
+  engine.initialize();
+
+  var $input  = $('input[data-typeahead-for="@inputName"]');
+  var $output = $('input[name="@inputName"]');
+
+  var typeaheadDataset = {
+    source: engine.ttAdapter(),
+    displayKey: valueAttribute,
+    templates: { }
+  };
+
+  var lastGoodValue = null;
+
+  $input.typeahead(null, typeaheadDataset);
+
+  $input.on('change', function () {
+    // invalidate
+    if ($input.val() !== lastGoodValue) {
+      $output.val('');
+      $output.parent().removeClass('has-success').addClass('has-error');
+    }
+  });
+
+  $input.on('typeahead:selected typeahead:autocompleted', function (ev, item, dataset) {
+    // valid
+    $output.val(item[keyAttribute]);
+    $output.parent().addClass('has-success').removeClass('has-error');
+    lastGoodValue = $input.val();
+  });
+
+});
+</script>
