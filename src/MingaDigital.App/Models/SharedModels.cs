@@ -34,6 +34,9 @@ namespace MingaDigital.App.Models
     {
         public EntityT Entity { get; set; }
         
+        // KeyT debe admitir null!
+        // sino model binding lo vuelve requerido
+        // nosotros nos encargamos manualmente de RequiredAttribute
         public KeyT Key { get; set; }
         
         public abstract String DisplayValue { get; }

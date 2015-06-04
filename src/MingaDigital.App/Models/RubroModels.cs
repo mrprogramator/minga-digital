@@ -47,7 +47,7 @@ namespace MingaDigital.App.Models
     
     [AdditionalMetadata("Controller", "RubroApi")]
     [AdditionalMetadata("Action", nameof(RubroApiController.NameSearch))]
-    public class RubroSelector : EntitySelector<Entities.Rubro, Int32>
+    public class RubroSelector : EntitySelector<Entities.Rubro, Int32?>
     {
         public override String DisplayValue => Entity?.Nombre;
         
