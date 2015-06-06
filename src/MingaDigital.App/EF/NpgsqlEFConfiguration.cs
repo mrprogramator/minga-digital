@@ -15,12 +15,28 @@ namespace Npgsql
         {
             if (connection == null)
                 throw new ArgumentNullException("connection");
-            return connection.ServerVersion;
+            string serverVersion = "";
+            UsingPostgresDBConnection((NpgsqlConnection)connection, conn =>
+            {
+                serverVersion = conn.ServerVersion;
+            });
+            return serverVersion;
         }
         
         protected override void DbCreateDatabase(DbConnection connection, int? commandTimeout, StoreItemCollection storeItemCollection)
         {
             // skip
+        }
+        
+        private static void UsingPostgresDBConnection(NpgsqlConnection connection, Action<NpgsqlConnection> action)
+        {
+            var connectionBuilder = new NpgsqlConnectionStringBuilder(connection.ConnectionString);
+            
+            using (var masterConnection = new NpgsqlConnection(connectionBuilder.ConnectionString))
+            {
+                masterConnection.Open();
+                action(masterConnection);
+            }
         }
     }
     
