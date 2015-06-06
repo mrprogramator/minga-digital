@@ -11,6 +11,13 @@ namespace Npgsql
 {
     public class CustomNpgsqlServices : NpgsqlServices
     {
+        protected override string GetDbProviderManifestToken(DbConnection connection)
+        {
+            if (connection == null)
+                throw new ArgumentNullException("connection");
+            return connection.ServerVersion;
+        }
+        
         protected override void DbCreateDatabase(DbConnection connection, int? commandTimeout, StoreItemCollection storeItemCollection)
         {
             // skip
