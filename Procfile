@@ -1,0 +1,1 @@
+web: dnx src/MingaDigital.App kestrel
