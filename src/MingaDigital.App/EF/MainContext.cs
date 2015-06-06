@@ -77,7 +77,7 @@ namespace MingaDigital.App.EF
         public MainContext(String connectionString)
             : base(connectionString)
         {
-            //Database.Log = Console.Error.WriteLine;
+            Database.Log = Console.Error.WriteLine;
         }
         
         // TODO hack-ish
