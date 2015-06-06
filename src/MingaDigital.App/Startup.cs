@@ -9,6 +9,7 @@ using Microsoft.AspNet.StaticFiles;
 using Microsoft.AspNet.FileProviders;
 using Microsoft.AspNet.Diagnostics;
 
+using Microsoft.Framework.Runtime;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 
@@ -24,10 +25,13 @@ namespace MingaDigital.App
 {
     public class Startup
     {
+        private readonly IApplicationEnvironment _appEnv;
+        
         public IConfiguration Configuration { get; private set; }
         
-        public Startup()
+        public Startup(IApplicationEnvironment appEnv)
         {
+            _appEnv = appEnv;
             Configuration = LoadConfiguration();
         }
         
@@ -68,12 +72,9 @@ namespace MingaDigital.App
                 ServeDirectory(app, "bower_components", "/bower_components");
         }
         
-        // TODO organizar
-        private static void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
+        private void ServeDirectory(IApplicationBuilder app, String directoryPath, String requestPath)
         {
-            // TODO utilizar directorio de proyecto (solo si ruta es relativa)
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var fullPath = Path.Combine(currentDirectory, directoryPath);
+            var fullPath = Path.Combine(_appEnv.ApplicationBasePath, directoryPath);
             
             app.UseStaticFiles(new StaticFileOptions()
             {
