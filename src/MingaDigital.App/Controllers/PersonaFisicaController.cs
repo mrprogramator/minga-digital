@@ -155,7 +155,7 @@ namespace MingaDigital.App.Controllers
             Db.Usuario.Add(usuario);
             Db.SaveChanges();
             
-            return ResultAfterWrite(entity);
+            return RedirectToAction("Detail", "Usuario", new { id = usuario.UsuarioId });
         }
     }
 }
