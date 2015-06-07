@@ -45,6 +45,7 @@ namespace MingaDigital.App.Controllers
             
             var model = new UsuarioDetailModel
             {
+                UsuarioId = entity.UsuarioId,
                 PersonaFisicaId = entity.PersonaFisica.PersonaFisicaId,
                 PersonaFisicaNombre = entity.PersonaFisica.Nombre,
                 Username = entity.Username,
@@ -210,6 +211,45 @@ namespace MingaDigital.App.Controllers
             Db.SaveChanges();
             
             return RedirectToAction("Detail", new { id = id });
+        }
+        
+        [HttpGet("{id}/eliminar")]
+        public virtual IActionResult Delete(Int32 id)
+        {
+            var entity = Db.Usuario.Find(id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var model = new UsuarioDetailModel
+            {
+                UsuarioId = entity.UsuarioId,
+                PersonaFisicaId = entity.PersonaFisica.PersonaFisicaId,
+                PersonaFisicaNombre = entity.PersonaFisica.Nombre,
+                Username = entity.Username
+            };
+            
+            return View(model);
+        }
+        
+         [HttpPost("{id}/eliminar")]
+        public virtual IActionResult DeleteConfirm(Int32 id)
+        {
+            var entity = Db.Usuario.Find(id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var personaFisicaId = entity.PersonaFisica.PersonaFisicaId;
+            
+            Db.Usuario.Remove(entity);
+            Db.SaveChanges();
+            
+            return RedirectToAction("Detail", "PersonaFisica", new { id = personaFisicaId });
         }
     }
 }

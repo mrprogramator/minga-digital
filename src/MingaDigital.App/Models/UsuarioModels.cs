@@ -10,6 +10,8 @@ namespace MingaDigital.App.Models
     [Description("Usuario")]
     public class UsuarioDetailModel
     {
+        public Int32 UsuarioId { get; set; }
+        
         public Int32 PersonaFisicaId { get; set; }
         
         [Display(Name = "Persona Física")]

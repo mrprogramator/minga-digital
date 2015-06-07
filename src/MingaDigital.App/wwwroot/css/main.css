@@ -38,7 +38,7 @@ body {
   padding: 10px 20px;
 }
   .panel-body .well .detail-list {
-    
+    margin: 0;
   }
     .panel-body .well .detail-list .row {
       border-bottom: 1px solid #CCC;
