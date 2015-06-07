@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
+using Microsoft.AspNet.Mvc;
 
 namespace MingaDigital.App.Models
 {
@@ -14,6 +17,15 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Username")]
         public String Username { get; set; }
+        
+        public IEnumerable<UsuarioRolDetailModel> Roles { get; set; }
+    }
+    
+    public class UsuarioRolDetailModel
+    {
+        public Int32 RolId { get; set; }
+        
+        public String Nombre { get; set; }
     }
     
     [Description("Password de Usuario")]
@@ -65,5 +77,23 @@ namespace MingaDigital.App.Models
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public String Password { get; set; }
+    }
+    
+    public class UsuarioManageRolesModel
+    {
+        [HiddenInput]
+        public Int32 UsuarioId { get; set; }
+        
+        [Required]
+        public IList<UsuarioRolAssignModel> Roles { get; set; }
+    }
+    
+    public class UsuarioRolAssignModel
+    {
+        public Int32 RolId { get; set; }
+        
+        public String Nombre { get; set; }
+        
+        public Boolean Assigned { get; set; }
     }
 }

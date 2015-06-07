@@ -24,18 +24,31 @@ namespace MingaDigital.App.Controllers
             var entity =
                 Db.Usuario
                 .Include(x => x.PersonaFisica)
-                .First(x => x.UsuarioId == id);
+                .FirstOrDefault(x => x.UsuarioId == id);
             
             if (entity == null)
             {
                 return HttpNotFound();
             }
             
+            var roles =
+                Db.UsuarioRol
+                .Where(x => x.UsuarioId == id)
+                .Select(x => x.Rol)
+                .Select(x => new UsuarioRolDetailModel
+                {
+                    RolId = x.RolId,
+                    Nombre = x.Nombre
+                })
+                .OrderBy(x => x.Nombre)
+                .ToArray();
+            
             var model = new UsuarioDetailModel
             {
                 PersonaFisicaId = entity.PersonaFisica.PersonaFisicaId,
                 PersonaFisicaNombre = entity.PersonaFisica.Nombre,
-                Username = entity.Username
+                Username = entity.Username,
+                Roles = roles
             };
             
             return View(model);
@@ -54,7 +67,7 @@ namespace MingaDigital.App.Controllers
             var entity =
                 Db.Usuario
                 .Include(x => x.PersonaFisica)
-                .First(x => x.UsuarioId == id);
+                .FirstOrDefault(x => x.UsuarioId == id);
             
             if (entity == null)
             {
@@ -73,7 +86,7 @@ namespace MingaDigital.App.Controllers
             var entity =
                 Db.Usuario
                 .Include(x => x.PersonaFisica)
-                .First(x => x.UsuarioId == id);
+                .FirstOrDefault(x => x.UsuarioId == id);
             
             if (entity == null)
             {
@@ -90,6 +103,110 @@ namespace MingaDigital.App.Controllers
             var password = PasswordHash.Plain(model.Password);
             
             entity.Password = password;
+            Db.SaveChanges();
+            
+            return RedirectToAction("Detail", new { id = id });
+        }
+        
+        [HttpGet("{id}/gestionar-roles")]
+        public IActionResult ManageRoles(Int32 id)
+        {
+            var entity =
+                Db.Usuario
+                .FirstOrDefault(x => x.UsuarioId == id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var roles =
+                Db.Rol
+                .Select(x => new UsuarioRolAssignModel
+                {
+                    RolId = x.RolId,
+                    Nombre = x.Nombre,
+                    Assigned =
+                        Db.UsuarioRol
+                        .Where(y => y.UsuarioId == id)
+                        .Any(y => x.RolId == y.RolId)
+                })
+                .OrderBy(x => x.Nombre)
+                .ToArray();
+            
+            var model = new UsuarioManageRolesModel
+            {
+                UsuarioId = id,
+                Roles = roles
+            };
+            
+            return View(model);
+        }
+        
+        [HttpPost("{id}/gestionar-roles")]
+        public IActionResult ManageRoles(Int32 id, UsuarioManageRolesModel model)
+        {
+            var entity =
+                Db.Usuario
+                .FirstOrDefault(x => x.UsuarioId == id);
+            
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ManageRoles");
+            }
+            
+            var inputRolIds = model.Roles.Select(x => x.RolId).ToArray();
+            
+            var existingRolIdsCount =
+                Db.Rol
+                .Where(x => inputRolIds.Contains(x.RolId))
+                .Count();
+            
+            if (inputRolIds.Length != existingRolIdsCount)
+            {
+                return RedirectToAction("ManageRoles");
+            }
+            
+            var usuarioRoles =
+                Db.UsuarioRol
+                .Where(x => x.UsuarioId == id)
+                .ToArray()
+                .ToDictionary(x => x.RolId, x => x);
+            
+            var remove = new List<UsuarioRol>();
+            var create = new List<UsuarioRol>();
+            
+            foreach (var assignment in model.Roles)
+            {
+                UsuarioRol existing = null;
+                
+                usuarioRoles.TryGetValue(assignment.RolId, out existing);
+                
+                if (assignment.Assigned && existing == null)
+                {
+                    create.Add(new UsuarioRol
+                    {
+                        RolId = assignment.RolId,
+                        UsuarioId = id
+                    });
+                }
+                else if (!assignment.Assigned && existing != null)
+                {
+                    remove.Add(existing);
+                }
+                else
+                {
+                    // don't care
+                }
+            }
+            
+            Db.UsuarioRol.RemoveRange(remove);
+            Db.UsuarioRol.AddRange(create);
             Db.SaveChanges();
             
             return RedirectToAction("Detail", new { id = id });

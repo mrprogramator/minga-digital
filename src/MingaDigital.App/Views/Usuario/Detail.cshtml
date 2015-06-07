@@ -42,7 +42,35 @@
       </a>
     </div>
   </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      Roles
+    </div>
+    <div class="col-md-9">
+      @if (!Model.Roles.Any())
+      {
+        <p><em>Ningún rol asignado</em></p>
+      }
+      @foreach (var rol in Model.Roles)
+      {
+        <p>@rol.Nombre</p>
+      }
+      <p>
+        <a href="@Url.Action("ManageRoles")" class="btn btn-xs btn-success">
+          Gestionar
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+      </p>
+    </div>
+  </div>
 </div>
+
+<style>
+.detail-list p {
+  margin: 0;
+}
+</style>
 
 <div class="panel panel-default with-table">
   <div class="panel-heading text-right">

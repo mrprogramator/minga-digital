@@ -1,0 +1,94 @@
+@model UsuarioManageRolesModel
+
+@{
+    Layout = "_CenteredLayout";
+    
+    ViewBag.Title = "Gestionar Roles de Usuario";
+    
+    var cancelUrl = Url.Action("Detail", new { id = Model.UsuarioId });
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<style>
+.btn-group {
+  margin-bottom: 10px;
+}
+
+.btn .label {
+  margin-top: 3px;
+}
+
+.btn .label.label-success {
+  display: none;
+}
+.btn.active .label.label-success {
+  display: block;
+}
+
+.btn .label.label-default {
+  display: block;
+}
+.btn.active .label.label-default {
+  display: none;
+}
+</style>
+
+<form method="post">
+  @Html.HiddenFor(m => m.UsuarioId)
+  
+  <p class="help-block">
+    Haga click en un Rol que desee asignar al usuario.
+  </p>
+  
+  <br>
+  
+  @for (var i = 0; i < Model.Roles.Count; ++i)
+  {
+    var rol = Model.Roles[i];
+    
+    var classes = "";
+    if (rol.Assigned) { classes += "active"; }
+    
+    @Html.HiddenFor(m => m.Roles[i].RolId)
+    
+    <div class="btn-group btn-group-justified" data-toggle="buttons">
+      <label class="btn btn-lg btn-default @classes">
+        <span class="label label-success pull-left">
+          <span class="glyphicon glyphicon-ok"></span>
+        </span>
+        <span class="label label-default pull-left">
+          <span class="glyphicon glyphicon-remove"></span>
+        </span>
+        @Html.CheckBoxFor(m => m.Roles[i].Assigned)
+        @rol.Nombre
+      </label>
+    </div>
+  }
+  
+  <br>
+  
+  <div class="text-right">
+    <a href="@cancelUrl" class="btn btn-link">Cancelar</a>
+    
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+  
+  <hr>
+  
+  <p class="help-block">
+    <span class="label label-success" style="display:inline-block">
+      <span class="glyphicon glyphicon-ok"></span>
+    </span>
+    indica que el rol <strong>sí</strong> está asignado al usuario.
+  </p>
+  
+  <p class="help-block">
+    <span class="label label-default" style="display:inline-block">
+      <span class="glyphicon glyphicon-remove"></span>
+    </span>
+    indica que el rol <strong>no</strong> está asignado al usuario.
+  </p>
+</form>
