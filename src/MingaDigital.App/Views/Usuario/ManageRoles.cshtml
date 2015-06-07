@@ -50,6 +50,21 @@
   
   <br>
   
+  @if (!Model.Roles.Any())
+  {
+    <div class="alert alert-info">
+      <p>
+        <strong>Atención</strong>
+        No ha creado ningún Rol en el sistema.
+      </p>
+      <p class="text-center">
+        <a href="@Url.Action("Index", "Rol")" class="btn btn-primary">
+          <span class="glyphicon glyphicon-cog"></span>
+          Gestionar Roles
+        </a>
+      </p>
+    </div>
+  }
   @for (var i = 0; i < Model.Roles.Count; ++i)
   {
     var rol = Model.Roles[i];
