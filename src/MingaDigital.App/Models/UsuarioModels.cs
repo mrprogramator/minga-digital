@@ -19,14 +19,14 @@ namespace MingaDigital.App.Models
     [Description("Password de Usuario")]
     public class UsuarioChangePasswordModel
     {
-        [ReadOnly(true)]
+        [Editable(false)]
         public Int32 UsuarioId { get; set; }
         
-        [ReadOnly(true)]
+        [Editable(false)]
         [Display(Name = "Persona Física")]
         public String PersonaFisicaNombre { get; set; }
         
-        [ReadOnly(true)]
+        [Editable(false)]
         [Display(Name = "Username")]
         public String Username { get; set; }
         
@@ -41,7 +41,7 @@ namespace MingaDigital.App.Models
     {
         public Int32 PersonaFisicaId { get; set; }
         
-        [ReadOnly(true)]
+        [Editable(false)]
         [Display(Name = "Persona Física")]
         public String PersonaFisicaNombre { get; set; }
         

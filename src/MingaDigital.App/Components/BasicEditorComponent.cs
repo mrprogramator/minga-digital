@@ -31,13 +31,13 @@ namespace MingaDigital.App.Components
             var displayProps =
                 from prop in modelType.GetProperties()
                 let disp = prop.GetCustomAttribute<DisplayAttribute>()
-                let readOnly = prop.GetCustomAttribute<ReadOnlyAttribute>()
+                let readOnly = prop.GetCustomAttribute<EditableAttribute>()
                 where disp != null
                 select new
                 {
                     Name = prop.Name,
                     Property = prop,
-                    ReadOnly = readOnly?.IsReadOnly == true
+                    ReadOnly = readOnly?.AllowEdit == false
                 };
             
             foreach (var prop in displayProps)
@@ -62,7 +62,7 @@ namespace MingaDigital.App.Components
                 {
                     PropertyName = prop.Name,
                     Label = htmlHelper.Label(prop.Name, null, new { @class = "control-label" }),
-                    Editor = editor
+                    Editor = htmlHelper.Editor(prop.Name)
                 };
                 
                 items.Add(item);
