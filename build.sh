@@ -20,7 +20,7 @@ build ()
   fi
   
   echo "==> upgrading dnx";
-  dnvm install dnx-mono.1.0.0-beta4;
+  dnvm install 1.0.0-beta4;
   
   echo "==> building MingaDigital.App"
   cd src/MingaDigital.App;
