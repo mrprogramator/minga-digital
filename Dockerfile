@@ -43,32 +43,32 @@ RUN apt-get update \
 # bower bug
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
+# ---
+
 RUN useradd -d /app -m app
+
+ENV PREFETCH_PATH /tmp/prefetch
+
+RUN mkdir -p $PREFETCH_PATH
+WORKDIR $PREFETCH_PATH
+COPY ./src/MingaDigital.App/project.json ./MingaDigital.App/project.json
+COPY ./src/MingaDigital.App/package.json ./MingaDigital.App/package.json
+COPY ./src/MingaDigital.App/bower.json ./MingaDigital.App/bower.json
+COPY ./src/MingaDigital.Security/project.json ./MingaDigital.Security/project.json
+RUN chown -R app ./
+
 USER app
-WORKDIR /app
-
 ENV HOME /app
-ENV PORT 3000
 
-#RUN mkdir -p /app/heroku
-#RUN mkdir -p /app/.profile.d
+RUN dnu restore
 
-# TODO do something smarter?
-RUN mkdir -p /tmp/prefetch/MingaDigital.App
-RUN mkdir -p /tmp/prefetch/MingaDigital.Security
-ADD ./src/MingaDigital.App/project.json /tmp/prefetch/MingaDigital.App/project.json
-ADD ./src/MingaDigital.App/package.json /tmp/prefetch/MingaDigital.App/package.json
-ADD ./src/MingaDigital.App/bower.json /tmp/prefetch/MingaDigital.App/bower.json
-ADD ./src/MingaDigital.Security/project.json /tmp/prefetch/MingaDigital.Security/project.json
+USER root
+WORKDIR /app
+COPY . ./
+RUN chown -R app ./
 
-RUN cd /tmp/prefetch && dnu restore --parallel
+EXPOSE 5000
 
-EXPOSE 3000
-
-ONBUILD RUN mkdir -p /app/src
-ONBUILD COPY . /app/src
-ONBUILD USER root
-ONBUILD RUN chown -R app /app/src
-ONBUILD USER app
-ONBUILD WORKDIR /app/src
-ONBUILD RUN dnu restore
+USER app
+RUN dnu restore
+CMD dnx ./src/MingaDigital.App kestrel
