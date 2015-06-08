@@ -3,6 +3,9 @@ mono:
   - 3.12.0
 script:
   - ./build.sh
+cache:
+  directories:
+    - $HOME/.dnx
 notifications:
   email: false
   webhooks:

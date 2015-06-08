@@ -19,12 +19,8 @@ build ()
     install_dnvm;
   fi
   
-  echo "==> configuring nuget sources"
-  mkdir -p ~/.config/NuGet;
-  cp -f NuGet.Config ~/.config/NuGet;
-  
   echo "==> upgrading dnx";
-  dnvm upgrade -u;
+  dnvm install 1.0.0-beta4;
   
   echo "==> building MingaDigital.App"
   cd src/MingaDigital.App;
