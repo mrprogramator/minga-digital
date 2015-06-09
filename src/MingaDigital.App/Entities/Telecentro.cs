@@ -9,7 +9,7 @@ namespace MingaDigital.App.Entities
     public class Telecentro : EstablecimientoMinga
     {
         public Nullable<Int32> PatrocinadorId { get; set; }
-
+        
         public Nullable<Int32> ProveedorInternetId { get; set; }
         
         public EstadoTelecentro Estado { get; set; }

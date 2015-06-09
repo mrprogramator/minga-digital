@@ -16,6 +16,16 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
+        
+        [Display(Name = "Patrocinador")]
+        public String Patrocinador { get; set; }
+        
+        [Display(Name = "ProveedorInternet")]
+        public String ProveedorInternet { get; set; }
+        
+        [Display(Name = "Direccion")]
+        public String Direccion { get; set; }
+
     }
     
     [Description("Telecentro")]
@@ -25,6 +35,15 @@ namespace MingaDigital.App.Models
         
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
+        
+        [Display(Name = "Patrocinador")]
+        public String Patrocinador { get; set; }
+        
+        [Display(Name = "ProveedorInternet")]
+        public String ProveedorInternet { get; set; }
+        
+        [Display(Name = "Direccion")]
+        public String Direccion { get; set; }
     }
     
     [Description("Telecentro")]
@@ -33,5 +52,21 @@ namespace MingaDigital.App.Models
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Patrocinador")]
+        public Nullable<Int32> PatrocinadorId { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Proveedor Internet")]
+        public Nullable<Int32> ProveedorInternetId { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Ubicacion")]
+        public Int32 UbicacionId { get; set; }
+        
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Unidad Educativa")]
+        public Int32 UnidadEducativaId { get; set; }
     }
 }

@@ -28,7 +28,10 @@ namespace MingaDigital.App.Controllers
                 .Select(x => new TelecentroIndexTableRow
                 {
                     EstablecimientoMingaId = x.EstablecimientoMingaId,
-                    Nombre = x.Nombre
+                    Nombre = x.Nombre,
+                    Patrocinador = x.Patrocinador.Nombre,
+                    ProveedorInternet = x.ProveedorInternet.Nombre,
+                    Direccion = x.Ubicacion.Direccion
                 });
             
             var result = query.ToArray();
@@ -41,7 +44,10 @@ namespace MingaDigital.App.Controllers
             return new TelecentroDetailModel
             {
                 EstablecimientoMingaId = entity.EstablecimientoMingaId,
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                Patrocinador = entity.Patrocinador.Nombre,
+                ProveedorInternet = entity.ProveedorInternet.Nombre,
+                Direccion = entity.Ubicacion.Direccion
             };
         }
         
@@ -54,7 +60,10 @@ namespace MingaDigital.App.Controllers
         {
             return new TelecentroEditorModel
             {
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                PatrocinadorId = entity.PatrocinadorId,
+                ProveedorInternetId =  entity.ProveedorInternetId,
+                UbicacionId = entity.UbicacionId
             };
         }
         
@@ -62,13 +71,19 @@ namespace MingaDigital.App.Controllers
         {
             return new Telecentro
             {
-                Nombre = model.Nombre
+                Nombre = model.Nombre,
+                PatrocinadorId = model.PatrocinadorId,
+                ProveedorInternetId = model.ProveedorInternetId,
+                UbicacionId = model.UbicacionId
             };
         }
         
         protected override void ApplyEditorModel(TelecentroEditorModel model, Telecentro entity)
         {
             entity.Nombre = model.Nombre;
+            entity.PatrocinadorId = model.PatrocinadorId;
+            entity.ProveedorInternetId = model.ProveedorInternetId;
+            entity.UbicacionId = model.UbicacionId;
         }
     }
 }

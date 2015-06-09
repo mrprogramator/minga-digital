@@ -28,7 +28,8 @@ namespace MingaDigital.App.Controllers
                 .Select(x => new AlmacenIndexTableRow
                 {
                     EstablecimientoMingaId = x.EstablecimientoMingaId,
-                    Nombre = x.Nombre
+                    Nombre = x.Nombre,
+                    Direccion = x.Ubicacion.Direccion 
                 });
             
             var result = query.ToArray();
@@ -41,7 +42,8 @@ namespace MingaDigital.App.Controllers
             return new AlmacenDetailModel
             {
                 EstablecimientoMingaId = entity.EstablecimientoMingaId,
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                Direccion = entity.Ubicacion.Direccion
             };
         }
         
@@ -54,7 +56,8 @@ namespace MingaDigital.App.Controllers
         {
             return new AlmacenEditorModel
             {
-                Nombre = entity.Nombre
+                Nombre = entity.Nombre,
+                UbicacionId = entity.UbicacionId
             };
         }
         
@@ -62,13 +65,15 @@ namespace MingaDigital.App.Controllers
         {
             return new Almacen
             {
-                Nombre = model.Nombre
+                Nombre = model.Nombre,
+                UbicacionId = model.UbicacionId
             };
         }
         
         protected override void ApplyEditorModel(AlmacenEditorModel model, Almacen entity)
         {
             entity.Nombre = model.Nombre;
+            entity.UbicacionId = model.UbicacionId;
         }
     }
 }
