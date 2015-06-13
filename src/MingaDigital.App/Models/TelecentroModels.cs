@@ -20,7 +20,7 @@ namespace MingaDigital.App.Models
         [Display(Name = "Patrocinador")]
         public String Patrocinador { get; set; }
         
-        [Display(Name = "ProveedorInternet")]
+        [Display(Name = "Proveedor-Internet")]
         public String ProveedorInternet { get; set; }
         
         [Display(Name = "Direccion")]
@@ -39,7 +39,7 @@ namespace MingaDigital.App.Models
         [Display(Name = "Patrocinador")]
         public String Patrocinador { get; set; }
         
-        [Display(Name = "ProveedorInternet")]
+        [Display(Name = "Proveedor-Internet")]
         public String ProveedorInternet { get; set; }
         
         [Display(Name = "Direccion")]
