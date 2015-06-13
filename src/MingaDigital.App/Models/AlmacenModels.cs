@@ -17,8 +17,8 @@ namespace MingaDigital.App.Models
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
         
-        [Display(Name = "Direccion")]
-        public String Direccion { get; set; }
+        [Display(Name = "Ubicacion")]
+        public String Ubicacion { get; set; }
     }
     
     [Description("Almacen")]
@@ -29,8 +29,8 @@ namespace MingaDigital.App.Models
         [Display(Name = "Nombre")]
         public String Nombre { get; set; }
         
-        [Display(Name = "Direccion")]
-        public String Direccion { get; set; }
+        [Display(Name = "Ubicacion")]
+        public String Ubicacion { get; set; }
     }
     
     [Description("Almacen")]

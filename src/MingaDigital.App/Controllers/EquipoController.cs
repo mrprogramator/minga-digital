@@ -63,11 +63,9 @@ namespace MingaDigital.App.Controllers
         
         protected override Equipo EditorModelToEntity(EquipoEditorModel model)
         {
-            return new Equipo
-            {
-                Detalle = model.Detalle,
-                Estado = (EstadoEquipo)model.Estado
-            };
+            var entity = new Equipo();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(EquipoEditorModel model, Equipo entity)

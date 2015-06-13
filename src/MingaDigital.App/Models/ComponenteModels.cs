@@ -14,7 +14,7 @@ namespace MingaDigital.App.Models
     {
         public Int32 ComponenteId { get; set; }
         
-        [Display(Name = "Tipo-Componente")]
+        [Display(Name = "Tipo")]
         public String TipoComponente { get; set; }
         
         [Display(Name = "Marca")]
@@ -23,8 +23,8 @@ namespace MingaDigital.App.Models
         [Display(Name = "Caracteristicas")]
         public String Caracteristica { get; set; }
         
-        [Display(Name = "Equipo")]
-        public Int32 EquipoId { get; set; }
+        [Display(Name = "Establecimiento")]
+        public String Establecimiento { get; set; }
     }
     
     [Description("Componente")]
@@ -32,7 +32,7 @@ namespace MingaDigital.App.Models
     {
         public Int32 ComponenteId { get; set; }
         
-        [Display(Name = "Tipo-Componente")]
+        [Display(Name = "Tipo")]
         public String TipoComponente { get; set; }
         
         [Display(Name = "Marca")]
@@ -41,8 +41,8 @@ namespace MingaDigital.App.Models
         [Display(Name = "Caracteristicas")]
         public String Caracteristica { get; set; }
         
-        [Display(Name = "Equipo")]
-        public Int32 EquipoId { get; set; }
+        [Display(Name = "Establecimiento")]
+        public String Establecimiento { get; set; }
     }
     
     [Description("Componente")]
@@ -61,7 +61,7 @@ namespace MingaDigital.App.Models
         public String Caracteristica { get; set; }
         
         [Required(ErrorMessage = "{0} es un campo requerido.")]
-        [Display(Name = "Equipo")]
-        public Nullable<Int32> EquipoId { get; set; }
+        [Display(Name = "Establecimiento")]
+        public Int32 EstablecimientoId { get; set; }
     }
 }

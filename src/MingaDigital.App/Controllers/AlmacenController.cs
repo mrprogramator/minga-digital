@@ -10,7 +10,7 @@ using MingaDigital.App.Models;
 
 namespace MingaDigital.App.Controllers
 {
-    [Route("almacen")]
+    [Route("almacenes")]
     public class AlmacenController
         : BasicCrudController<
             MainContext,
@@ -29,7 +29,8 @@ namespace MingaDigital.App.Controllers
                 {
                     EstablecimientoMingaId = x.EstablecimientoMingaId,
                     Nombre = x.Nombre,
-                    Direccion = x.Ubicacion.Direccion 
+                    Ubicacion = x.Ubicacion.Direccion + ", Distrito " + x.Ubicacion.Distrito 
+                        + ", Muncipio " + x.Ubicacion.Municipio.Nombre 
                 });
             
             var result = query.ToArray();
@@ -43,7 +44,8 @@ namespace MingaDigital.App.Controllers
             {
                 EstablecimientoMingaId = entity.EstablecimientoMingaId,
                 Nombre = entity.Nombre,
-                Direccion = entity.Ubicacion.Direccion
+                Ubicacion = entity.Ubicacion.Direccion + ", Distrito " + entity.Ubicacion.Distrito 
+                        + ", Muncipio " + entity.Ubicacion.Municipio.Nombre
             };
         }
         
@@ -63,11 +65,9 @@ namespace MingaDigital.App.Controllers
         
         protected override Almacen EditorModelToEntity(AlmacenEditorModel model)
         {
-            return new Almacen
-            {
-                Nombre = model.Nombre,
-                UbicacionId = model.UbicacionId
-            };
+            var entity = new Almacen();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(AlmacenEditorModel model, Almacen entity)

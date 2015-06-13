@@ -8,7 +8,8 @@ namespace MingaDigital.App.Entities
 {
     public class Componente : ActivoMinga
     {
-        public Int32 ComponenteId { get; set; }
+        //no se debe tener componenteId, no se como correr Add-Migration, Update-Migration
+        //public Int32 ComponenteId { get; set; }
 
         public Int32 TipoComponenteId { get; set; }
         

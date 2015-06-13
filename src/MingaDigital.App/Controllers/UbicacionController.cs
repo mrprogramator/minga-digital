@@ -71,14 +71,9 @@ namespace MingaDigital.App.Controllers
         
         protected override Ubicacion EditorModelToEntity(UbicacionEditorModel model)
         {
-            return new Ubicacion
-            {
-                MunicipioId = model.MunicipioId,
-                Distrito = model.Distrito,
-                UnidadVecinal = model.UnidadVecinal,
-                Direccion = model.Direccion,
-                Coordenada = model.Coordenada
-            };
+            var entity = new Ubicacion();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(UbicacionEditorModel model, Ubicacion entity)

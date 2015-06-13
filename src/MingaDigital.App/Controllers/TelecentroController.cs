@@ -31,7 +31,8 @@ namespace MingaDigital.App.Controllers
                     Nombre = x.Nombre,
                     Patrocinador = x.Patrocinador.Nombre,
                     ProveedorInternet = x.ProveedorInternet.Nombre,
-                    Direccion = x.Ubicacion.Direccion
+                    Ubicacion = x.Ubicacion.Direccion + ", Distrito " + x.Ubicacion.Distrito 
+                        + ", Muncipio " + x.Ubicacion.Municipio.Nombre
                 });
             
             var result = query.ToArray();
@@ -47,7 +48,8 @@ namespace MingaDigital.App.Controllers
                 Nombre = entity.Nombre,
                 Patrocinador = entity.Patrocinador.Nombre,
                 ProveedorInternet = entity.ProveedorInternet.Nombre,
-                Direccion = entity.Ubicacion.Direccion
+                Ubicacion = entity.Ubicacion.Direccion + ", Distrito " + entity.Ubicacion.Distrito 
+                        + ", Muncipio " + entity.Ubicacion.Municipio.Nombre
             };
         }
         
@@ -69,13 +71,9 @@ namespace MingaDigital.App.Controllers
         
         protected override Telecentro EditorModelToEntity(TelecentroEditorModel model)
         {
-            return new Telecentro
-            {
-                Nombre = model.Nombre,
-                PatrocinadorId = model.PatrocinadorId,
-                ProveedorInternetId = model.ProveedorInternetId,
-                UbicacionId = model.UbicacionId
-            };
+            var entity = new Telecentro();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(TelecentroEditorModel model, Telecentro entity)

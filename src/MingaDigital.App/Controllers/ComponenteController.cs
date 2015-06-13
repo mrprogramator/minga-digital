@@ -27,11 +27,11 @@ namespace MingaDigital.App.Controllers
                 Db.Componente
                 .Select(x => new ComponenteIndexTableRow
                 {
-                    ComponenteId = x.ComponenteId,
+                    ComponenteId = x.ActivoMingaId,
                     TipoComponente = x.TipoComponente.Nombre,
                     Marca = x.Marca,
                     Caracteristica = x.Caracteristica,
-                    EquipoId = x.Equipo.EquipoId
+                    Establecimiento = x.Establecimiento.Nombre
                 });
             
             var result = query.ToArray();
@@ -43,11 +43,11 @@ namespace MingaDigital.App.Controllers
         {
             return new ComponenteDetailModel
             {
-                ComponenteId = entity.ComponenteId,
+                ComponenteId = entity.ActivoMingaId,
                 TipoComponente = entity.TipoComponente.Nombre,
                 Marca = entity.Marca,
                 Caracteristica = entity.Caracteristica,
-                EquipoId = entity.Equipo.EquipoId
+                Establecimiento = entity.Establecimiento.Nombre
             };
         }
         
@@ -63,19 +63,15 @@ namespace MingaDigital.App.Controllers
                 TipoComponenteId = entity.TipoComponenteId,
                 Marca = entity.Marca,
                 Caracteristica =  entity.Caracteristica,
-                EquipoId = entity.EquipoId
+                EstablecimientoId =  entity.EstablecimientoId
             };
         }
         
         protected override Componente EditorModelToEntity(ComponenteEditorModel model)
         {
-            return new Componente
-            {
-                TipoComponenteId = model.TipoComponenteId,
-                Marca = model.Marca,
-                Caracteristica = model.Caracteristica,
-                EquipoId = model.EquipoId
-            };
+            var entity = new Componente();
+            ApplyEditorModel(model, entity);
+            return entity;
         }
         
         protected override void ApplyEditorModel(ComponenteEditorModel model, Componente entity)
@@ -83,7 +79,7 @@ namespace MingaDigital.App.Controllers
             entity.TipoComponenteId = model.TipoComponenteId;
             entity.Marca = model.Marca;
             entity.Caracteristica = model.Caracteristica;
-            entity.EquipoId = model.EquipoId;
+            entity.EstablecimientoId =  model.EstablecimientoId;
         }
     }
 }

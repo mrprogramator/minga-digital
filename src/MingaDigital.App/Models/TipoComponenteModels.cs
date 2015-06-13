@@ -12,6 +12,7 @@ namespace MingaDigital.App.Models
     
     public class TipoComponenteIndexTableRow
     {
+        [Display(Name = "Codigo")]
         public Int32 TipoComponenteId { get; set; }
         
         [Display(Name = "Nombre")]
@@ -22,6 +23,7 @@ namespace MingaDigital.App.Models
     [Description("Tipos de Componente")]
     public class TipoComponenteDetailModel
     {
+        [Display(Name = "Codigo")]
         public Int32 TipoComponenteId { get; set; }
         
         [Display(Name = "Nombre")]

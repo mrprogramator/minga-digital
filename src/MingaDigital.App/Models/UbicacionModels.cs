@@ -13,7 +13,8 @@ namespace MingaDigital.App.Models
     
     public class UbicacionIndexTableRow
     {
-        public Int32 UbicacionId { get; set; }
+        [Display(Name = "Codigo")]
+        public Int32 Codigo { get; set; }
         
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
@@ -31,7 +32,8 @@ namespace MingaDigital.App.Models
     [Description("Ubicación")]
     public class UbicacionDetailModel
     {
-        public Int32 UbicacionId { get; set; }
+        [Display(Name = "Codigo")]
+        public Int32 Codigo { get; set; }
         
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
