@@ -14,7 +14,7 @@ namespace MingaDigital.App.Models
     public class UbicacionIndexTableRow
     {
         [Display(Name = "Codigo")]
-        public Int32 Codigo { get; set; }
+        public Int32 UbicacionId { get; set; }
         
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
@@ -22,7 +22,7 @@ namespace MingaDigital.App.Models
         [Display(Name = "Distrito")]
         public Int32 Distrito { get; set; }
         
-        [Display(Name = "Unidad Vecinal")]
+        [Display(Name = "UV")]
         public Int32 UnidadVecinal { get; set; }
         
         [Display(Name = "Dirección")]
@@ -33,7 +33,7 @@ namespace MingaDigital.App.Models
     public class UbicacionDetailModel
     {
         [Display(Name = "Codigo")]
-        public Int32 Codigo { get; set; }
+        public Int32 UbicacionId { get; set; }
         
         [Display(Name = "Municipio")]
         public String Municipio { get; set; }
@@ -41,7 +41,7 @@ namespace MingaDigital.App.Models
         [Display(Name = "Distrito")]
         public Int32 Distrito { get; set; }
         
-        [Display(Name = "Unidad Vecinal")]
+        [Display(Name = "UV")]
         public Int32 UnidadVecinal { get; set; }
         
         [Display(Name = "Dirección")]
