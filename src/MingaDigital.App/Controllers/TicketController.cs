@@ -68,7 +68,8 @@ namespace MingaDigital.App.Controllers
         {
             var entity = new Ticket()
             {
-                Creador = UserSession.ActiveUser.PersonaFisica
+                Creador = UserSession.ActiveUser.PersonaFisica,
+                FechaHoraCreado = DateTimeOffset.UtcNow
             };
 
             ApplyEditorModel(model, entity);
