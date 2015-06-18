@@ -3,6 +3,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 using MingaDigital.App.Entities;
+using MingaDigital.App.ApiControllers;
+using MingaDigital.App.Metadata;
+
 
 namespace MingaDigital.App.Models
 {
@@ -73,5 +76,19 @@ namespace MingaDigital.App.Models
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Coordenada")]
         public GeoCoordenada Coordenada { get; set; }
+    }
+    [AdditionalMetadata("Controller", "UbicacionApi")]
+    [AdditionalMetadata("Action", nameof(UbicacionApiController.NameSearch))]
+    public class UbicacionSelector : EntitySelector<Entities.Ubicacion, Int32>
+    {
+        public override String DisplayValue => 
+            $"{Entity?.Direccion}, Municipio {Entity?.Municipio?.Nombre}"; 
+        
+        public static implicit operator UbicacionSelector(Entities.Ubicacion entity) =>
+            new UbicacionSelector
+            {
+                Entity = entity,
+                Key = entity.UbicacionId
+            };
     }
 }

@@ -10,7 +10,7 @@ using MingaDigital.App.Models;
 
 namespace MingaDigital.App.Controllers
 {
-    [Route("equipo")]
+    [Route("equipos")]
     public class EquipoController
         : BasicCrudController<
             MainContext,

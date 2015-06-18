@@ -1,0 +1,32 @@
+@model MovimientoCreateStepTwoModel
+
+@{
+    Layout = "_CenteredLayout";
+    
+    ViewBag.Title = $"Movimiento: {Model.OrigenNombre} -> {Model.DestinoNombre}";
+    
+    var cancelUrl = "";
+}
+
+<h2 class="page-header">
+  @ViewBag.Title
+</h2>
+
+<div class="entity-editor">
+  <form method="POST">
+    
+    @if (!ViewContext.ViewData.ModelState.IsValid)
+    {
+      <div class="alert alert-danger">
+        <h4 class="title">Error</h4>
+        @Html.ValidationSummary("")
+      </div>
+    }
+    
+    <div class="text-right">
+      <a href="@ViewBag.CancelUrl" class="btn btn-link">Cancelar</a>
+      
+      <button type="submit" class="btn btn-primary">Siguiente</button>
+    </div>
+  </form>
+</div>

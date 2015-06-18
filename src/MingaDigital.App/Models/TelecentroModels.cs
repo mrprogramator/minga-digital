@@ -66,7 +66,8 @@ namespace MingaDigital.App.Models
         
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Ubicacion")]
-        public Int32 UbicacionId { get; set; }
+        public UbicacionSelector Ubicacion { get; set; }
+            = new UbicacionSelector();
         
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Estado")]

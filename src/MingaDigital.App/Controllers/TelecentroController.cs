@@ -32,7 +32,8 @@ namespace MingaDigital.App.Controllers
                     Patrocinador = x.Patrocinador.Nombre,
                     ProveedorInternet = x.ProveedorInternet.Nombre,
                     Ubicacion = x.Ubicacion.Direccion + ", Distrito " + x.Ubicacion.Distrito 
-                        + ", Muncipio " + x.Ubicacion.Municipio.Nombre
+                        + ", Muncipio " + x.Ubicacion.Municipio.Nombre,
+                    Estado = x.Estado.ToString()
                 });
             
             var result = query.ToArray();
@@ -65,7 +66,8 @@ namespace MingaDigital.App.Controllers
                 Nombre = entity.Nombre,
                 PatrocinadorId = entity.PatrocinadorId,
                 ProveedorInternetId =  entity.ProveedorInternetId,
-                UbicacionId = entity.UbicacionId
+                Ubicacion = entity.Ubicacion,
+                Estado = entity.Estado.ToString()
             };
         }
         
@@ -81,7 +83,7 @@ namespace MingaDigital.App.Controllers
             entity.Nombre = model.Nombre;
             entity.PatrocinadorId = model.PatrocinadorId;
             entity.ProveedorInternetId = model.ProveedorInternetId;
-            entity.UbicacionId = model.UbicacionId;
+            entity.UbicacionId = model.Ubicacion.Key;
         }
     }
 }

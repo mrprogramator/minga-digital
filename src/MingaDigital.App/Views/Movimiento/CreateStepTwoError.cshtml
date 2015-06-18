@@ -1,0 +1,15 @@
+@{
+    Layout = "_MinimalLayout";
+    
+    ViewBag.Title = "Error de Movimiento";
+}
+
+<div class="panel panel-warning inline-modal">
+  <div class="panel-heading">
+    <b>@ViewBag.Title</b>
+  </div>
+  
+  <div class="panel-body">
+    @(ViewBag.ErrorMessage ?? "):")
+  </div>
+</div>
