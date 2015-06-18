@@ -29,7 +29,7 @@ namespace MingaDigital.App.Entities
         
         public Int32 EquipoId { get; set; }
         
-        public Int32 UsuarioId { get; set; }
+        public Int32 CreadorId { get; set; }
         
         public Nullable<Int32> EncargadoId { get; set; }
         
@@ -42,10 +42,10 @@ namespace MingaDigital.App.Entities
         [ForeignKey(nameof(EquipoId))]
         public virtual Equipo Equipo { get; set; }
         
-        [ForeignKey(nameof(UsuarioId))]
-        public virtual Usuario Usuario { get; set; }
+        [ForeignKey(nameof(CreadorId))]
+        public virtual PersonaFisica Creador { get; set; }
         
         [ForeignKey(nameof(EncargadoId))]
-        public virtual Usuario Encargado { get; set; }
+        public virtual PersonaFisica Encargado { get; set; }
     }
 }

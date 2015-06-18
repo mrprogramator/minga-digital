@@ -305,19 +305,19 @@ namespace MingaDigital.App.EF
                         tipo_incidencia_id = c.Int(nullable: false),
                         telecentro_id = c.Int(nullable: false),
                         equipo_id = c.Int(nullable: false),
-                        usuario_id = c.Int(nullable: false),
+                        creador_id = c.Int(nullable: false),
                         encargado_id = c.Int(),
                     })
                 .PrimaryKey(t => t.ticket_id)
-                .ForeignKey("public.usuario", t => t.encargado_id)
+                .ForeignKey("public.persona_fisica", t => t.creador_id, cascadeDelete: true)
+                .ForeignKey("public.persona_fisica", t => t.encargado_id)
                 .ForeignKey("public.equipo", t => t.equipo_id)
                 .ForeignKey("public.telecentro", t => t.telecentro_id)
                 .ForeignKey("public.tipo_incidencia", t => t.tipo_incidencia_id, cascadeDelete: true)
-                .ForeignKey("public.usuario", t => t.usuario_id, cascadeDelete: true)
                 .Index(t => t.tipo_incidencia_id)
                 .Index(t => t.telecentro_id)
                 .Index(t => t.equipo_id)
-                .Index(t => t.usuario_id)
+                .Index(t => t.creador_id)
                 .Index(t => t.encargado_id);
             
             CreateTable(
@@ -416,11 +416,11 @@ namespace MingaDigital.App.EF
             DropForeignKey("public.almacen", "establecimiento_minga_id", "public.establecimiento_minga");
             DropForeignKey("public.usuario_rol", "usuario_id", "public.usuario");
             DropForeignKey("public.usuario_rol", "rol_id", "public.rol");
-            DropForeignKey("public.ticket", "usuario_id", "public.usuario");
             DropForeignKey("public.ticket", "tipo_incidencia_id", "public.tipo_incidencia");
             DropForeignKey("public.ticket", "telecentro_id", "public.telecentro");
             DropForeignKey("public.ticket", "equipo_id", "public.equipo");
-            DropForeignKey("public.ticket", "encargado_id", "public.usuario");
+            DropForeignKey("public.ticket", "encargado_id", "public.persona_fisica");
+            DropForeignKey("public.ticket", "creador_id", "public.persona_fisica");
             DropForeignKey("public.sesion_usuario", "usuario_id", "public.usuario");
             DropForeignKey("public.persona_fisica_ctel", "persona_fisica_id", "public.persona_fisica");
             DropForeignKey("public.persona_fisica_ctel", "ctel_id", "public.ctel");
@@ -458,7 +458,7 @@ namespace MingaDigital.App.EF
             DropIndex("public.usuario_rol", new[] { "usuario_id" });
             DropIndex("public.tipo_incidencia", new[] { "nombre" });
             DropIndex("public.ticket", new[] { "encargado_id" });
-            DropIndex("public.ticket", new[] { "usuario_id" });
+            DropIndex("public.ticket", new[] { "creador_id" });
             DropIndex("public.ticket", new[] { "equipo_id" });
             DropIndex("public.ticket", new[] { "telecentro_id" });
             DropIndex("public.ticket", new[] { "tipo_incidencia_id" });
