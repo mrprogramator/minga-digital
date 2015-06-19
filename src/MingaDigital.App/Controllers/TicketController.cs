@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 using Microsoft.AspNet.Mvc;
 
@@ -29,13 +30,19 @@ namespace MingaDigital.App.Controllers
         {
             var query =
                 Db.Ticket
-                .Select(x => new TicketIndexTableRow
-                {
-                    TicketId = x.TicketId,
-                    TipoIncidenciaNombre = x.TipoIncidencia.Nombre
-                });
+                .Include(x => x.Telecentro);
 
-            var result = query.ToArray();
+            var result =
+              query.ToArray()
+              .Select(x => new TicketIndexTableRow
+              {
+                  TicketId = x.TicketId,
+                  TipoIncidenciaNombre = x.TipoIncidencia.Nombre,
+                  TelecentroNombre = x.Telecentro.Nombre,
+                  FechaCreado = x.FechaHoraCreado.ToString("d"),
+                  FechaAtendido = x.FechaHoraAtendido?.ToString("d"),
+                  FechaCerrado = x.FechaHoraCerrado?.ToString("d")
+              });
 
             return result;
         }

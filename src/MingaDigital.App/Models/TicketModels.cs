@@ -15,9 +15,21 @@ namespace MingaDigital.App.Models
     public class TicketIndexTableRow
     {
         public Int32 TicketId { get; set; }
-
+        
         [Display(Name = "Tipo")]
         public String TipoIncidenciaNombre { get; set; }
+        
+        [Display(Name = "Telecentro")]
+        public String TelecentroNombre { get; set; }
+        
+        [Display(Name = "Creado")]
+        public String FechaCreado { get; set; }
+        
+        [Display(Name = "Atendido")]
+        public String FechaAtendido { get; set; }
+        
+        [Display(Name = "Cerrado")]
+        public String FechaCerrado { get; set; }
     }
 
     [Description("Ticket")]
