@@ -9,7 +9,7 @@ using MingaDigital.App.ApiModels;
 
 namespace MingaDigital.App.ApiControllers
 {
-    [Route("api/telecentro")]
+    [Route("api/equipo")]
     public class EquipoApiController
     {
         [FromServices]
