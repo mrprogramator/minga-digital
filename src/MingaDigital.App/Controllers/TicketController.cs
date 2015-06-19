@@ -11,7 +11,7 @@ using MingaDigital.App.Services;
 
 namespace MingaDigital.App.Controllers
 {
-    [Route("incidencias/tickets")]
+    [Route("tickets")]
     public class TicketController
         : BasicCrudController<
             MainContext,
