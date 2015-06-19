@@ -41,10 +41,12 @@ namespace MingaDigital.App.Models
 
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Telecentro")]
-        public Int32 Telecentro { get; set; }
+        public TelecentroSelector Telecentro { get; set; }
+            = new TelecentroSelector();
 
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Equipo")]
-        public Int32 Equipo { get; set; }
+        public EquipoSelector Equipo { get; set; }
+            = new EquipoSelector();
     }
 }

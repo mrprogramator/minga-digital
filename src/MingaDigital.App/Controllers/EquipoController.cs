@@ -57,7 +57,8 @@ namespace MingaDigital.App.Controllers
             return new EquipoEditorModel
             {
                 Detalle = entity.Detalle,
-                Estado = (int)entity.Estado
+                Estado = entity.Estado,
+                Establecimiento = entity.Establecimiento
             };
         }
 
@@ -71,7 +72,8 @@ namespace MingaDigital.App.Controllers
         protected override void ApplyEditorModel(EquipoEditorModel model, Equipo entity)
         {
             entity.Detalle = model.Detalle;
-            entity.Estado = (EstadoEquipo)model.Estado;
+            entity.Estado = model.Estado;
+            entity.Establecimiento = model.Establecimiento;
         }
     }
 }

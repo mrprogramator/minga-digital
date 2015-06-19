@@ -1,7 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
+using MingaDigital.App.ApiControllers;
+using MingaDigital.App.Metadata;
+using MingaDigital.App.Entities;
 
 namespace MingaDigital.App.Models
 {
@@ -43,6 +46,25 @@ namespace MingaDigital.App.Models
 
         [Required(ErrorMessage = "{0} es un campo requerido.")]
         [Display(Name = "Estado")]
-        public Int32 Estado { get; set; }
+        public EstadoEquipo Estado { get; set; }
+
+        [Required(ErrorMessage = "{0} es un campo requerido.")]
+        [Display(Name = "Establecimiento")]
+        public EstablecimientoMingaSelector Establecimiento { get; set; }
+            = new EstablecimientoMingaSelector();
+    }
+
+    [AdditionalMetadata("Controller", "EquipoApi")]
+    [AdditionalMetadata("Action", nameof(EquipoApiController.NameSearch))]
+    public class EquipoSelector : EntitySelector<Entities.Equipo, Int32?>
+    {
+        public override String DisplayValue => Entity?.Detalle;
+
+        public static implicit operator EquipoSelector(Entities.Equipo entity) =>
+            new EquipoSelector
+            {
+                Entity = entity,
+                Key = entity.ActivoMingaId
+            };
     }
 }

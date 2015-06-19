@@ -31,16 +31,16 @@ namespace MingaDigital.App.Controllers
                     Nombre = x.Nombre,
                     Patrocinador = x.Patrocinador.Nombre,
                     ProveedorInternet = x.ProveedorInternet.Nombre,
-                    Ubicacion = x.Ubicacion.Direccion + ", Distrito " + x.Ubicacion.Distrito 
+                    Ubicacion = x.Ubicacion.Direccion + ", Distrito " + x.Ubicacion.Distrito
                         + ", Muncipio " + x.Ubicacion.Municipio.Nombre,
                     Estado = x.Estado.ToString()
                 });
-            
+
             var result = query.ToArray();
-            
+
             return result;
         }
-        
+
         protected override TelecentroDetailModel EntityToDetailModel(Telecentro entity)
         {
             return new TelecentroDetailModel
@@ -49,16 +49,16 @@ namespace MingaDigital.App.Controllers
                 Nombre = entity.Nombre,
                 Patrocinador = entity.Patrocinador.Nombre,
                 ProveedorInternet = entity.ProveedorInternet.Nombre,
-                Ubicacion = entity.Ubicacion.Direccion + ", Distrito " + entity.Ubicacion.Distrito 
+                Ubicacion = entity.Ubicacion.Direccion + ", Distrito " + entity.Ubicacion.Distrito
                         + ", Muncipio " + entity.Ubicacion.Municipio.Nombre
             };
         }
-        
+
         protected override TelecentroEditorModel GetInitialEditorModel()
         {
             return new TelecentroEditorModel();
         }
-        
+
         protected override TelecentroEditorModel EntityToEditorModel(Telecentro entity)
         {
             return new TelecentroEditorModel
@@ -67,17 +67,17 @@ namespace MingaDigital.App.Controllers
                 PatrocinadorId = entity.PatrocinadorId,
                 ProveedorInternetId =  entity.ProveedorInternetId,
                 Ubicacion = entity.Ubicacion,
-                Estado = entity.Estado.ToString()
+                Estado = entity.Estado
             };
         }
-        
+
         protected override Telecentro EditorModelToEntity(TelecentroEditorModel model)
         {
             var entity = new Telecentro();
             ApplyEditorModel(model, entity);
             return entity;
         }
-        
+
         protected override void ApplyEditorModel(TelecentroEditorModel model, Telecentro entity)
         {
             entity.Nombre = model.Nombre;

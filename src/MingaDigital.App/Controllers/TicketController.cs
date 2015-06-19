@@ -59,8 +59,8 @@ namespace MingaDigital.App.Controllers
             {
                 TipoIncidencia = entity.TipoIncidencia,
                 Descripcion = entity.Descripcion,
-                Telecentro = entity.TelecentroId,
-                Equipo = entity.EquipoId
+                Telecentro = entity.Telecentro,
+                Equipo = entity.Equipo
             };
         }
 
@@ -80,8 +80,8 @@ namespace MingaDigital.App.Controllers
         {
             entity.TipoIncidencia = model.TipoIncidencia;
             entity.Descripcion = model.Descripcion;
-            entity.TelecentroId = model.Telecentro;
-            entity.EquipoId = model.Equipo;
+            entity.Telecentro = model.Telecentro;
+            entity.Equipo = model.Equipo;
         }
     }
 }

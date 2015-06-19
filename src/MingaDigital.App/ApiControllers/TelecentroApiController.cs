@@ -9,9 +9,8 @@ using MingaDigital.App.ApiModels;
 
 namespace MingaDigital.App.ApiControllers
 {
-    // TODO "api/ubicacion" choca con "telecentros" por alguna razons
-    [Route("api_ubicacion")]
-    public class UbicacionApiController
+    [Route("api/telecentro")]
+    public class TelecentroApiController
     {
         [FromServices]
         public MainContext Db { get; set; }
@@ -20,13 +19,13 @@ namespace MingaDigital.App.ApiControllers
         public IEnumerable<NameSearchApiModel<Int32>> NameSearch(String term)
         {
             var query =
-                Db.Ubicacion
+                Db.Telecentro
+                .Where(x => x.Nombre.ToLower().Contains(term.ToLower()))
                 .Select(x => new NameSearchApiModel<Int32>
                 {
-                    Key = x.UbicacionId,
-                    Value = x.Direccion + ", Municipio " + x.Municipio.Nombre
-                })
-                .Where(x => x.Value.ToLower().Contains(term.ToLower()));
+                    Key = x.EstablecimientoMingaId,
+                    Value = x.Nombre
+                });
 
             var result = query.ToArray();
 
